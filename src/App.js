@@ -15,7 +15,13 @@ import {
 function App() {
   return (
     <div className="App">
-      
+      <Routes>
+        <Route path = "/" element = {<HomePage />} />
+        <Route path = "/login" element = {<LoginPage />}/>
+        <Route path = "/seller-login" element = {<SellerLogin />} />
+        <Route path = "/register" element = {<RegisterPage />} />
+        <Route path = "/seller-register" element = {<SellerRegister />} />
+      </Routes>
     </div>  
   );
 }
