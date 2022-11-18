@@ -1,0 +1,111 @@
+.auth-container{
+    width : 100vw;
+    display:grid;
+    grid-template-columns:1fr;
+    gap:2em;
+}
+
+.auth-container .form{
+    width:90%;
+    max-width:400px;
+    align-self:center;
+    margin:0 auto;
+    margin-bottom:3em;
+}
+
+.auth-container .form form,
+.auth-container .form .mantine-Stepper-content{
+    display:flex;
+    flex-direction: column;
+    gap:1em;
+    align-items: center;
+}
+
+.auth-container .title{
+    margin-bottom:2em;
+    text-align: center;
+}
+
+.auth-container .form form >*,
+.auth-container .form .mantine-Stepper-content >*{
+    display:flex;
+    flex-direction: column;
+    gap:.5em;
+    width:100%;
+}
+
+.auth-container form label{
+    text-transform: capitalize;
+}
+
+.auth-container form button svg{
+    font-size:var(--fs-l);
+}
+
+.auth-container form > button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top:1.5em;
+    background:var(--primary);
+}
+
+.auth-container form .footer-text{
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.auth-container .button-group{
+    flex-direction: row !important;
+    gap:1.5em !important; 
+}
+
+.auth-container .button-group >*{
+    flex-grow:1;
+}
+
+.auth-container.register .steps-container .mantine-Stepper-steps{
+    /* border:1px solid red; */
+    width:80%;
+    margin-inline:auto;
+    margin-bottom:1em;
+}
+
+.auth-container.register .steps-container .mantine-Stepper-stepBody{
+    display:none;
+}
+
+@media only screen and (min-width : 1000px){
+    .auth-container{
+        grid-template-columns:repeat(2,1fr);
+        height:100vh;
+        gap:1em;
+    }
+
+    .auth-container.register{
+        /* grid-template-columns:1.2fr 1.5fr; */
+        /* background:white; */
+    }
+
+    .auth-container .form{
+        /* margin-right:auto; */
+        /* margin-left:4em; */
+        margin:unset;
+        margin-left:4em;
+    }
+
+    .auth-container .title{
+        text-align: unset;
+    }
+
+    .auth-container.register .steps-container .mantine-Stepper-steps{
+        width:100%;
+        margin-inline:auto;
+        margin-bottom:1em;
+    }
+    
+    .auth-container.register .steps-container .mantine-Stepper-stepBody{
+        display:none;
+    }
+}

@@ -1,12 +1,20 @@
 import React from 'react'
+
+import {
+	AuthNav
+} from '../../components/';
+
 import './SellerRegister.css'
 
 function SellerRegister(){
 
 	return(
-		<div>
-			SellerRegister
-		</div>
+		<>
+			<div
+				className = "auth-container seller-register"
+			>
+			</div>
+		</>
 	)
 
 }

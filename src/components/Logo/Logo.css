@@ -1,0 +1,22 @@
+.logo-container{
+    height:12vh;
+    max-height:70px;
+    display:flex;
+    justify-content: center;
+    /* border:1px solid red; */
+    align-items: center;
+}
+
+.logo-container >*{
+    /* border:1px solid red; */
+}
+
+.logo-container img{
+    height:100%;
+}
+
+@media only screen and (min-width : 1000px){
+    .logo-container{
+        justify-content: flex-start;
+    }
+}

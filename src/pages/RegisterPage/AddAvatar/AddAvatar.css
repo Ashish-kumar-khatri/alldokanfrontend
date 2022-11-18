@@ -1,0 +1,32 @@
+.register .avatar-upload-container{
+    /* border:1px solid red; */
+}
+
+.register .avatar-upload-container .img-area{
+    height:150px;
+    width:150px;
+    border-radius:5px;
+    margin-inline:auto;
+    margin-bottom:1em;
+}
+
+.register .avatar-upload-container div.img-area{
+    position:relative;
+    border:2px solid var(--primary);
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    font-size:var(--fs-xl);
+    color:var(--primary);
+}
+
+.register .avatar-upload-container button{
+    margin-bottom:2em;
+}
+
+video{
+    height:150px;
+    width:150px;
+    transform:rotateY(180deg);
+    border-radius:5px;
+}
