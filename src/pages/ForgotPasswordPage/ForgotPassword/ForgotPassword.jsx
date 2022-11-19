@@ -6,12 +6,38 @@ import {
 	Button
 } from '@mantine/core';
 import { Icon } from '@iconify/react';
+import Joi from 'joi-browser';
+import {emailSchema} from '../../../utils/schemas/schema';
+import {getJoiErrorMsg} from '../../../utils/getJoiErrors';
 
 import './ForgotPassword.css'
 
 function ForgotPassword(){
 
 	const [submitting,setSubmitting] = useState(false);
+	const [emailError,setEmailError] = useState("");
+	const [validEmail,setValidEmail] = useState(false);
+
+	const submitHandler = (e) => {
+		e.preventDefault();
+		console.log('submitting');
+		setSubmitting(true);
+		setTimeout(() => {
+			setSubmitting(false);
+		},5000)
+	}
+
+	const changeHandler = (e) => {
+		const err = getJoiErrorMsg(Joi.validate(e.target.value,emailSchema).error);
+		console.log(err);
+		if(err){
+			setEmailError(err);
+			setValidEmail(false);
+		}else{
+			setEmailError("");
+			setValidEmail(true);
+		}
+	}
 
 	return(
 		<div className = "form forgot-password-container">
@@ -25,10 +51,13 @@ function ForgotPassword(){
 					Enter the email address you used when you joined and we’ll send you instructions to reset your password.
 				</p>
 			</div>
-			<form action="">
+			<form action="" onSubmit = {submitHandler}>
 				<TextInput 
 					label = "email"
 					size = "md"
+					disabled = {submitting}
+					error = {emailError}
+					onChange = {changeHandler}
 				/>
 				<Button
 					fullWidth
@@ -41,8 +70,10 @@ function ForgotPassword(){
 						  marginRight: 20,
 						},
 					  })}
+					type = "submit"
 					size = "md"
 					loading = {submitting}
+					disabled = {!validEmail}
 				>
 					Send further instruction
 				</Button>

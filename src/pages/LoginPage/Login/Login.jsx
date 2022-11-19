@@ -55,7 +55,6 @@ function Login(){
 			navigate('/');
 		})
 		.catch(err => {
-			console.log('error ocured',err);
 			const error = err?.response.data.error;
 			setErrorOccured("error occured");
 			createNotification({
@@ -66,13 +65,6 @@ function Login(){
 				icon : "material-symbols:sms-failed"
 			})
 			setSubmitting(false);
-			// createNotification({
-			// 	title : "login",
-			// 	type : "failure",
-			// 	timer : 5000,
-			// 	message : {error},
-			// 	icon : "material-symbols:sms-failed"
-			// })
 		})
 	}
 
@@ -87,7 +79,6 @@ function Login(){
 	let error;
 	switch(e.target.name){
 		case "email":
-			console.log('email change handeler');
 			error = getJoiErrorMsg(Joi.validate(e.target.value,emailSchema).error);
 			break;
 	}

@@ -86,10 +86,9 @@ function Register(){
 	const {register} = useAuthContext();
 
 	const nextStep = () => setActive(current => {
-		console.log('setting next',current);
 		return current < 3 ? current + 1 : current;
 	});
-	console.log('active = ',active)
+
 	const prevStep = () => setActive(current => current > 0 ? current - 1 : current);
 
 	const validateRepeatPassword = (pwd) => {
@@ -97,7 +96,6 @@ function Register(){
 	}
 
 	const changeHandler = ({name,value}) => {
-		console.log('inside change handler',name,value)
 		setData(prev => (
 			{
 				...prev,
@@ -124,29 +122,23 @@ function Register(){
 				break;
 			
 			case "name":
-				console.log('inside name',value)
-				console.log(getJoiErrorMsg(Joi.validate(value,nameSchema)))
 				error = getJoiErrorMsg(Joi.validate(value,nameSchema).error);
 				break;
 			
 			case "dateofbirth":
-				console.log('inside dob',value)
 				console.log(getJoiErrorMsg(Joi.validate(value,dateSchema)))
 				error = getJoiErrorMsg(Joi.validate(value,dateSchema).error);
 				break;
 
 			case "gender":
-				console.log(getJoiErrorMsg(Joi.validate(value,genderSchema)))
 				error = getJoiErrorMsg(Joi.validate(value,genderSchema).error);
 				break;
 			
 			case "phonenumber":
-				console.log(getJoiErrorMsg(Joi.validate(value,phoneSchema)))
 				error = getJoiErrorMsg(Joi.validate(value,phoneSchema).error);
 				break;
 			
 			case "avatar":
-				console.log('avatar = ',value);
 				error = true;
 				return;
 		}
@@ -175,7 +167,6 @@ function Register(){
 
 	const submitHandler = async (e) => {
 		e.preventDefault();
-		console.log('submitting',data)
 		if(active == 3) setSubmitting(true)
 
 		// to upload to cloudinary
@@ -192,7 +183,6 @@ function Register(){
 				body : form_data
 			})
 			const data = await res.json();
-			console.log('imgURL = ',data);
 			setData(prev => (
 				{
 					...prev,
@@ -241,15 +231,12 @@ function Register(){
 	useEffect(() => {
 		console.log()
 		if(typeof(data.avatar)== "string" && submitting){
-			console.log('suvbmitting',data)
 			register(data)
 				.then(res => {
-					console.log(res);
 					navigate('/');
 					setSubmitting(false);
 				})
 				.catch(err => {
-					console.log('err = ',err);
 					showNotification({
 						title : "errors",
 						description : JSON.stringify(err.response.data.error)
