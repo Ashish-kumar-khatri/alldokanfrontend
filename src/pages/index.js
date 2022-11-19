@@ -4,6 +4,7 @@ import RegisterPage from './RegisterPage/RegisterPage';
 import ForgotPasswordPage from './ForgotPasswordPage/ForgotPasswordPage';
 import SellerRegisterPage from './SellerRegisterPage/SellerRegisterPage';
 import SellerLoginPage from './SellerLoginPage/SellerLoginPage';
+import ResetPasswordPage from './ResetPasswordPage/ResetPasswordPage';
 
 export {
     LoginPage,
@@ -11,5 +12,6 @@ export {
     RegisterPage,
     ForgotPasswordPage,
     SellerRegisterPage,
-    SellerLoginPage
+    SellerLoginPage,
+    ResetPasswordPage
 }

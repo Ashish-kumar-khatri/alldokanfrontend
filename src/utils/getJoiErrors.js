@@ -1,5 +1,5 @@
 export const getJoiErrorMsg = (errors) =>{
-    console.log('get joi errors',errors?.message);
+    // console.log('get joi errors',errors?.message);
     return errors?.message;
 }
 

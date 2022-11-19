@@ -11,6 +11,7 @@ import {emailSchema} from '../../../utils/schemas/schema';
 import {getJoiErrorMsg} from '../../../utils/getJoiErrors';
 
 import './ForgotPassword.css'
+import { Link } from 'react-router-dom';
 
 function ForgotPassword(){
 
@@ -77,6 +78,12 @@ function ForgotPassword(){
 				>
 					Send further instruction
 				</Button>
+				<div className="footer-text">
+					<span>
+						go back to
+					</span>
+					<Link to = "/login">login</Link>
+				</div>
 			</form>
 		</div>
 	)
