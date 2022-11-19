@@ -49,8 +49,8 @@ function PersonalInfo({data,onChange,errors}) {
                 value : value
               })}
             >
-              <Radio value="male" label = "male" />
-              <Radio value="female" label = "female" />
+              <Radio value="MALE" label = "male" />
+              <Radio value="FEMALE" label = "female" />
             </Radio.Group>
             <TextInput 
               label = "phone number"

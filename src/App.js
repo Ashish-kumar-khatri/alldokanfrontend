@@ -7,9 +7,8 @@ import {
 import {
   HomePage,
   LoginPage,
-  SellerLogin,
   RegisterPage,
-  SellerRegister
+  ForgotPasswordPage
 } from './pages/'
 
 import './styles/auth.css';
@@ -20,9 +19,8 @@ function App() {
       <Routes>
         <Route path = "/" element = {<HomePage />} />
         <Route path = "/login" element = {<LoginPage />}/>
-        <Route path = "/seller-login" element = {<SellerLogin />} />
         <Route path = "/register" element = {<RegisterPage />} />
-        <Route path = "/seller-register" element = {<SellerRegister />} />
+        <Route path = "/forgot-password" element = {<ForgotPasswordPage />} />
       </Routes>
     </div>  
   );

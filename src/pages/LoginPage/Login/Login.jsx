@@ -1,4 +1,5 @@
 import React,{
+	useEffect,
 	useState
 } from 'react'
 import {
@@ -6,48 +7,138 @@ import {
 	Button,
 	PasswordInput
 } from '@mantine/core';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react';
+import {
+	useAuthContext,
+	useCreateNotification
+} from '../../../hooks/';
+
+import { emailSchema } from '../../../utils/schemas/schema'
+import Joi from 'joi-browser';
+import {getJoiErrorMsg} from '../../../utils/getJoiErrors';
 
 import './Login.css'
 
 function Login(){
 
+	const [data,setData] = useState({
+		email : "",
+		password : ""
+	})
+
+	const [errorOccured,setErrorOccured] = useState("");
+
 	const [submitting,setSubmitting] = useState(false);
 
+	const [emailValid,setEmailValid] = useState(false);
+	const [emailError,setEmailError] = useState("");
+	
+	const {login} = useAuthContext();
+	const createNotification = useCreateNotification();
+
+	const navigate = useNavigate();
+
 	const submitHandler = (e) => {
-		e.preventDefault();
+	e.preventDefault();
+	setSubmitting(true);
+	console.log('submitting',data)
+	login(data)
+		.then(res => {
+			createNotification({
+				title : "login",
+				type : "success",
+				timer : 5000,
+				message : "logged in successfully",
+				icon : "clarity:success-standard-solid"
+			})
+			navigate('/');
+		})
+		.catch(err => {
+			console.log('error ocured',err);
+			const error = err?.response.data.error;
+			setErrorOccured("error occured");
+			createNotification({
+				title : "login",
+				type : "failure",
+				timer : 5000,
+				message : error,
+				icon : "material-symbols:sms-failed"
+			})
+			setSubmitting(false);
+			// createNotification({
+			// 	title : "login",
+			// 	type : "failure",
+			// 	timer : 5000,
+			// 	message : {error},
+			// 	icon : "material-symbols:sms-failed"
+			// })
+		})
 	}
 
 	const changeHandler = (e) => {
+		setErrorOccured("");
+		setData(prev => (
+			{
+			...prev,
+			[e.target.name] : e.target.value
+			}
+		))
+	let error;
+	switch(e.target.name){
+		case "email":
+			console.log('email change handeler');
+			error = getJoiErrorMsg(Joi.validate(e.target.value,emailSchema).error);
+			break;
+	}
+	
+	if(error){
+			setEmailValid(false);
+			setEmailError(error);
+		}else{
+			setEmailValid(true);
+			setEmailError("")
+		}
 
 	}
 
+	useEffect(() => {
+	},[])
+
 	return(
 		<div className = "form">
-			<form 
+			<form
 				action=""
 				onSubmit = {submitHandler}
 			>
-				<h2 className="title">
-					Login to AllDokan
-				</h2>
+				<div className="header">
+					<h2 className="title">
+						Login to AllDokan
+					</h2>
+					<p>
+						Enter the email address you used when you joined and we’ll send you instructions to reset your password.
+					</p>
+				</div>
 				<TextInput 
 					label = "email"
 					name = "email"
-					onChange = {changeHandler}
 					disabled = {submitting}
 					size = "md"
+					onChange = {changeHandler}
+					error = {emailError || errorOccured}
 				/>
 				<PasswordInput 
+					onChange = {changeHandler}
 					label = "password"
 					size = "md"
 					className = "password"
+					name = "password"
 					disabled = {submitting}
+					error = {errorOccured}
 				/>
 				<small>
 				<Link
-					to = "#"
+					to = "/forgot-password"
 				>forgot password?</Link>
 				</small>
 				<Button
@@ -60,6 +151,7 @@ function Login(){
 						}
 					})}
 					type = "submit"
+					disabled = {!emailValid}
 				>
 				{
 					!submitting ?

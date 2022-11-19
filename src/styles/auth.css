@@ -1,8 +1,9 @@
 .auth-container{
-    width : 100vw;
+    width : 90vw;
     display:grid;
     grid-template-columns:1fr;
     gap:2em;
+    margin-inline:auto;
 }
 
 .auth-container .form{
@@ -21,21 +22,32 @@
     align-items: center;
 }
 
-.auth-container .title{
+.auth-container .header{
     margin-bottom:2em;
     text-align: center;
+    display:flex;
+    flex-direction: column;
+    gap:1.5em;
+    /* border:1px solid red; */
+    align-items: center;
+}
+
+.auth-container p{
+    line-height:1.4;
+    opacity:.5;
 }
 
 .auth-container .form form >*,
 .auth-container .form .mantine-Stepper-content >*{
     display:flex;
     flex-direction: column;
-    gap:.5em;
+    /* gap:.5em; */
     width:100%;
 }
 
 .auth-container form label{
     text-transform: capitalize;
+    margin-bottom:.3em;
 }
 
 .auth-container form button svg{
@@ -108,4 +120,13 @@
     .auth-container.register .steps-container .mantine-Stepper-stepBody{
         display:none;
     }
+
+    .auth-container .header{
+        align-items: flex-start;
+    }
+
+    .auth-container .header{
+        text-align: left;
+    }
+    
 }

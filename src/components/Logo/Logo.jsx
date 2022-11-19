@@ -9,7 +9,7 @@ function Logo(){
 	return(
 		<div>
 			<Link
-				to = "#"
+				to = "/"
 				className = "logo-container"
 			>
 				<img src={LogoDaraz} alt="" />

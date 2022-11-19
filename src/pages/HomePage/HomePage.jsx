@@ -1,8 +1,15 @@
 import React from 'react'
 
+import Nav from './Nav'
+
+import './HomePage.css';
+
 function HomePage() {
   return (
-    <div>HomePage</div>
+    <>
+      <Nav />
+      <div>HomePage</div>
+    </>
   )
 }
 

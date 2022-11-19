@@ -5,10 +5,11 @@ import {
 import React, { useEffect, useRef, useState } from 'react'
 
 import { Icon } from '@iconify/react';
+import {showNotification} from '@mantine/notifications';
 
 import './AddAvatar.css'
 
-function AddAvatar({onChange}){
+function AddAvatar({onChange,setCapturedAvatar,capturedAvatar}){
 
 	const [modalOpened,setModalOpened] = useState(false);
 
@@ -21,21 +22,21 @@ function AddAvatar({onChange}){
 	const videoRef = useRef(null);
 	const canvasRef = useRef(null);
 
-	const avatarChangeHandler = (e) => {
-		console.log(e.target.files[0]);
-		let file = e.target.files[0];
-		setAvatar(file)
-		onChange({
-			name : "avatar",
-			value : file
-		})
+	// const avatarChangeHandler = (e) => {
+	// 	console.log(e.target.files[0]);
+	// 	let file = e.target.files[0];
+	// 	setAvatar(file)
+	// 	onChange({
+	// 		name : "avatar",
+	// 		value : file
+	// 	})
 
-		let reader = new FileReader();
-		reader.onload = () => {
-			setPreview(reader.result);
-		}
-		reader.readAsDataURL(file);
-	}
+	// 	let reader = new FileReader();
+	// 	reader.onload = () => {
+	// 		setPreview(reader.result);
+	// 	}
+	// 	reader.readAsDataURL(file);
+	// }
 
 	const captureAvatar = () => {
 		setModalOpened(true);
@@ -56,21 +57,45 @@ function AddAvatar({onChange}){
 	
 	// },[])
 
-	useEffect(() => {
+	useEffect( () => {
 		if(canvasRef && capturing){
 			const context = canvasRef.current.getContext('2d');
 			console.log('context = ',context)
 			context.drawImage(videoRef.current,0,0,canvasRef.current.width,canvasRef.current.height);
 			let data = canvasRef.current.toDataURL('image/png');
 			setPreview(data);
+			setCapturedAvatar(data);
+
+			canvasRef.current.toBlob(blob => {
+					console.log(blob);
+					setAvatar(blob);
+				})
+
+			console.log('data = ',data)
+			setCapturing(false);
+			showNotification({
+				title : 'avatar captured',
+				message : 'successfully captured avatar'
+			})
+			
 		}
 	},[capturing])
+
+
+	useEffect(() => {
+		if(avatar){
+			onChange({
+				name : "avatar",
+				value : avatar
+			})
+		}
+	},[avatar])
 
 	return(
 		<div className='avatar-upload-container'>
 			{
-				preview ?
-					<img className = "img-area" src={preview} alt="" />:
+				preview || capturedAvatar ?
+					<img className = "img-area" src={preview ? preview : capturedAvatar} alt="" />:
 					<div className="img-area">
 						<Icon icon = "material-symbols:add-circle-outline" />
 					</div>
