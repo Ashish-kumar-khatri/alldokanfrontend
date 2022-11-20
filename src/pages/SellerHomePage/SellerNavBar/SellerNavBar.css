@@ -1,0 +1,19 @@
+.sellerhomepage-container .burger-container{
+}
+
+.sellerhomepage-container .burger-container >* {
+    cursor: pointer;
+    display:block;
+    opacity : .5;
+}
+
+.sellerhomepage-container .burger-container svg{
+    font-size:var(--fs-xl);
+    pointer-events: none;
+}
+
+@media only screen and (min-width : 800px){
+    .sellerhomepage-container .burger-container{
+        display:none;
+    }
+}

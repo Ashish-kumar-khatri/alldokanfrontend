@@ -226,23 +226,23 @@ function Register(){
 	// 			break;
 	// 	}
 	// }
-	console.log(errors)
 
 	useEffect(() => {
 		console.log()
-		if(typeof(data.avatar)== "string" && submitting){
-			register(data)
-				.then(res => {
-					navigate('/');
-					setSubmitting(false);
-				})
-				.catch(err => {
-					showNotification({
-						title : "errors",
-						description : JSON.stringify(err.response.data.error)
-					})
-					setSubmitting(false);
-				})
+		if(typeof(data.avatar) == "string" && submitting){
+			console.log('submitting',data)
+			// register(data)
+			// 	.then(res => {
+			// 		navigate('/');
+			// 		setSubmitting(false);
+			// 	})
+			// 	.catch(err => {
+			// 		showNotification({
+			// 			title : "errors",
+			// 			description : JSON.stringify(err.response.data.error)
+			// 		})
+			// 		setSubmitting(false);
+			// 	})
 		}
 	},[data,submitting])
 

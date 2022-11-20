@@ -1,0 +1,14 @@
+/* .seller-home-container{
+    height:100vh;
+}
+
+.seller-home-container .navbar-container{
+    height:100vh;
+    max-height:unset;
+    justify-content:flex-start;
+}
+
+.seller-home-container .navbar-container >*{
+    border:1px solid red;
+}
+ */

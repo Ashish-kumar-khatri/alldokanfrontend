@@ -17,13 +17,27 @@ function AddAvatar({onChange,setCapturedAvatar,capturedAvatar}){
 	const [preview,setPreview] = useState(null);
 	const [stream,setStream] = useState(null);
 
-    const [imageCapture,setImageCapture] = useState(null);
-
 	const [capturing,setCapturing] = useState(false);
 
 	const inputRef = useRef(null);
 	const videoRef = useRef(null);
 	const canvasRef = useRef(null);
+
+	// const avatarChangeHandler = (e) => {
+	// 	console.log(e.target.files[0]);
+	// 	let file = e.target.files[0];
+	// 	setAvatar(file)
+	// 	onChange({
+	// 		name : "avatar",
+	// 		value : file
+	// 	})
+
+	// 	let reader = new FileReader();
+	// 	reader.onload = () => {
+	// 		setPreview(reader.result);
+	// 	}
+	// 	reader.readAsDataURL(file);
+	// }
 
 	const captureAvatar = () => {
 		setModalOpened(true);
@@ -31,47 +45,48 @@ function AddAvatar({onChange,setCapturedAvatar,capturedAvatar}){
 			.then(stream => {
 				setStream(stream);
 				videoRef.current.srcObject = stream;
-                const track = stream.getVideoTracks()[0];
-                setImageCapture(new ImageCapture(track));
 			})
 	}
-
-    function drawCanvas(canvas, img) {
-        console.log('drawnig canvas',canvas,img,getComputedStyle(canvas).width)
-        canvas.width = getComputedStyle(canvas).width.split('px')[0];
-        canvas.height = getComputedStyle(canvas).height.split('px')[0];
-        let ratio  = Math.min(canvas.width / img.width, canvas.height / img.height);
-        let x = (canvas.width - img.width * ratio) / 2;
-        let y = (canvas.height - img.height * ratio) / 2;
-        canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
-        canvas.getContext('2d').drawImage(img, 0, 0, img.width, img.height,
-            x, y, img.width * ratio, img.height * ratio);
-        let data = canvasRef.current.toDataURL('image/png');
-        setPreview(data);
-        setCapturedAvatar(data);
-        videoRef.current.pause();
-        setModalOpened(false);
-        stream.getTracks().forEach((track) => {
-            track.stop();
-            stream.removeTrack(track);
-        })
-        setCapturing(false);
-    }
+	
+	// let captureAvatarImage;
+	
+	// useEffect(() => {
+	// 	console.log('canvas = ',canvasRef.current)
+	// 	const context = canvasRef.current.getContext('2d');
+	// 	captureAvatarImage = () => {
+	// 		console.log('capturing',context)
+	// 	}
+	
+	// },[])
 
 	useEffect( () => {
 		if(canvasRef && capturing){
-            imageCapture.takePhoto()
-                .then(blob => {
-                    console.log('blob = ',blob)
-                    setAvatar(blob);
-                    return createImageBitmap(blob)
-                })
-                .then(imageBitmap => {
-                    console.log('imageBitmap = ',imageBitmap)
-                    drawCanvas(canvasRef.current,imageBitmap)
-                })
+			const context = canvasRef.current.getContext('2d');
+			console.log('context = ',context)
+			context.drawImage(videoRef.current,0,0,canvasRef.current.width,canvasRef.current.height);
+			let data = canvasRef.current.toDataURL('image/png');
+			setPreview(data);
+			setCapturedAvatar(data);
+
+			canvasRef.current.toBlob(blob => {
+					console.log(blob);
+					setAvatar(blob);
+				})
+
+			console.log('data = ',data)
+			setCapturing(false);
+			showNotification({
+				title : 'avatar captured',
+				message : 'successfully captured avatar'
+			})
+			videoRef.current.pause();
+			setModalOpened(false);
+			stream.getTracks().forEach((track) => {
+				track.stop();
+				stream.removeTrack(track);
+			})
 		}
-	},[capturing,imageCapture])
+	},[capturing])
 
 
 	useEffect(() => {
@@ -97,6 +112,13 @@ function AddAvatar({onChange,setCapturedAvatar,capturedAvatar}){
 				// onClick = {() => inputRef.current.click()}
 				onClick = {captureAvatar}
 			>
+				{/* <input 
+					ref = {inputRef} 
+					type="file" 
+					hidden
+					onChange = {avatarChangeHandler}
+					accept="image/jpeg,image/png,image/jpg"
+				/> */}
 				{
 					preview ?
 						"capture avatar":
@@ -114,8 +136,8 @@ function AddAvatar({onChange,setCapturedAvatar,capturedAvatar}){
 					ref = {videoRef}
 					autoPlay
 					style = {{
-						height : "400px",
-						width : "400px"
+						height : "1920px",
+						width : "1080px"
 					}}
 				/>
 				<Button
@@ -129,8 +151,8 @@ function AddAvatar({onChange,setCapturedAvatar,capturedAvatar}){
 			<canvas 
 				style = {{
 					border: "1px solid red",
-					height : "300px",
-					width : "300px",
+					height : "320px",
+					width : "240px",
 					marginInline : "auto",
 					display : "none",
 				}}

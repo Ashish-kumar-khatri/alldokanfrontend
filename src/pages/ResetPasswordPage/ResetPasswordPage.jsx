@@ -11,6 +11,7 @@ import {
 import { Button, PasswordInput, TextInput } from '@mantine/core';
 import {passwordSchema} from '../../utils/schemas/schema';
 import {getJoiErrorMsg} from '../../utils/getJoiErrors';
+import { useParams } from 'react-router-dom';
 
 
 function ResetPasswordPage(){
@@ -31,6 +32,8 @@ function ResetPasswordPage(){
 		password1 : "",
 		password2 : ""
 	})
+
+	const {resetToken} = useParams();
 
 	const changeHandler = (e) => {
 		setData(prev => ({
@@ -73,7 +76,10 @@ function ResetPasswordPage(){
 
 	const submitHandler = (e) => {
 		e.preventDefault();
-		console.log('submitting')
+		console.log('submitting',resetToken)
+		setTimeout(() => {
+			setSubmitting(false)
+		},5000)
 	}
 
 	return(

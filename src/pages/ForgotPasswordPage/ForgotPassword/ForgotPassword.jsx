@@ -5,6 +5,10 @@ import {
 	TextInput,
 	Button
 } from '@mantine/core';
+import {
+	useParams
+} from 'react-router-dom';
+
 import { Icon } from '@iconify/react';
 import Joi from 'joi-browser';
 import {emailSchema} from '../../../utils/schemas/schema';
@@ -27,6 +31,7 @@ function ForgotPassword(){
 			setSubmitting(false);
 		},5000)
 	}
+
 
 	const changeHandler = (e) => {
 		const err = getJoiErrorMsg(Joi.validate(e.target.value,emailSchema).error);
