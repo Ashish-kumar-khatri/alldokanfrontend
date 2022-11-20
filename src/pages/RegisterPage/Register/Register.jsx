@@ -91,10 +91,6 @@ function Register(){
 
 	const prevStep = () => setActive(current => current > 0 ? current - 1 : current);
 
-	const validateRepeatPassword = (pwd) => {
-
-	}
-
 	const changeHandler = ({name,value}) => {
 		setData(prev => (
 			{
@@ -167,43 +163,19 @@ function Register(){
 
 	const submitHandler = async (e) => {
 		e.preventDefault();
-		if(active == 3) setSubmitting(true)
-
-		// to upload to cloudinary
-		let form_data = new FormData();
-
-		form_data.append('file',data.avatar);
-		form_data.append('upload_preset','testunsignedpreset')
-		form_data.append('cloud_name','djhsz1acw');
-
-		try{
-			setUploadingImg(true);
-			const res = await fetch(`https://api.cloudinary.com/v1_1/djhsz1acw/image/upload`,{
-				method : "post",
-				body : form_data
+		console.log('form submitted',data)
+		register(data)
+			.then(res => {
+				navigate('/');
+				setSubmitting(false);
 			})
-			const data = await res.json();
-			setData(prev => (
-				{
-					...prev,
-					avatar : data.secure_url
-				}
-			))
-			setUploadingImg(false);
-			// setSubmitting(true)
-		}catch(err){
-			console.log(err);
-		}
-
-		// axios.post(`${endpoints.register}`,data)
-		// 	.then(res => {
-		// 		setSubmitting(false);
-		// 		console.log('user registered successfully',res);
-		// 	})
-		// 	.then(err => {
-		// 		setSubmitting(false);
-		// 		console.log('error = ',err);
-		// 	})
+			.catch(err => {
+				showNotification({
+					title : "errors",
+					description : JSON.stringify(err.response.data.error)
+				})
+				setSubmitting(false);
+			})
 	}
 
 	const beforeNextStepHandler = (e) => {
@@ -215,36 +187,6 @@ function Register(){
 		}
 		if(active == 2) nextStep(); 
 	}
-
-	// const getValidStepStatus = () => {
-	// 	switch(active){
-	// 		case 0:
-	// 			return !validSteps.firstStep;
-	// 			break;
-	// 		case 1:
-	// 			return !validSteps.secondStep
-	// 			break;
-	// 	}
-	// }
-
-	useEffect(() => {
-		console.log()
-		if(typeof(data.avatar) == "string" && submitting){
-			console.log('submitting',data)
-			// register(data)
-			// 	.then(res => {
-			// 		navigate('/');
-			// 		setSubmitting(false);
-			// 	})
-			// 	.catch(err => {
-			// 		showNotification({
-			// 			title : "errors",
-			// 			description : JSON.stringify(err.response.data.error)
-			// 		})
-			// 		setSubmitting(false);
-			// 	})
-		}
-	},[data,submitting])
 
 	return(
 		<div className = "form">
@@ -266,21 +208,21 @@ function Register(){
 							onChange = {changeHandler}
 							data = {data}
 							errors = {errors}
-						/>
+						/>1
 					</Stepper.Step>
 					<Stepper.Step label = "Personal information" icon = {<Icon icon = "mdi:face-man-profile" />}>
 						<PersonalInfo 
 							onChange = {changeHandler}
 							data = {data}
 							errors = {errors}
-						/>	
+						/>	2
 					</Stepper.Step>
 					<Stepper.Step label = "Confirm" icon = {<Icon icon = "line-md:circle-to-confirm-circle-transition" />} >
 						<AddAvatar 
 							onChange={changeHandler}
 							setCapturedAvatar = {setCapturedAvatar}
 							capturedAvatar = {capturedAvatar}
-						/>
+						/>3
 					</Stepper.Step>
 					<Stepper.Completed>
 						confirm all
@@ -313,7 +255,7 @@ function Register(){
 									height : 43,
 								}
 								})}
-								type = "submit"
+								onClick = {submitHandler}
 							>
 								{
 								!submitting || uploadingImg ?
@@ -323,24 +265,6 @@ function Register(){
 							</Button>
 					}
 				</Group>
-
-				{/* <Button
-					leftIcon = {<Icon icon = "mdi:register" />}
-					loading = {submitting}
-					fullWidth
-					styles = {(theme) => ({
-					root : {
-						height : 43,
-					}
-					})}
-					type = "submit"
-				>
-					{
-					!submitting ?
-					"Register account" :
-					"logging in"
-					}
-				</Button> */}
 			  <div className="footer-text">
 				<span>
 				  Already have an account?
