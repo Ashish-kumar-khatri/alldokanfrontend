@@ -56,6 +56,11 @@ function AddAvatar({onChange,setCapturedAvatar,capturedAvatar}){
             stream.removeTrack(track);
         })
         setCapturing(false);
+		showNotification({
+			title : "success",
+			message : 'avatar captured successfully',
+			timer : 10000
+		})
     }
 
 	useEffect( () => {
@@ -83,6 +88,7 @@ function AddAvatar({onChange,setCapturedAvatar,capturedAvatar}){
 		}
 	},[avatar])
 
+	
 	return(
 		<div className='avatar-upload-container'>
 			{
@@ -122,10 +128,16 @@ function AddAvatar({onChange,setCapturedAvatar,capturedAvatar}){
 					fullWidth
 					mt = "2em"
 					onClick = {() => setCapturing(true)}
+					loading = {capturing}
 				>
 					Capture
 				</Button>
 			</Modal>
+			<small
+				className='description important' 
+			>
+				Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis perferendis tenetur nostrum dignissimos aspernatur harum consectetur 
+			</small>
 			<canvas 
 				style = {{
 					border: "1px solid red",

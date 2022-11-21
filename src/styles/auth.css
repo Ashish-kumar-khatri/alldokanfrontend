@@ -28,7 +28,6 @@
     display:flex;
     flex-direction: column;
     gap:1.5em;
-    /* border:1px solid red; */
     align-items: center;
 }
 
@@ -41,7 +40,6 @@
 .auth-container .form .mantine-Stepper-content >*{
     display:flex;
     flex-direction: column;
-    /* gap:.5em; */
     width:100%;
 }
 
@@ -79,7 +77,6 @@
 }
 
 .auth-container.register .steps-container .mantine-Stepper-steps{
-    /* border:1px solid red; */
     width:80%;
     margin-inline:auto;
     margin-bottom:1em;
@@ -87,6 +84,10 @@
 
 .auth-container.register .steps-container .mantine-Stepper-stepBody{
     display:none;
+}
+
+.auth-container .description{
+    text-align: center;
 }
 
 @media only screen and (min-width : 1000px){
@@ -97,13 +98,9 @@
     }
 
     .auth-container.register{
-        /* grid-template-columns:1.2fr 1.5fr; */
-        /* background:white; */
     }
-
+    
     .auth-container .form{
-        /* margin-right:auto; */
-        /* margin-left:4em; */
         margin:unset;
         margin-left:4em;
     }
@@ -128,6 +125,19 @@
 
     .auth-container .header{
         text-align: left;
+    }
+
+    .auth-container .description{
+        text-align: left;
+        padding:.8em;
+        background:rgba(255, 0, 0, 0.197);
+        border-radius:5px;
+    }
+
+    .auth-container .description.important{
+        color:var(--danger);
+        opacity:.5;
+        line-height:1.3;
     }
     
 }

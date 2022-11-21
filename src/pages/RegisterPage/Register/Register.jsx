@@ -200,7 +200,6 @@ function Register(){
 			</div>
 			<form 
 				action=""
-				onSubmit = {submitHandler}
 		  	>
 				<Stepper className = "steps-container" active = {active}>
 			  		<Stepper.Step label = "Account information" icon = {<Icon icon = "ic:outline-switch-account" />}>
@@ -208,24 +207,24 @@ function Register(){
 							onChange = {changeHandler}
 							data = {data}
 							errors = {errors}
-						/>1
+						/>
 					</Stepper.Step>
 					<Stepper.Step label = "Personal information" icon = {<Icon icon = "mdi:face-man-profile" />}>
 						<PersonalInfo 
 							onChange = {changeHandler}
 							data = {data}
 							errors = {errors}
-						/>	2
+						/>	
 					</Stepper.Step>
 					<Stepper.Step label = "Confirm" icon = {<Icon icon = "line-md:circle-to-confirm-circle-transition" />} >
 						<AddAvatar 
 							onChange={changeHandler}
 							setCapturedAvatar = {setCapturedAvatar}
 							capturedAvatar = {capturedAvatar}
-						/>3
+						/>
 					</Stepper.Step>
 					<Stepper.Completed>
-						confirm all
+						Go back and confirm all the details properly.
 					</Stepper.Completed>
 				</Stepper>
 				<Group className = "button-group" position="center" mt="xl">
@@ -245,7 +244,6 @@ function Register(){
 										height : 43,
 									}
 									})}
-								// disabled = {getValidStepStatus()}
 								>Next step</Button>:
 							<Button
 								leftIcon = {<Icon icon = "mdi:register" />}

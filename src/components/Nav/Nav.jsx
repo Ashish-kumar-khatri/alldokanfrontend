@@ -1,5 +1,5 @@
 import React from 'react'
-import './AuthNav.css'
+import './Nav.css'
 
 function AuthNav(){
 

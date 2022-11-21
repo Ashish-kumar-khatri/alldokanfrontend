@@ -9,10 +9,7 @@ import {
   LoginPage,
   RegisterPage,
   ForgotPasswordPage,
-  SellerLoginPage,
-  SellerRegisterPage,
   ResetPasswordPage,
-  SellerHomePage
 } from './pages/'
 
 import './styles/auth.css';
@@ -27,10 +24,6 @@ function App() {
         <Route path = "/forgot-password" element = {<ForgotPasswordPage />} />
         
         <Route path = "/reset-password/:resetToken" element = {<ResetPasswordPage />} />
-
-        <Route path = "/seller-login" element = {<SellerLoginPage />} />
-        <Route path = "/seller-register" element= {<SellerRegisterPage />} />
-        <Route path = "/seller-home-page"  element = {<SellerHomePage />} />
       </Routes>
     </div>  
   );

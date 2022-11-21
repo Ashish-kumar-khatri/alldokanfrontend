@@ -5,7 +5,7 @@ function AuthInfoLeft({children}){
 
 	return(
 		<div className = "auth-info-left">
-				{children}
+			{children}
 		</div>
 	)
 
