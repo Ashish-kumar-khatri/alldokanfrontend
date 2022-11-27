@@ -7,7 +7,7 @@ import './Logo.css'
 function Logo(){
 
 	return(
-		<div>
+		<div className = "logo">
 			<Link
 				to = "/"
 				className = "logo-container"

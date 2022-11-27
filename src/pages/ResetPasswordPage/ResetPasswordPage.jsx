@@ -12,26 +12,30 @@ import { Button, PasswordInput, TextInput } from '@mantine/core';
 import {passwordSchema} from '../../utils/schemas/schema';
 import {getJoiErrorMsg} from '../../utils/getJoiErrors';
 import { useParams } from 'react-router-dom';
-
+import { endpoints } from '../../utils/endpoints/authEndpoints';
+import axios from 'axios';
+import { useCreateNotification } from '../../hooks';
 
 function ResetPasswordPage(){
 
 	const [data,setData] = useState({
-		password1 : "",
-		password2 : ""
+		password : "",
+		repeat_password : ""
 	})
 
 	const [submitting,setSubmitting] = useState(false)
 
 	const [errors,setErrors] = useState({
-		password1 : "",
-		password2 : ""
+		password : "",
+		repeat_password : ""
 	})
 
 	const [valid,setValid] = useState({
-		password1 : "",
-		password2 : ""
+		password : "",
+		repeat_password : ""
 	})
+
+	const createNotification = useCreateNotification();
 
 	const {resetToken} = useParams();
 
@@ -42,12 +46,12 @@ function ResetPasswordPage(){
 		}))
 		let error;
 		switch(e.target.name){
-			case "password1":
+			case "password":
 				error = getJoiErrorMsg(Joi.validate(e.target.value,passwordSchema).error);
 				break;
 			
-			case "password2":
-				error = (e.target.value == data.password1) ? "" : "password doesnot match";
+			case "repeat_password":
+				error = (e.target.value == data.password) ? "" : "password doesnot match";
 				break;
 		}
 		if(error){
@@ -77,6 +81,20 @@ function ResetPasswordPage(){
 	const submitHandler = (e) => {
 		e.preventDefault();
 		console.log('submitting',resetToken)
+		axios.put(`${endpoints.resetPassword}/${resetToken}`,data)
+			.then(res => {
+				console.log(res);
+			})
+			.catch(err => {
+				console.log(err)
+				createNotification({
+					title : "reset password",
+					type : "failure",
+					timer : 5000,
+					message : err?.response?.data?.error,
+					icon : "material-symbols:sms-failed"
+				})
+			})
 		setTimeout(() => {
 			setSubmitting(false)
 		},5000)
@@ -99,17 +117,17 @@ function ResetPasswordPage(){
 					</div>
 					<PasswordInput 
 						label = "new password"
-						name = "password1"
+						name = "password"
 						size = "md"
 						onChange = {changeHandler}
-						error = {errors.password1}
+						error = {errors.password}
 					/>
 					<PasswordInput 
 						label = "repeat new password"
-						name = "password2"
+						name = "repeat_password"
 						size = "md"
 						onChange = {changeHandler}
-						error = {errors.password2}
+						error = {errors.repeat_password}
 					/>
 					<Button
 						size = "md"

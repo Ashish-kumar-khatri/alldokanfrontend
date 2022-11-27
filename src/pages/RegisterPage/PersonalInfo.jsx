@@ -22,22 +22,22 @@ function PersonalInfo({data,onChange,errors}) {
       <>
             <TextInput 
                 label = "full name"
-                name = "name"
+                name = "person_name"
                 size = "md"
-                value = {data?.name}
+                value = {data?.person_name}
                 onChange = {changeHandler}
-                error = {errors?.name}
+                error = {errors?.person_name}
             />
             <DatePicker 
               label = "date of birth"
               size = "md"
-              name = "dateofbirth"
-              value = {data?.dateofbirth}
+              name = "date_of_birth"
+              value = {data?.date_of_birth}
               onChange = {(value) => onChange({
-                name : "dateofbirth",
+                name : "date_of_birth",
                 value : value
               })}
-              error = {errors?.dateofbirth}
+              error = {errors?.date_of_birth}
             />
             <Radio.Group 
               label = "Gender"
@@ -55,10 +55,10 @@ function PersonalInfo({data,onChange,errors}) {
             <TextInput 
               label = "phone number"
               size = "md"
-              name = "phonenumber"
-              value = {data?.phonenumber}
+              name = "phone_number"
+              value = {data?.phone_number}
               onChange={changeHandler}
-              error = {errors?.phonenumber}
+              error = {errors?.phone_number}
             />
             
       </>

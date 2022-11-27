@@ -9,20 +9,24 @@ import App from './App';
 
 import {BrowserRouter as Router} from 'react-router-dom';
 import { AuthContextProvider } from './context/authContext';
+import { CloudinaryContextProvider } from './context/cloudinaryContext';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
     <MantineProvider>
+      <CloudinaryContextProvider>
       <NotificationsProvider
         position = "top-right"
       >
         <AuthContextProvider>
           <Router>
-            <App />
+              <App />
           </Router>
         </AuthContextProvider>
       </NotificationsProvider>
+            </CloudinaryContextProvider>
     </MantineProvider>
   // </React.StrictMode>
 );

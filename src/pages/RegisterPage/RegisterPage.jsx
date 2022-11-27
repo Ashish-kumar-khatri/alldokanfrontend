@@ -8,6 +8,12 @@ import {
 	Logo
 } from '../../components/';
 import Register from './Register/Register';
+import Otp from './Otp/Otp';
+
+import {
+	Routes,
+	Route
+} from 'react-router-dom';
 
 import Illustration from '../../assets/auth.svg';
 
@@ -22,11 +28,26 @@ function RegisterPage(){
 		<div 
 		  className = "auth-container register"
 		>
-			<AuthInfoLeft>
-				<Logo />
-				<img className = "illustration" src={Illustration} alt="" />
-			</AuthInfoLeft>
-		  	<Register />
+			<Routes>
+		  		<Route path = "" element = {
+					<>
+						<AuthInfoLeft>
+							<Logo />
+							<img className = "illustration" src={Illustration} alt="" />
+						</AuthInfoLeft>
+						<Register />
+					</>
+				} />
+				<Route path = "otp/" element = {
+					<>
+						<AuthInfoLeft>
+							<Logo />
+							<img className = "illustration" src={Illustration} alt="" />
+						</AuthInfoLeft>
+						<Otp />
+					</>
+				}/>
+			</Routes>
 		</div>
 		</>
 	)

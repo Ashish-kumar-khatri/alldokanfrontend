@@ -1,14 +1,22 @@
 import React from 'react'
-
-import Nav from './Nav'
-
+import { Logo, Nav, SearchBar } from '../../components';
 import './HomePage.css';
 
 function HomePage() {
+
+
+  const searchHandler = (query) => {
+    console.log('submitted to search everywhere',query);
+  }
+
   return (
     <>
-      <Nav />
-      <div>HomePage</div>
+      <Nav>
+        <SearchBar 
+          placeholder = "Search for anything"
+          onSubmit = {searchHandler}
+        />
+      </Nav>
     </>
   )
 }

@@ -1,0 +1,38 @@
+.searchbar{
+    width:100%;
+    max-width:800px;
+}
+
+.searchbar form{
+    display:flex;
+    width:100%;
+    position:relative;
+}
+
+.searchbar form .input{
+    width : 100%;
+}
+
+.searchbar form .input input{
+    outline: none;
+}
+
+.searchbar form button[type="submit"]{
+    font-size:var(--fs-l);
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    position:absolute;
+    right:0;
+    height:100%;
+    background:none;
+    border:none;
+    outline:none;
+    cursor: pointer;
+    padding:0 .3em;
+    border-radius:0 5px 5px 0;
+}
+
+.searchbar form button[type="submit"]:hover{
+    background:var(--light-gray);
+}

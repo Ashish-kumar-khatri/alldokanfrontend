@@ -22,8 +22,8 @@ export const AuthContextProvider = ({children}) => {
                     console.log('res = ',res);
                     setToken(res?.data.token);
                     localStorage.setItem('token',res?.data.token);
-                    localStorage.setItem('user',JSON.stringify(res?.data.buyer))
-                    setUser(res?.data.buyer);
+                    localStorage.setItem('user',JSON.stringify(res?.data.user))
+                    setUser(res?.data.user);
                     return resolve('success');
                 })
                 .catch(err => {
@@ -39,8 +39,8 @@ export const AuthContextProvider = ({children}) => {
                     console.log('res = ',res);
                     setToken(res?.data.token);
                     localStorage.setItem('token',res?.data.token);
-                    localStorage.setItem('user',JSON.stringify(res?.data.buyer));
-                    setUser(res?.data.buyer);
+                    localStorage.setItem('user',JSON.stringify(res?.data.user));
+                    setUser(res?.data.user);
                     return resolve('success');
                 })
                 .catch(err => {
@@ -61,6 +61,7 @@ export const AuthContextProvider = ({children}) => {
 
 
     let value = {
+        token : 'testtoken',
         user : user,
         register : register,
         login : login,

@@ -16,17 +16,30 @@ import {getJoiErrorMsg} from '../../../utils/getJoiErrors';
 
 import './ForgotPassword.css'
 import { Link } from 'react-router-dom';
+import { endpoints } from '../../../utils/endpoints/authEndpoints';
+import { useAxios } from '../../../hooks';
 
 function ForgotPassword(){
 
+	const [email,setEmail] = useState('')
 	const [submitting,setSubmitting] = useState(false);
 	const [emailError,setEmailError] = useState("");
 	const [validEmail,setValidEmail] = useState(false);
+
+	const axiosInstance = useAxios();
 
 	const submitHandler = (e) => {
 		e.preventDefault();
 		console.log('submitting');
 		setSubmitting(true);
+		axiosInstance.post(`${endpoints.forgotPassword}`,{
+			email : email})
+			.then(res => {
+				console.log('res = ',res);
+				setSubmitting(false);
+			})
+			.catch(err => console.log('error = ',err))
+
 		setTimeout(() => {
 			setSubmitting(false);
 		},5000)
@@ -34,6 +47,7 @@ function ForgotPassword(){
 
 
 	const changeHandler = (e) => {
+		setEmail(e.target.value)
 		const err = getJoiErrorMsg(Joi.validate(e.target.value,emailSchema).error);
 		console.log(err);
 		if(err){
@@ -64,6 +78,7 @@ function ForgotPassword(){
 					disabled = {submitting}
 					error = {emailError}
 					onChange = {changeHandler}
+					value = {email}
 				/>
 				<Button
 					fullWidth

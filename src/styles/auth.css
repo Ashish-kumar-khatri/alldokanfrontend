@@ -129,13 +129,12 @@
 
     .auth-container .description{
         text-align: left;
-        padding:.8em;
-        background:rgba(255, 0, 0, 0.197);
+        /* background:rgba(255, 0, 0, 0.197); */
         border-radius:5px;
     }
 
     .auth-container .description.important{
-        color:var(--danger);
+        /* color:var(--danger); */
         opacity:.5;
         line-height:1.3;
     }

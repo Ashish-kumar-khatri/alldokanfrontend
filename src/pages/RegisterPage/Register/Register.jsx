@@ -32,18 +32,18 @@ import axios from 'axios';
 import './Register.css'
 import { valid } from 'joi';
 import { endpoints } from '../../../utils/endpoints/authEndpoints';
-import {useAuthContext} from '../../../hooks/';
+import {useAuthContext,useCloudinaryContext} from '../../../hooks/';
 
 function Register(){
 	const [data,setData] = useState({
 		email : "",
 		password : "",
 		repeat_password : "",
-		phonenumber : "",
-		dateofbirth : "",
+		phone_number : "",
+		date_of_birth : "",
 		gender : "",
 		avatar : "",
-		name : ""
+		person_name : ""
 	});
 
 	const [capturedAvatar,setCapturedAvatar] = useState(null);
@@ -52,22 +52,22 @@ function Register(){
 		email : "",
 		password : "",
 		repeat_password : "",
-		phonenumber : "",
-		dateofbirth : "",
+		phone_number : "",
+		date_of_birth : "",
 		gender : "",
 		avatar : "",
-		name : ""
+		person_name : ""
 	});
 
 	const [valid,setValid] = useState({
 		email : false,
 		password : false,
 		repeat_password : false,
-		phonenumber : false,
-		dateofbirth : false,
+		phone_number : false,
+		date_of_birth : false,
 		gender : false,
 		avatar : false,
-		name : false
+		person_name : false
 	})
 
 	const [validSteps,setValidSteps] = useState({
@@ -84,6 +84,7 @@ function Register(){
 	const stepper = useRef(null);
 	const navigate = useNavigate();
 	const {register} = useAuthContext();
+	const {uploadToCloudinary} = useCloudinaryContext();
 
 	const nextStep = () => setActive(current => {
 		return current < 3 ? current + 1 : current;
@@ -117,11 +118,11 @@ function Register(){
 				}
 				break;
 			
-			case "name":
+			case "person_name":
 				error = getJoiErrorMsg(Joi.validate(value,nameSchema).error);
 				break;
 			
-			case "dateofbirth":
+			case "date_of_birth":
 				console.log(getJoiErrorMsg(Joi.validate(value,dateSchema)))
 				error = getJoiErrorMsg(Joi.validate(value,dateSchema).error);
 				break;
@@ -130,7 +131,7 @@ function Register(){
 				error = getJoiErrorMsg(Joi.validate(value,genderSchema).error);
 				break;
 			
-			case "phonenumber":
+			case "phone_number":
 				error = getJoiErrorMsg(Joi.validate(value,phoneSchema).error);
 				break;
 			
@@ -163,8 +164,27 @@ function Register(){
 
 	const submitHandler = async (e) => {
 		e.preventDefault();
-		console.log('form submitted',data)
-		register(data)
+		console.log('form submitted',data);
+		// save to cloudinary
+		try{	
+			setUploadingImg(true);
+			let res = await uploadToCloudinary(data.avatar);
+			console.log('uploaded to cloudinary',res);
+			setData(prev => ({
+				...prev,
+				avatar : res.secure_url
+			}));
+			setUploadingImg(false);
+			setSubmitting(true);
+			setTimeout(() => setSubmitting(false),5000);
+		}catch(err){
+			console.log(err);
+		}
+	}
+
+	useEffect(() => {
+		if(submitting){
+			register(data)
 			.then(res => {
 				navigate('/');
 				setSubmitting(false);
@@ -176,13 +196,14 @@ function Register(){
 				})
 				setSubmitting(false);
 			})
-	}
+		}
+	},[submitting])
 
 	const beforeNextStepHandler = (e) => {
 		if(active == 0 && (valid.email && valid.password && valid.repeat_password)){
 			nextStep();
 		}		
-		if(active == 1 && (valid.name && valid.dateofbirth && valid.gender && valid.phonenumber)){
+		if(active == 1 && (valid.person_name && valid.date_of_birth && valid.gender && valid.phone_number)){
 			nextStep()
 		}
 		if(active == 2) nextStep(); 
@@ -255,11 +276,9 @@ function Register(){
 								})}
 								onClick = {submitHandler}
 							>
-								{
-								!submitting || uploadingImg ?
-								"Register account" :
-								"registering in"
-								}
+								{(!submitting && uploadingImg) && "uploading image"}
+								{(!submitting && !uploadingImg) && "Register"}
+								{(submitting && !uploadingImg) && "registering user"}
 							</Button>
 					}
 				</Group>

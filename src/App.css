@@ -8,6 +8,7 @@ body{
     --primary : #228BE6;
     --primary-light : #228be625;
     --danger : rgb(255, 0, 0);
+    --light-gray : #ddd;
 
     /* background : #f9f9f9; */
     background : #f7f7f7;
@@ -20,4 +21,13 @@ small{
     font-size:var(--fs-s);
 }
 
+.wrapper{
+    width : 90%;
+    margin-inline:auto;
+}
 
+.seperator{
+    width:4px !important;
+    background:var(--light-gray);
+    border-radius:5em;
+}
