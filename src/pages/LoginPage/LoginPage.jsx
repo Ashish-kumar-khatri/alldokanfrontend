@@ -2,7 +2,6 @@ import React,{
   useState
 } from 'react'
 
-
 import {
   AuthInfoLeft,
   AuthNav,
@@ -12,14 +11,9 @@ import {
 import Login from './Login/Login';
 
 import Illustration from '../../assets/auth.svg'
-
-
 import './LoginPage.css';
 
-
-
 function LoginPage() {
-   
 
     return (
       <>
