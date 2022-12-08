@@ -55,7 +55,7 @@ function Login(){
 			navigate('/');
 		})
 		.catch(err => {
-			const error = err?.response.data.error;
+			const error = err?.response?.data?.error;
 			setErrorOccured("error occured");
 			createNotification({
 				title : "login",

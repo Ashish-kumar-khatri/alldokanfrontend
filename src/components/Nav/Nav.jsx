@@ -1,22 +1,56 @@
-import React from 'react'
+import React,{
+	useRef
+} from 'react'
 import {Logo} from '../';
 import './Nav.css'
+
 
 import {Icon} from '@iconify/react';
 import { Button } from '@mantine/core';
 import { useAuthContext } from '../../hooks';
 
-import {Link} from 'react-router-dom';
+import {Link,useNavigate} from 'react-router-dom';
+import menuItems from './menu-items';
 
 function Nav({children}){
-
 	const {logout,user} = useAuthContext();
 
+	const navigate = useNavigate();
+
+	const navMenu = useRef(null);
+	const indicatorRef = useRef(null);
+	const menuTriggerCheckbox = useRef(null);
+	
 	const logoutHandler = (e) => {
 		console.log('logging out');
 		logout()
 			.then(res => console.log('logged out success',res))
 			.catch(err => console.log('error logging out',err));
+	}	
+
+	const menuItemHandler = (e) => {
+		console.log('hanbdling menu click');
+		navigate(e.target.getAttribute('to'));
+	}
+
+	const mouseOverHandler = (e) => {
+		console.log('mouse is hovering on ',e.target)
+		indicatorRef.current.style.transform = `translateY(${44 * e.target.getAttribute('menu-position')}px)`;
+		Array.from(navMenu.current.children).forEach(child => {
+			if(child.classList.contains('active')) child.classList.remove('active'); 
+		})
+		e.target.classList.add('active');
+		// console.log(44 * e.target.getAttribute('menu-position'))
+	}
+
+	const checkboxChangeHandler = (e) => {
+		if(e.target.checked){
+			indicatorRef.current.style.visibility = "visible";
+			Array.from(navMenu.current.children)[1].classList.add('active')
+		}else{
+			indicatorRef.current.style.visibility = "hidden";
+		}
+		navMenu.current.classList.toggle('open');
 	}
 
 	return(
@@ -33,32 +67,37 @@ function Nav({children}){
 								<Icon icon = "material-symbols:add" />
 							</div>
 					}
-					<div className="seperator"></div>
 					<div className="profile-icon">
 						{
 							user &&
 								<>
-									<div className="image">
-									<img src="https://picsum.photos/200" alt="" />
-									</div>
-									<span className="username">
-										{user?.username}
-									</span>
-							</>
+									<input type="checkbox" id = "menu-triggerer" ref = {menuTriggerCheckbox} onChange = {checkboxChangeHandler} hidden/>
+									<label htmlFor = "menu-triggerer" className = "profile-menu-trigger">
+										<div className="image">
+											<img src="https://picsum.photos/200" alt="" />
+										</div>
+										<span className="username">
+											{user?.username}
+										</span>
+									</label>
+								</>
 						}
-						{
-							user ?
-								<Button
-									onClick = {logoutHandler}
-								>
-									Logout
-								</Button>:
-								<Link to = "/login">
-									<Button>
-										login
-									</Button>
-								</Link>
-						}
+						<ul className="profile-icon__menu bordered" ref = {navMenu}>
+							<div className="hover-active-indicator" ref = {indicatorRef}></div>
+							{
+								Object.values(menuItems).map((item,index) => (
+									<li
+										menu-position = {index}
+										to = {item.to}
+										onClick = {menuItemHandler}
+										onMouseOver = {mouseOverHandler}
+									>
+										<Icon icon = {item.icon}/>
+										<span>{item.name}</span>
+									</li>
+								))
+							}
+						</ul>
 					</div>
 				</div>
 			</nav>
