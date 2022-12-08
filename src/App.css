@@ -11,8 +11,11 @@ body{
     --light-gray : rgb(243, 243, 243);
     --gray-text:rgb(105, 105, 105);
 
+    --nav-height:9vh;
+    /* --nav-bg:#F5F4F5; */
+
     /* background : #f9f9f9; */
-    background : #f7f7f7;
+    /* background : #f7f7f7; */
 
     font-family: Arial, Helvetica, sans-serif;
 
@@ -27,8 +30,9 @@ small{
 }
 
 .wrapper{
-    width : 90%;
+    width : 85%;
     margin-inline:auto;
+    max-width:1920px;
 }
 
 .seperator{
@@ -39,4 +43,10 @@ small{
 
 .bordered{
     border:1px solid #ddd;
+}
+
+hr{
+    border-bottom:0px solid var(--gray-text);
+    background:var(--gray-text);
+    opacity:.6;
 }

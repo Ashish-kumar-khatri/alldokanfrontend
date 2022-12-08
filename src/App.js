@@ -4,9 +4,6 @@ import {
   Route
 } from 'react-router-dom';
 
-import { useRef } from 'react';
-
-
 import {
   HomePage,
   LoginPage,
@@ -20,16 +17,8 @@ import './styles/auth.css';
 
 function App() {
 
-
-  useEffect(() => {
-    return () => {
-      second
-    }
-  }, [third])
-  
-
   return (
-    <div className="App" ref = {bodyRef}>
+    <div className="App">
       <Routes>
         <Route path = "/" element = {<HomePage />} />
         <Route path = "/login" element = {<LoginPage />}/>

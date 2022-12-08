@@ -1,6 +1,11 @@
 .nav-container{
     background:white;
-    box-shadow:0px 2px 10px rgb(235, 235, 235);
+    position:sticky;
+    top:0;
+    height:var(--nav-height);
+    display:grid;
+    place-items:center;
+    border-bottom:1px solid #ddd;
 }
 
 .nav-container nav .logo .logo-container{
@@ -93,7 +98,7 @@
     background:white;
     display:flex;
     flex-direction: column;
-    box-shadow:2px 2px 10px var(--light-gray);
+    /* box-shadow:2px 2px 10px var(--light-gray); */
     padding:.5em;
     border-radius:5px;
     cursor: pointer;

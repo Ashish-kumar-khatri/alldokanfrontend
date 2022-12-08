@@ -1,0 +1,29 @@
+.homelayout{
+    display:grid;
+    gap:1em;
+    padding-bottom:1em;
+}
+
+.homelayout > div.main{
+    display:flex;
+}
+
+.homelayout > div.main{
+    display:grid;
+    grid-template-columns:300px 1fr;
+    /* grid-template-rows:300px 1fr; */
+    gap:1em;
+}
+
+.homelayout > div.main div.ad{
+    grid-column:1/-1;
+}
+
+.homelayout > div.main >*{
+    background:white;
+    border-radius:3px;
+}
+
+.homelayout > div.main >*:not(:first-child){
+    padding:1em;
+}

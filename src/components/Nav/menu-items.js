@@ -14,6 +14,11 @@ const menuItems = {
         name : "logout",
         icon : "fe:logout"
     },
+    becomeSeller : {
+        to : "/subscriptions",
+        name : "become a seller",
+        icon : "mdi:emoticon-cool-outline"
+    }
 
 }
 
