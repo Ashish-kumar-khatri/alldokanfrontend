@@ -10,6 +10,7 @@ import App from './App';
 import {BrowserRouter as Router} from 'react-router-dom';
 import { AuthContextProvider } from './context/authContext';
 import { CloudinaryContextProvider } from './context/cloudinaryContext';
+import GlobalContextProvider from './context/globalContext';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -22,7 +23,9 @@ root.render(
       >
         <AuthContextProvider>
           <Router>
-              <App />
+              <GlobalContextProvider>
+                <App />
+              </GlobalContextProvider>
           </Router>
         </AuthContextProvider>
       </NotificationsProvider>

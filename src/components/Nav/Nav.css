@@ -2,10 +2,11 @@
     background:white;
     position:sticky;
     top:0;
-    height:var(--nav-height);
+    min-height:var(--nav-height);
     display:grid;
     place-items:center;
     border-bottom:1px solid #ddd;
+    z-index:999;
 }
 
 .nav-container nav .logo .logo-container{
@@ -25,7 +26,7 @@
     /* flex-direction: column;
     justify-content: space-between;
     align-items: center; */
-    padding:.5em 0 1.5em;
+    padding:0 0 1em;
     display:grid;
     grid-template-areas: "logo small-things"
                             "search-bar search-bar";
@@ -35,19 +36,38 @@
 .nav-container nav .nav-right-container{
     width : 100%;
     display:flex;
-    flex-direction: column;
     align-items: center;
     grid-area:search-bar;
+    gap:1em;
+    /* border:1px solid red; */
+}
+
+.nav-container nav button.burger{
+    background:none;
+    height:100%;
+    font-size:var(--fs-xl);
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    border:none;
+    cursor: pointer;
+    opacity:.8;
+}
+
+.nav-container nav button.burger svg{
+    pointer-events: none;
 }
 
 .nav-container nav .small-things{
     gap:.4em;
+    /* border:1px solid red; */
+    display:flex;
+    justify-content: flex-end;
 }
 
 .nav-container nav .small-things,
 .nav-container nav .small-things >*{
-    display:flex;
-    align-items: center;
+    /* border:1px solid red; */
 }
 
 .nav-container nav .small-things .add-product-icon{
@@ -55,17 +75,18 @@
     justify-content: center;
     align-items: center;
     border-radius:10px;
-    background:white;
+    /* background:white; */
     box-shadow:0px 1px 10px var(--light-gray);
     font-size:var(--fs-m);
+    background:var(--primary);
     height:35px;
     width:35px;
     cursor: pointer;
 }
 
 .nav-container nav .small-things img{
-    height:30px;
-    width:30px;
+    /* height:30px;
+    width:30px; */
 }
 
 .nav-container nav .small-things img{
@@ -98,7 +119,6 @@
     background:white;
     display:flex;
     flex-direction: column;
-    /* box-shadow:2px 2px 10px var(--light-gray); */
     padding:.5em;
     border-radius:5px;
     cursor: pointer;
@@ -174,6 +194,7 @@
     /* color:white; */
 }
 
+
 @media only screen and (min-width : 900px){
     .nav-container nav{
         grid-template-areas: "logo search-bar search-bar small-things";
@@ -191,5 +212,11 @@
     .nav-container nav .small-things{
         justify-content: flex-end;
         align-items: center;
+    }
+}
+
+@media only screen and (min-width : 1000px){
+    .nav-container nav button.burger{
+        display:none;
     }
 }

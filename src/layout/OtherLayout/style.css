@@ -1,0 +1,7 @@
+.otherlayout{
+    /* min-height:100vh; */
+}
+
+.otherlayout .main{
+    padding:1em 0;
+}

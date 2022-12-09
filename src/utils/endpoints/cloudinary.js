@@ -1,3 +1,5 @@
+const base = `https://api.cloudinary.com/v1_1/djhsz1acw/image/upload`
+
 export const endpoints =  {
-    upload : `https://api.cloudinary.com/v1_1/djhsz1acw/upload`
+    documents : `${base}/alldokan/documents`
 }

@@ -1,6 +1,5 @@
 const Ad = () => (
     <div className="ad" style = {{
-        minHeight : "300px"
     }}>
         <img 
             style = {{

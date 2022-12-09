@@ -15,11 +15,10 @@ const menuItems = {
         icon : "fe:logout"
     },
     becomeSeller : {
-        to : "/subscriptions",
+        to : "/subscription",
         name : "become a seller",
         icon : "mdi:emoticon-cool-outline"
     }
-
 }
 
 export default menuItems;

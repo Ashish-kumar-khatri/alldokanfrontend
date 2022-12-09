@@ -4,14 +4,80 @@
     padding-bottom:1em;
 }
 
+.homelayout > div.main >*{
+    align-self:start;
+}
+
+.homelayout > div.main .left-sidebar{
+    position:fixed;
+    left:0;
+    top:0;
+    height:100vh;
+    overflow-y:scroll;
+    z-index:1001;
+    width:90%;
+    width:var(--mobile-sidebar-width);
+    transform:translateX(-100%);
+    transition:transform 200ms linear;
+}
+
+.homelayout > div.main .left-sidebar::-webkit-scrollbar{
+    display:none;
+}
+
+.homelayout > div.main .left-sidebar-close{
+    position:fixed;
+    left:0;
+    top:0;
+    height:100vh;
+    width:100vw;
+    z-index:1000;
+    background:rgba(0,0,0,.4);
+    visibility: hidden;
+}
+
+.homelayout > div.main .left-sidebar .closebtn{
+    position:fixed;
+    background:none;
+    border:none;
+    font-size:var(--fs-l);
+    color:var(--gray-text);
+    top:.5em;
+    left:calc(var(--mobile-sidebar-width) - 1.5em);
+    cursor:pointer;
+}
+
+.homelayout > div.main .left-sidebar.opened{
+    transform:translateX(0);
+}
+
+.homelayout > div.main .left-sidebar.opened ~ .left-sidebar-close{
+    animation:fadeIn 200ms linear forwards;
+}
+
+@keyframes fadeIn {
+    0%{
+        opacity:0;
+        visibility:visible;
+    } 
+    
+    100%{
+        opacity:1;
+        visibility: visible;
+    }
+}
+
+.homelayout > div.main .left-sidebar .closebtn svg{
+    pointer-events: none;
+}
+
 .homelayout > div.main{
     display:flex;
 }
 
 .homelayout > div.main{
     display:grid;
-    grid-template-columns:300px 1fr;
-    /* grid-template-rows:300px 1fr; */
+    grid-template-columns:1fr;
     gap:1em;
 }
 
@@ -26,4 +92,31 @@
 
 .homelayout > div.main >*:not(:first-child){
     padding:1em;
+}
+
+.homelayout > div.main>*:first-child{
+    grid-column:1/-1;
+}
+
+@media only screen and (min-width : 1000px){
+    .homelayout > div.main .left-sidebar{
+        position:unset;
+        height:unset;
+        z-index:unset;
+        left:unset;
+        top:unset;
+        transform:unset;
+    }
+
+    .homelayout > div.main .left-sidebar-close{
+        display:none;
+    }
+
+    .homelayout > div.main{
+        grid-template-columns:var(--mobile-sidebar-width) 1fr;
+    }
+
+    .homelayout > div.main .left-sidebar .closebtn{
+        display:none;
+    }
 }
