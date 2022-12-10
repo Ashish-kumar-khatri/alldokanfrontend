@@ -1,0 +1,40 @@
+.productCard{
+    /* border:1px solid red; */
+    display:flex;
+    width:fit-content;
+    flex-direction: column;
+    width:250px;
+    gap:.5em;
+}
+
+.productCard .image{
+    height:150px;
+    width:250px;
+    background:var(--skeleton);
+}
+
+.productCard .details{
+    display:flex;
+    flex-direction: column;
+    gap:.5em;
+}
+
+.productCard .details .name{
+    width:80%;
+    padding:.5em;
+}
+
+.productCard .details .price{
+    width:50%;
+    padding:.6em;
+}
+
+.productCard .details .other{
+    width:100%;
+    padding:1em 0;
+}
+
+.productCard .details>*{
+    /* border:1px solid red; */
+    background:var(--skeleton);
+}

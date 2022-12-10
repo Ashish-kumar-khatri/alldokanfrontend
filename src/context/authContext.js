@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import jwt_decode from 'jwt-decode';
 import { endpoints } from '../utils/endpoints/authEndpoints';
-import { useAxios } from '../hooks/';
+import { useAxios,useCreateNotification } from '../hooks/';
+import { Icon } from '@iconify/react';
+
 
 export const AuthContext = React.createContext();
 
@@ -17,7 +19,8 @@ export const AuthContextProvider = ({ children }) => {
   );
 
   const axiosInstance = useAxios();
-
+  const {createToast} = useCreateNotification();
+  
   const register = async (data) => {
     return new Promise((resolve, reject) => {
       axiosInstance
@@ -55,24 +58,27 @@ export const AuthContextProvider = ({ children }) => {
         });
     });
   };
-
+  
   const logout = async (data) => {
-    return new Promise((resolve, reject) => {
+    // return new Promise((resolve, reject) => {
       setToken(null);
       setUser(null);
       localStorage.removeItem('token');
       localStorage.removeItem('user');
-      return resolve('logged out successfully');
-    });
+      createToast({
+        icon : <Icon icon = "mdi:tick-circle" />,
+        message : 'logged out successfully'
+      });
+      // return resolve('logged out successfully');
+    // });
   };
 
   let value = {
-    token: 'testtoken',
+    token: token,
     user: user,
     register: register,
     login: login,
     logout: logout,
-    name: 'ashish',
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

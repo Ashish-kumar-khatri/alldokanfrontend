@@ -15,7 +15,10 @@ const CategoriesList = () => {
             <ul className="list">
                 {
                     categoriesItems.map(category => (
-                        <li className="active">
+                        <li 
+                            className="active"
+                            key = {category.name}
+                        >
                             <Icon icon = {category.icon} />
                             <span>{category.name}</span>
                         </li>

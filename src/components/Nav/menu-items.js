@@ -10,7 +10,6 @@ const menuItems = {
         icon : "material-symbols:settings-suggest-outline-rounded"
     },
     logout : {
-        to : "/logout",
         name : "logout",
         icon : "fe:logout"
     },

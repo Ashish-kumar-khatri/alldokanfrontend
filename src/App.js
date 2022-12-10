@@ -4,6 +4,8 @@ import {
   Route
 } from 'react-router-dom';
 
+import { useEffect } from 'react';
+
 import Subscriptions from  './pages/SubscriptionPage/Subscriptions'
 import SellerSubscription from './pages/SubscriptionPage/SellerSubscription'
 import CompanySubscription from './pages/SubscriptionPage/CompanySubscription';
@@ -15,10 +17,12 @@ import {
   ForgotPasswordPage,
   ResetPasswordPage,
   ProductDetailPage,
-  SubscriptionPage
+  SubscriptionPage,
+  OtpVerifyPage
 } from './pages/'
 
 import './styles/auth.css';
+import PrivateRoute from './utils/Routes/PrivateRoute';
 
 function App() {
 
@@ -30,9 +34,18 @@ function App() {
         <Route path = "/register/*" element = {<RegisterPage />} />
         <Route path = "/forgot-password" element = {<ForgotPasswordPage />} />
         <Route path = "/reset-password/:resetToken" element = {<ResetPasswordPage />} />
+        <Route path = "/otp-verify" element = {<OtpVerifyPage />} />
         
-        <Route path = "/category/productId/*" element = {<ProductDetailPage />}/>
-        <Route path = "/subscription/*" element = {<SubscriptionPage />}>
+        <Route path = "/category/productId/*" element = {
+          <PrivateRoute>
+            <ProductDetailPage />
+          </PrivateRoute>
+        }/>
+        <Route path = "/subscription/*" element = {
+          <PrivateRoute>
+            <SubscriptionPage />
+          </PrivateRoute>
+        }>
           <Route path = "" element = {<Subscriptions />} />
           <Route path = "seller" element = {<SellerSubscription />} />
           <Route path = "company" element = {<CompanySubscription />} />

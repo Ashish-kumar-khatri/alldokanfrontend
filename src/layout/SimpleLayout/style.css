@@ -1,0 +1,11 @@
+.simpleLayout .logo-area{
+    display: flex;
+    justify-content: center;
+    background:var(--white);
+}
+
+.simpleLayout .main{
+    display: flex;
+    justify-content: center;
+    padding:2em;
+}

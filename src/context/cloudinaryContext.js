@@ -7,14 +7,15 @@ export const cloudinaryContext = React.createContext();
 
 export const CloudinaryContextProvider = ({children}) => {
 
-    const uploadToCloudinary = (imageType,image) => {
+    const uploadToCloudinary = (data) => {
         return new Promise(async (resolve,reject) => {
             try{
-                console.log('inside uploadToCLoudinfay promise')
+                console.log('inside uploadToCLoudinfay promise',data)
                 let form_data = new FormData();
-                form_data.append('file',image);
+                form_data.append('file',data.image);
                 form_data.append('upload_preset','alldokan');
-                const res = await axios.post(`${endpoints[imageType]}`,form_data);
+                const res = await axios.post(`${endpoints['temp']}`,form_data);
+                console.log('docname = ',data.doc_name)
                 return resolve(res.data)
             }catch(err){
                 return reject('error occured',err);

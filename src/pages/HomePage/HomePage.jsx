@@ -1,6 +1,6 @@
 import { Button } from '@mantine/core';
 import React from 'react'
-import { Logo, Nav, SearchBar, CategoriesList, Ad } from '../../components';
+import { Logo, Nav, SearchBar, CategoriesList, Ad, Carousel, ProductCard } from '../../components';
 import HomeLayout from '../../layout/HomeLayout';
 import { Icon } from '@iconify/react';
 
@@ -33,8 +33,22 @@ function HomePage() {
         Ad = {<Ad />}
       >
         <div className="home-products" >
-          <div>top viewed</div>
-          <div>something viewed</div>
+          <Carousel
+            title = "top listing"
+          >
+            <ProductCard 
+
+            />
+          </Carousel>
+          <br/>
+          <Carousel
+            title = "verified seller products"
+          >
+            <ProductCard 
+
+            />
+          </Carousel>
+          {/* <div>something viewed</div> */}
         </div>
       </HomeLayout>
     </>

@@ -11,6 +11,8 @@ body{
     --light-gray : rgb(243, 243, 243);
     --gray-text:rgb(105, 105, 105);
     --white : white;
+    --skeleton : #ddd;
+    --link:rgb(1, 144, 233);
 
     --mobile-sidebar-width : 340px;
     --nav-height:9vh;
@@ -27,6 +29,10 @@ body{
     /* position:unset !important; */
 }
 
+a{
+    color:var(--link);
+}
+
 li{
     list-style: none;
 }
@@ -39,6 +45,16 @@ small{
     width : 95%;
     margin-inline:auto;
     max-width:1920px;
+}
+
+.bold{
+    font-weight:bold;
+}
+
+.inactive{
+    opacity:.3;
+    pointer-events: none;
+    user-select: none;
 }
 
 @media only screen and (min-width : 800px){

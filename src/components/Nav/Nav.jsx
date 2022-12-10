@@ -27,15 +27,28 @@ function Nav({burger,children}){
 	
 	const logoutHandler = (e) => {
 		console.log('logging out');
-		logout()
-			.then(res => console.log('logged out success',res))
-			.catch(err => console.log('error logging out',err));
+		logout();
+		// logout()
+		// 	.then(res => console.log('logged out success',res))
+		// 	.catch(err => console.log('error logging out',err));
 	}	
 
 	const menuItemHandler = (e) => {
 		console.log('hanbdling menu click');
-		navigate(e.target.getAttribute('to'));
-	}
+		switch(e.target.getAttribute('name')){
+			case "logout":
+				logout();
+				break;
+			
+			default:
+				navigate(e.target.getAttribute('to'));
+				break;
+			
+			}
+			navMenu.current.classList.toggle('open');
+			menuTriggerCheckbox.current.checked = false;
+			indicatorRef.current.style.visibility = "hidden";
+		}
 
 	const mouseOverHandler = (e) => {
 		console.log('mouse is hovering on ',e.target)
@@ -64,7 +77,7 @@ function Nav({burger,children}){
 				<div className="nav-right-container">
 					{
 						burger &&
-						<button 
+						<button
 							className='burger'
 							onClick = {() => setMobileShowSideCategories(prev => !prev)}
 						>
@@ -76,14 +89,18 @@ function Nav({burger,children}){
 				<div className="small-things">
 					{
 						user &&
-							<div className="add-product-icon">
-								<Icon icon = "material-symbols:add" />
-							</div>
+							<Button 
+								className="add-product-icon"
+								leftIcon = {<Icon icon = "material-symbols:add" />}
+							>
+								
+								Add
+							</Button>
 					}
 					{
 						!user &&
 							<Button
-								leftIcon = {<Icon 
+								rightIcon = {<Icon 
 									style = {{
 										fontSize : "var(--fs-m)"
 									}}
@@ -100,33 +117,30 @@ function Nav({burger,children}){
 								<div className="profile-icon">
 									<input type="checkbox" id = "menu-triggerer" ref = {menuTriggerCheckbox} onChange = {checkboxChangeHandler} hidden/>
 									<label htmlFor = "menu-triggerer" className = "profile-menu-trigger">
-										{/* <div className="image">
-											<img src="https://picsum.photos/200" alt="" />
-										</div>
-										<span className="username">
-											{user?.username}
-										</span> */}
-										<span>
-											{user.person_name}
-										</span>
 										<Avatar 
+											radius = {5}
 											style = {{
 												cursor : "pointer",
 											}}
 											src = {user.avatar}
 										/>
+										<span>
+											{user.person_name}
+										</span>
+										<Icon icon = "mdi:chevron-down" />
 									</label>
 								<ul className="profile-icon__menu bordered" ref = {navMenu}>
 									<div className="hover-active-indicator" ref = {indicatorRef}></div>
 									{
 										Object.values(menuItems).map((item,index) => (
 											<li
-											key = {`${item}${index}`}
-											menu-position = {index}
+												key = {`${item}${index}`}
+												menu-position = {index}
 												to = {item.to}
 												onClick = {menuItemHandler}
+												name = {item.name}
 												onMouseOver = {mouseOverHandler}
-												>
+											>
 												<Icon icon = {item.icon}/>
 												<span>{item.name}</span>
 											</li>

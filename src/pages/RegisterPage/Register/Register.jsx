@@ -32,7 +32,7 @@ import axios from 'axios';
 import './Register.css'
 import { valid } from 'joi';
 import { endpoints } from '../../../utils/endpoints/authEndpoints';
-import {useAuthContext,useCloudinaryContext} from '../../../hooks/';
+import {useAuthContext,useCloudinaryContext, useCreateNotification} from '../../../hooks/';
 
 function Register(){
 	const [data,setData] = useState({
@@ -85,6 +85,7 @@ function Register(){
 	const navigate = useNavigate();
 	const {register} = useAuthContext();
 	const {uploadToCloudinary} = useCloudinaryContext();
+	const {createNotification} = useCreateNotification();
 
 	const nextStep = () => setActive(current => {
 		return current < 3 ? current + 1 : current;
@@ -168,7 +169,10 @@ function Register(){
 		// save to cloudinary
 		try{	
 			setUploadingImg(true);
-			let res = await uploadToCloudinary(data.avatar);
+			let res = await uploadToCloudinary({
+				image : data.avatar,
+				type : "profile",
+			});
 			console.log('uploaded to cloudinary',res);
 			setData(prev => ({
 				...prev,
@@ -178,6 +182,8 @@ function Register(){
 			setSubmitting(true);
 			setTimeout(() => setSubmitting(false),5000);
 		}catch(err){
+			setUploadingImg(false);
+			setSubmitting(false);
 			console.log(err);
 		}
 	}
@@ -186,7 +192,21 @@ function Register(){
 		if(submitting){
 			register(data)
 			.then(res => {
-				navigate('/');
+				createNotification({
+					title : "register",
+					type : "success",
+					timer : 5000,
+					message : "successfully created account",
+					icon : "material-symbols:sms-failed"
+				})
+				createNotification({
+					title : "otp",
+					type : "success",
+					timer : 5000,
+					message : "otp is sent to the registered email",
+					icon : "material-symbols:sms-failed"
+				})
+				navigate('/otp-verify');
 				setSubmitting(false);
 			})
 			.catch(err => {

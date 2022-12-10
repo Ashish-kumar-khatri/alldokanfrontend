@@ -47,6 +47,14 @@
     cursor:pointer;
 }
 
+.homelayout > div.main .center{
+    overflow-x:Scroll;
+}
+
+.homelayout > div.main .center::-webkit-scrollbar{
+    display: none;
+}
+
 .homelayout > div.main .left-sidebar.opened{
     transform:translateX(0);
 }

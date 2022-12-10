@@ -35,7 +35,7 @@ function ResetPasswordPage(){
 		repeat_password : ""
 	})
 
-	const createNotification = useCreateNotification();
+	const {createNotification} = useCreateNotification();
 
 	const {resetToken} = useParams();
 

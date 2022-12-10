@@ -7,6 +7,7 @@ import ProductDetailPage from './ProductDetailPage/ProductDetailPage';
 import CategoryDetailPage from './CategoryDetailPage/CategoryDetailPage';
 
 import SubscriptionPage from './SubscriptionPage';
+import OtpVerifyPage from './OtpVerifyPage';
 
 export {
     LoginPage,
@@ -16,5 +17,6 @@ export {
     ResetPasswordPage,
     ProductDetailPage,
     CategoryDetailPage,
-    SubscriptionPage
+    SubscriptionPage,
+    OtpVerifyPage
 }

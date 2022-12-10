@@ -27,7 +27,9 @@ const HomeLayout = ({nav,categoriesList,Ad,children}) => {
                     <CategoriesList />
                 </div>
                 <div className = "left-sidebar-close"></div>
-                <div className='center bordered'>
+                <div 
+                    
+                    className='center bordered'>
                     {children}
                 </div>
             </div>

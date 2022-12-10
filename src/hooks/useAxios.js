@@ -1,12 +1,12 @@
-import { useAuthContext } from './';
+import useAuthContext from './useAuthContext';
 import jwt_decode from 'jwt-decode';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import fetchBaseURL from '../utils/endpoints/baseURL';
 
 function useAxios() {
-  console.log(useAuthContext());
-  // const {token,logout} = useAuthContext();
+
+  const token = localStorage.getItem('token') ? localStorage.getItem('token') : null
 
   const baseURL = fetchBaseURL();
 
@@ -17,15 +17,11 @@ function useAxios() {
     // }
   });
 
-  // const navigate = useNavigate();
-
   axiosInstance.interceptors.request.use((req) => {
     console.log('inside axiosInstance');
-    // if(token){
-    // const user = jwt_decode(token);
-    // req.headers.Authorization = `Bearer ${token}`;
-    // }
-
+    if(token){
+      req.headers.Authorization = `Bearer ${token}`;
+    }
     return req;
   });
 

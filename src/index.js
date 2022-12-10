@@ -11,11 +11,11 @@ import {BrowserRouter as Router} from 'react-router-dom';
 import { AuthContextProvider } from './context/authContext';
 import { CloudinaryContextProvider } from './context/cloudinaryContext';
 import GlobalContextProvider from './context/globalContext';
-
+import {Toaster} from 'react-hot-toast';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  // <React.StrictMode>
+  <React.StrictMode>
     <MantineProvider>
       <CloudinaryContextProvider>
       <NotificationsProvider
@@ -25,11 +25,12 @@ root.render(
           <Router>
               <GlobalContextProvider>
                 <App />
+                <Toaster />
               </GlobalContextProvider>
           </Router>
         </AuthContextProvider>
       </NotificationsProvider>
             </CloudinaryContextProvider>
     </MantineProvider>
-  // </React.StrictMode>
+  </React.StrictMode>
 );

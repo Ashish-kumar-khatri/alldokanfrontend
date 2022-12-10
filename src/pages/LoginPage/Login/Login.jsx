@@ -35,10 +35,10 @@ function Login(){
 	const [emailError,setEmailError] = useState("");
 	
 	const {login} = useAuthContext();
-	const createNotification = useCreateNotification();
+	const {createNotification} = useCreateNotification();
 
 	const navigate = useNavigate();
-
+	
 	const submitHandler = (e) => {
 	e.preventDefault();
 	setSubmitting(true);

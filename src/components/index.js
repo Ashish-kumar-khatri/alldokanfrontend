@@ -5,6 +5,9 @@ import SearchBar from './SearchBar/SearchBar';
 
 import CategoriesList from './CategoriesList/';
 import Ad from './Ad';
+import ProductCard from './ProductCard/';
+import Carousel from './Carousel/Carousel';
+
 
 export{
     Nav,
@@ -13,5 +16,7 @@ export{
     SearchBar,
 
     CategoriesList,
-    Ad
+    Ad,
+    ProductCard,
+    Carousel
 }

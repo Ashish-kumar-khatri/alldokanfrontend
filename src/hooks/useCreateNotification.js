@@ -1,5 +1,6 @@
 import {showNotification}  from '@mantine/notifications';
 import {Icon} from '@iconify/react';
+import toast from 'react-hot-toast';
 
 function useCreateNotification(){
 
@@ -25,7 +26,14 @@ function useCreateNotification(){
         showNotification(config)
     }
 
-    return createNotification
+    function createToast(data){
+        toast(data.message,{
+            position : "top-center",
+            icon : data.icon
+        });
+    }
+
+    return {createNotification,createToast}
 
 }
 
