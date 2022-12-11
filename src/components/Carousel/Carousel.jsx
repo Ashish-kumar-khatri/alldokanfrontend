@@ -17,18 +17,7 @@ function Carousel({title,children}) {
             slideSize={0} 
             slideGap="lg"
         >
-        <Box.Slide>{children}</Box.Slide>
-        <Box.Slide>{children}</Box.Slide>
-        <Box.Slide>{children}</Box.Slide>
-        <Box.Slide>{children}</Box.Slide>
-        <Box.Slide>{children}</Box.Slide>
-        <Box.Slide>{children}</Box.Slide>
-        <Box.Slide>{children}</Box.Slide>
-        <Box.Slide>{children}</Box.Slide>
-        <Box.Slide>{children}</Box.Slide>
-        <Box.Slide>{children}</Box.Slide>
-        <Box.Slide>{children}</Box.Slide>
-        <Box.Slide>{children}</Box.Slide>
+          
         </Box>
         <br />
     </>

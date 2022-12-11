@@ -18,7 +18,8 @@ import {
   ResetPasswordPage,
   ProductDetailPage,
   SubscriptionPage,
-  OtpVerifyPage
+  OtpVerifyPage,
+  ProfilePage
 } from './pages/'
 
 import './styles/auth.css';
@@ -35,7 +36,12 @@ function App() {
         <Route path = "/forgot-password" element = {<ForgotPasswordPage />} />
         <Route path = "/reset-password/:resetToken" element = {<ResetPasswordPage />} />
         <Route path = "/otp-verify" element = {<OtpVerifyPage />} />
-        
+        <Route path = "/profile" element = {
+          <PrivateRoute>
+            <ProfilePage />
+          </PrivateRoute>
+        } />
+
         <Route path = "/category/productId/*" element = {
           <PrivateRoute>
             <ProductDetailPage />

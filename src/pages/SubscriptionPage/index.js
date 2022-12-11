@@ -9,16 +9,6 @@ const SubscriptionPage = () => {
     return(
         <>
             <OtherLayout
-                nav =  {
-                    <Nav
-                        burger = {false}
-                    >
-                        <SearchBar 
-                        placeholder = "Search for anything"
-                        //   onSubmit = {searchHandler}
-                        />
-                    </Nav>
-                }
                 >
                 <div className = "main">
                     <Outlet />

@@ -15,6 +15,7 @@ import {showNotification} from '@mantine/notifications';
 
 import {
 	Link,
+	useLocation,
 	useNavigate
 } from 'react-router-dom';
 import { Icon } from '@iconify/react';
@@ -86,6 +87,7 @@ function Register(){
 	const {register} = useAuthContext();
 	const {uploadToCloudinary} = useCloudinaryContext();
 	const {createNotification} = useCreateNotification();
+	const location = useLocation();
 
 	const nextStep = () => setActive(current => {
 		return current < 3 ? current + 1 : current;
@@ -206,7 +208,11 @@ function Register(){
 					message : "otp is sent to the registered email",
 					icon : "material-symbols:sms-failed"
 				})
-				navigate('/otp-verify');
+				navigate('/otp-verify',{
+					state : {
+						from : location.pathname
+					}
+				});
 				setSubmitting(false);
 			})
 			.catch(err => {

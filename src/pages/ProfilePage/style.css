@@ -1,0 +1,23 @@
+.profilepage-container{
+    display:flex;
+    flex-direction: column;
+    gap:2em;
+    /* background:var(--white); */
+}
+
+.profilepage-container >*{
+    padding:1em;
+    background:var(--white);
+}
+
+@media only screen and (min-width : 900px){
+    .profilepage-container{
+        display:grid;
+        grid-template-columns:400px 1fr;
+        gap:.5em;
+    }
+
+    .profilepage-container >*{
+        min-height:calc(100vh - var(--nav-height) - 2em);
+    }
+}

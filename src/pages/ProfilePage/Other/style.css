@@ -1,0 +1,8 @@
+.profile-other{
+    min-height:100vh;
+    /* border:1px solid red; */
+}
+
+.profile-other .padded{
+    padding:2em 0;
+}

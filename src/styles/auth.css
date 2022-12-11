@@ -90,6 +90,10 @@
     text-align: center;
 }
 
+.auth-container a.center{
+    text-align: center;
+}
+
 @media only screen and (min-width : 1000px){
     .auth-container{
         grid-template-columns:repeat(2,1fr);
