@@ -13,9 +13,10 @@ body{
     --white : white;
     --skeleton : #ddd;
     --link:rgb(1, 144, 233);
+    --urgent-bg:rgba(255, 0, 0, 0.265);
 
     --mobile-sidebar-width : 340px;
-    --nav-height:9vh;
+    --nav-height:128px;
     /* --nav-bg:#F5F4F5; */
 
     /* background : #f9f9f9; */
@@ -57,13 +58,19 @@ small{
     user-select: none;
 }
 
+.inline-link{
+    margin-left:.5em;
+}
+
 @media only screen and (min-width : 800px){
     *{
         --mobile-sidebar-width : 300px;
+        --nav-height:9vh;
     }
     .wrapper{
         width : 90%;
     }
+    
 }
 
 .seperator{

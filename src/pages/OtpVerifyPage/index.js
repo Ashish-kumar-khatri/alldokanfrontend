@@ -2,13 +2,16 @@ import { Button, TextInput } from "@mantine/core";
 import { Logo } from "../../components"
 import { useAuthContext,useCreateNotification,useGlobalContext } from "../../hooks";
 import SimpleLayout from "../../layout/SimpleLayout";
-import {useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import Mailbro from '../../assets/Mail-bro.svg';
 import { Icon } from "@iconify/react";
 
 import './style.css'
+import { useLocation, useNavigate } from "react-router-dom";
 
 const OtpVerifyPage = () => {
+
+    const formRef = useRef(null);
 
     const [otp,setOtp] = useState("");
     const [submitting,setSubmitting] = useState(false);
@@ -18,6 +21,10 @@ const OtpVerifyPage = () => {
     const {user} = useAuthContext();
     const {verifyOtp,resendOtp} = useGlobalContext();
     const {createNotification,createToast} = useCreateNotification();
+
+    const navigate = useNavigate();
+    console.log(useLocation());
+    const from = useLocation().state?.from.split('/')[1];
 
     const submitHandler = (e) => {
         e.preventDefault();
@@ -45,12 +52,11 @@ const OtpVerifyPage = () => {
     const optResendHandler = (e) => {
         e.preventDefault();
         setResending(true);
-        console.log('resending otp');
         resendOtp()
             .then(res => {
                 createToast({
                     icon : <Icon icon = "mdi:tick-circle" />,
-                    message : "otp resent successfully"
+                    message : `otp sent to ${user?.email}`
                 })
                 setOtp("");
                 console.log(res);
@@ -61,13 +67,19 @@ const OtpVerifyPage = () => {
 					title : "otp verification",
 					type : "failure",
 					timer : 5000,
-					message : "error occured while resending otp",
+					message : err?.data?.message,
 					icon : "material-symbols:sms-failed"
 				})
                 console.log(err);
                 setResending(false);
             })
     }
+
+    useEffect(() => {
+        if((from !== "register" || from !== "login")){
+            // formRef.current.submit();
+        }
+    },[from])
 
     return(
        <SimpleLayout>
@@ -89,6 +101,7 @@ const OtpVerifyPage = () => {
                 </div>
                 <form
                     onSubmit = {submitHandler}
+                    ref = {formRef}
                 >
                     <TextInput 
                         name = "otp"

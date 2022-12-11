@@ -28,7 +28,6 @@ const HomeLayout = ({nav,categoriesList,Ad,children}) => {
                 </div>
                 <div className = "left-sidebar-close"></div>
                 <div 
-                    
                     className='center bordered'>
                     {children}
                 </div>
