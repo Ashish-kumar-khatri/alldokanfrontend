@@ -31,6 +31,7 @@
     grid-template-areas: "logo small-things"
                             "search-bar search-bar";
     gap:1em;
+    position:relative;
 }
 
 .nav-container nav .nav-right-container{
@@ -122,6 +123,7 @@
     border-radius:5px;
     cursor: pointer;
     visibility: hidden;
+    z-index:1000;
 }
 
 /* .profile-icon__menu:before{
@@ -191,6 +193,18 @@
 
 .profile-icon__menu >*:hover{
     /* color:white; */
+}
+
+.global-msg{
+    position:sticky;
+    top:var(--nav-height);
+    z-index:2;
+    display:flex;
+}
+
+.global-msg.urgent{
+    background:var(--urgent-bg);
+    color:var(--urgent-color);
 }
 
 

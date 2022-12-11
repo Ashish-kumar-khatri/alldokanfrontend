@@ -1,15 +1,15 @@
 import React,{
-	useRef
+	useRef,
+	useState
 } from 'react'
 import {Logo} from '../';
 import './Nav.css'
 
-
 import {Icon} from '@iconify/react';
-import { Avatar, Button } from '@mantine/core';
+import { Avatar, Button, Alert, Flex } from '@mantine/core';
 import { useAuthContext } from '../../hooks';
 
-import {Link,useNavigate} from 'react-router-dom';
+import {Link,useLocation,useNavigate} from 'react-router-dom';
 import menuItems from './menu-items';
 
 import {useGlobalContext} from '../../hooks/useGlobalContext'
@@ -18,8 +18,9 @@ function Nav({burger,children}){
 	const {logout,user} = useAuthContext();
 
 	const navigate = useNavigate();
+	const location = useLocation();
 	const {mobileShowSideCategories,setMobileShowSideCategories} = useGlobalContext()
-
+	const [showAlert,setShowAlert] = useState(user?.email_verified ? false : true)
 
 	const navMenu = useRef(null);
 	const indicatorRef = useRef(null);
@@ -70,7 +71,24 @@ function Nav({burger,children}){
 		navMenu.current.classList.toggle('open');
 	}
 
+	const clickandler = (e) => {
+		console.log('clicked',e.target.tagName)
+		if(e.target.tagName == "svg"){
+			setShowAlert(prev => !prev)
+		}
+	}
+
+	const verifyNowHandler = (e) => {
+		e.preventDefault();
+		navigate('/otp-verify',{
+			state : {
+				from : location.pathname
+			}
+		});
+	}
+
 	return(
+		<>
 		<div className = "nav-container">
 			<nav className = "wrapper">
 				<Logo />
@@ -153,6 +171,20 @@ function Nav({burger,children}){
 				</div>
 			</nav>
 		</div>
+		{
+			(user && showAlert) &&
+			<Alert withCloseButton closeButtonLabel="Close alert" onClick = {clickandler} className = "global-msg wrapper bordered"  title="Bummer!" color="red">
+				You have not verified your email address. You must be verified to use our app to full potential.
+				<a 
+					href = "#"
+					className = "inline-link"
+					onClick={verifyNowHandler}
+				>
+					verify now
+				</a>
+			</Alert>
+		}
+		</>
 	)
 
 }
