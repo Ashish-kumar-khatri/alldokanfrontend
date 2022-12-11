@@ -1,12 +1,14 @@
 import { Button } from '@mantine/core';
 import React from 'react'
-import { Logo, Nav, SearchBar, CategoriesList, Ad, Carousel, ProductCard } from '../../components';
+import { Logo, Nav, SearchBar, CategoriesList, Ad, ProductCard } from '../../components';
 import HomeLayout from '../../layout/HomeLayout';
+import {Carousel} from '@mantine/carousel';
 import { Icon } from '@iconify/react';
 
 import {useGlobalContext} from '../../hooks/';
 
 import './HomePage.css';
+import {products1,products2} from './products';
 
 function HomePage() {
 
@@ -33,22 +35,85 @@ function HomePage() {
         Ad = {<Ad />}
       >
         <div className="home-products" >
-          <Carousel
+        <h3
+            style = {{
+                textTransform : "capitalize",
+                marginBottom : "1em"
+            }}
+        >Top viewed</h3>
+        <Carousel 
+            className = "carousel-container" 
+            align = "start" 
+            slideSize={0} 
+            slideGap="lg"
+        >
+           {
+            products1.map(product => (
+             <Carousel.Slide>
+               <ProductCard 
+                key = {product.title}
+                title = {product.title}
+                image = {product.image}
+                condition = {product.condition}
+                price = {product.price}
+            />
+             </Carousel.Slide>
+            ))
+           }
+        </Carousel>
+          {/* <Carousel
             title = "top listing"
           >
-            <ProductCard 
-
+           {
+            products.map(product => (
+              <ProductCard 
+                key = {product.title}
+                title = {product.title}
+                image = {product.image}
+                condition = {product.condition}
+                price = {product.price}
             />
-          </Carousel>
+            ))
+           }
+          </Carousel> */}
           <br/>
-          <Carousel
+          <br/>
+          <br/>
+
+          {/* <Carousel
             title = "verified seller products"
           >
             <ProductCard 
 
             />
-          </Carousel>
+          </Carousel> */}
           {/* <div>something viewed</div> */}
+          <h3
+            style = {{
+                textTransform : "capitalize",
+                marginBottom : "1.4em"
+            }}
+          >From top verified seller</h3>
+          <Carousel 
+            className = "carousel-container" 
+            align = "start" 
+            slideSize={0} 
+            slideGap="lg"
+        >
+           {
+            products2.map(product => (
+             <Carousel.Slide>
+               <ProductCard 
+                key = {product.title}
+                title = {product.title}
+                image = {product.image}
+                condition = {product.condition}
+                price = {product.price}
+            />
+             </Carousel.Slide>
+            ))
+           }
+        </Carousel>
         </div>
       </HomeLayout>
     </>

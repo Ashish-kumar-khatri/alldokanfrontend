@@ -5,6 +5,7 @@ import ForgotPasswordPage from './ForgotPasswordPage/ForgotPasswordPage';
 import ResetPasswordPage from './ResetPasswordPage/ResetPasswordPage';
 import ProductDetailPage from './ProductDetailPage/ProductDetailPage';
 import CategoryDetailPage from './CategoryDetailPage/CategoryDetailPage';
+import ProfilePage from './ProfilePage/ProfilePage';
 
 import SubscriptionPage from './SubscriptionPage';
 import OtpVerifyPage from './OtpVerifyPage';
@@ -18,5 +19,6 @@ export {
     ProductDetailPage,
     CategoryDetailPage,
     SubscriptionPage,
-    OtpVerifyPage
+    OtpVerifyPage,
+    ProfilePage
 }

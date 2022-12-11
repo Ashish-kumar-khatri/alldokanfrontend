@@ -7,7 +7,7 @@ import {
 	Button,
 	PasswordInput
 } from '@mantine/core';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import {
 	useAuthContext,
@@ -35,6 +35,7 @@ function Login(){
 	const [emailError,setEmailError] = useState("");
 	
 	const {login} = useAuthContext();
+	const location = useLocation();
 	const {createNotification} = useCreateNotification();
 
 	const navigate = useNavigate();
@@ -151,15 +152,31 @@ function Login(){
 				}
 				</Button>
 				<div className="footer-text">
-				<span>
-					Don't have account?
-				</span>
-				<Link
-					to = "/register"
-				>
-					Register
-				</Link>
+					<span>
+						Don't have account?
+					</span>
+					<Link
+						to = "/register"
+					>
+						Register
+					</Link>
 				</div>
+				<div className="footer-text">
+					<span>
+						Not verified yet?
+					</span>
+					<a
+						href = "#"
+						className = "center"
+						onClick = {(e) => {
+							e.preventDefault();
+							navigate('/otp-verify',{state : {from : location.pathname}});
+						}}
+					>
+						verify now
+					</a>
+				</div>
+				
         	</form>
 		</div>
 	)

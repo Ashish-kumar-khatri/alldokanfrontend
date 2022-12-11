@@ -2,7 +2,9 @@
     display:flex;
     flex-direction: column;
     gap:2em;
+    width:100%;
     justify-content: center;
+    max-width:500px;
 }
 
 .otp-verify-container .illustration{
@@ -11,7 +13,6 @@
 }
 
 .otp-verify-container >*{
-    /* border:1px solid red; */
     text-align: center;
 }
 

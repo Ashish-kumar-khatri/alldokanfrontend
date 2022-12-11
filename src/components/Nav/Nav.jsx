@@ -171,7 +171,7 @@ function Nav({burger,children}){
 				</div>
 			</nav>
 		</div>
-		{
+		{/* {
 			(user && showAlert) &&
 			<Alert withCloseButton closeButtonLabel="Close alert" onClick = {clickandler} className = "global-msg wrapper bordered"  title="Bummer!" color="red">
 				You have not verified your email address. You must be verified to use our app to full potential.
@@ -183,7 +183,7 @@ function Nav({burger,children}){
 					verify now
 				</a>
 			</Alert>
-		}
+		} */}
 		</>
 	)
 

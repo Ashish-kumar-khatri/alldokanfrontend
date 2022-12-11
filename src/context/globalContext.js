@@ -19,11 +19,20 @@ const GlobalContextProvider = ({children}) => {
     }
 
     async function verifyOtp(otp){
-        return await axiosInstance.post(`${endpoints.otpVerify}`,{pin : otp});
+        return await axiosInstance.post(`${endpoints.otpVerify}`,{
+            email : otp.email,
+            pin: otp.otp
+        });
     }
 
-    async function resendOtp(otp){
-        return await axiosInstance.post(`${endpoints.resendOtp}`);
+    async function sendOtp(email){
+        return await axiosInstance.post(`${endpoints.sendOtp}`,{
+            email : email
+        });
+    }
+
+    async function getProfile(email){
+        return await axiosInstance.get(`${endpoints.getProfile}`);
     }
 
     const value = {
@@ -31,7 +40,8 @@ const GlobalContextProvider = ({children}) => {
         setMobileShowSideCategories,
         sellerRegistration,
         verifyOtp,
-        resendOtp
+        sendOtp,
+        getProfile
     }
     
     return(

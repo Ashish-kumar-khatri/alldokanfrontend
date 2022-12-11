@@ -1,0 +1,123 @@
+.profile-container{
+    /* background:pink; */
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    gap:2em;
+}
+
+.profile-container .profile-details{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    gap:1em;
+}
+
+.profile-container .profile-details >*{
+}
+
+.profile-container .profile-details .details-container{
+    display:flex;
+    flex-direction: column;
+    gap:.3em;
+    line-height:1.2;
+    align-items: center;
+}
+
+.profile-container .profile-details .details-container span.light{
+    opacity:.4;
+}
+
+.profile-container .others{
+    flex:0 0 100%;
+    display: flex;
+    align-items: center;
+    gap:2em;
+}
+
+.editprofile-container form{
+    margin-top:2em;
+    display:flex;
+    flex-direction: column;
+    gap:1em;
+    align-items: center;
+}
+
+.editprofile-container form button[type = "submit"]{
+    margin-top:1.7em;
+}
+
+.editprofile-container form .avatar{
+    position:relative;
+}
+
+.editprofile-container form .avatar button{
+    position:absolute;
+    right:0;
+    bottom:-1em;
+}
+
+.editprofile-container form >*:not(.avatar){
+    width : 100%;
+}
+
+.flag{
+    display:flex;
+    gap:.5em;
+    align-items: center;
+    font-weight:600;
+}
+
+.flag svg{
+    font-size:var(--fs-l);
+}
+
+.flag.verified{
+    color:var(--green);
+}
+
+.flag.pending{
+    color:var(--pending);
+}
+
+.editprofile-container .header{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.editprofile-container button.closeBtn,
+.editprofile-container .avatarchangeicon{
+    background:none;
+    opacity: .7;
+    cursor: pointer;
+    border:none;
+}
+
+.editprofile-container form >*:not(button){
+    display:flex;
+    flex-direction: column;
+    gap:.7em;
+}
+
+.editprofile-container .field{
+    display:flex;
+    align-items: flex-end;
+    gap:.6em;
+}
+
+.editprofile-container .avatarchangeicon svg{
+    pointer-events: none;
+    font-size:var(--fs-l);
+}
+
+/* .editprofile-container form label{
+    margin-top:0.7em;
+    margin-bottom:.5em;
+} */
+
+@media only screen and (min-width : 700px){
+    .profile-container .others{
+        flex:unset;
+    }
+}

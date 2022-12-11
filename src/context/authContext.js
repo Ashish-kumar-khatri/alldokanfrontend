@@ -27,10 +27,13 @@ export const AuthContextProvider = ({ children }) => {
         .post(`${endpoints.register}`, data)
         .then((res) => {
           console.log('res = ', res);
-          setToken(res?.data.token);
-          localStorage.setItem('token', res?.data.token);
-          localStorage.setItem('user', JSON.stringify(res?.data.user));
-          setUser(res?.data.user);
+          Object.keys(res?.data).forEach(key => {
+            localStorage.setItem(key,res?.data[key])
+          })
+          // setToken(res?.data.token);
+          // localStorage.setItem('token', res?.data.token);
+          // localStorage.setItem('user', JSON.stringify(res?.data.user));
+          // setUser(res?.data.user);
           return resolve('success');
         })
         .catch((err) => {
