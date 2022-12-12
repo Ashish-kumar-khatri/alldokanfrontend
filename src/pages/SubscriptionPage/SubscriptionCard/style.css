@@ -1,0 +1,110 @@
+.subscriptionCard{
+    max-width:350px;
+    background:var(--white);
+    padding:2em;
+    display:flex;
+    flex-direction: column;
+    gap:1.3em;
+    border-radius:10px;
+    position:relative;
+}
+
+
+.subscriptionCard >*{
+    opacity:.6;
+}
+
+.subscriptionCard.opened >*{
+    opacity:1;
+}
+
+
+.subscriptionCard >*,
+.subscriptionCard .body {
+    display:flex;
+    flex-direction: column;
+    gap:.7em;
+}
+
+.subscriptionCard.active,
+.subscriptionCard.active >*{
+    opacity:1;
+}
+
+.subscriptionCard.active .title,
+.subscriptionCard.active .price{
+    color:var(--primary);
+}
+
+.subscriptionCard >* svg{
+    font-size:var(--fs-m);
+}
+
+.subscriptionCard .title{
+    font-weight:bold;
+    font-size:var(--fs-xs);
+    text-transform: uppercase;
+    margin-bottom:-.5em;
+}
+
+.subscriptionCard .price{
+    font-weight:bold;
+    font-size:var(--fs-xl);
+}
+
+.subscriptionCard p.secondary,
+.subscriptionCard .body .text{
+    opacity:.8;
+    font-size:var(--fs-s);
+}
+
+.subscriptionCard .current-plan-indicator{
+    position:absolute;
+    top:1em;
+    right:1em;
+}
+
+.subscriptionCard .current-plan-indicator svg{
+    font-size:var(--fs-l);
+}
+
+.subscriptionCard.active .current-plan-indicator svg{
+    color : var(--primary);
+}
+
+.featureListItem{
+    display:flex;
+    align-items: center;
+    gap:1em;
+}
+
+.featureListItem.available svg{
+    color:var(--primary);
+}
+
+@media only screen and (min-width : 700px){
+    .subscriptionCard >*{
+        pointer-events: none;
+    }
+
+    .subscriptionCard{
+        transform:translateY(0);
+        transition:transform 300ms ease-in-out;
+    }
+
+    .subscriptionCard:hover >*{
+        opacity:1;
+        cursor: pointer;
+    }
+
+    .subscriptionCard:not(.active):hover{
+        transform:translateY(-6px);
+        cursor: pointer;
+    }
+
+    .subscriptionCard:hover .title,
+    .subscriptionCard:hover .price{
+        color:var(--primary);
+    }
+
+}

@@ -68,6 +68,7 @@ export const AuthContextProvider = ({ children }) => {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
       createToast({
+        type : "success",
         icon : <Icon icon = "mdi:tick-circle" />,
         message : 'logged out successfully'
       });

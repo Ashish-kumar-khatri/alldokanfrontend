@@ -216,11 +216,15 @@ function Register(){
 				setSubmitting(false);
 			})
 			.catch(err => {
-				// showNotification({
-				// 	title : "errors",
-				// 	description : JSON.stringify(err.response.data.error)
-				// })
-				alert(JSON.stringify(err))
+				console.log(err.response.data.error)
+				const errors = Object.values(err.response.data.error).map(err => err);
+				console.log(errors)
+				errors?.forEach(err => {
+					showNotification({
+						title : err,
+					})
+				})
+				// alert(JSON.stringify(err))
 				setSubmitting(false);
 			})
 		}

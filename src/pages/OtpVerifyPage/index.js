@@ -78,6 +78,7 @@ const OtpVerifyPage = () => {
         sendOtp(data.email)
             .then(res => {
                     createToast({
+                        type : "success",
                         icon : <Icon icon = "mdi:tick-circle" />,
                         message : `otp sent to ${data.email}`
                     })
@@ -92,7 +93,7 @@ const OtpVerifyPage = () => {
                         title : "otp verification",
                         type : "failure",
                         timer : 5000,
-                        message : err?.data?.message,
+                        message : err?.response?.data?.message,
                         icon : "material-symbols:sms-failed"
                     })
                     console.log(err);

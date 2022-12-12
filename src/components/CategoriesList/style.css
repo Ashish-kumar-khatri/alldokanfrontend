@@ -20,6 +20,10 @@
     text-transform: capitalize;
 }
 
+.categories-container ul li{    
+    white-space: nowrap;
+}
+
 .categories-container ul li:hover{
     background:var(--light-gray);
     cursor: pointer;

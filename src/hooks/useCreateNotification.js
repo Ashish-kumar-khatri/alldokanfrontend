@@ -27,10 +27,21 @@ function useCreateNotification(){
     }
 
     function createToast(data){
-        toast(data.message,{
-            position : "top-center",
-            icon : data.icon
-        });
+        switch(data.type){
+            case "success":
+                toast.success(data.message,{
+                    position : "top-center",
+                    icon : data.icon
+                });
+                break;
+            
+            case "error":
+                toast.error(data.message,{
+                    position : "top-center",
+                    icon : data.icon
+                });
+                break;
+        }
     }
 
     return {createNotification,createToast}

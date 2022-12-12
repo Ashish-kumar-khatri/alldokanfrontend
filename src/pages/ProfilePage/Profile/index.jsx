@@ -17,6 +17,7 @@ function Profile() {
   const {getProfile} = useGlobalContext();
 
   useEffect(() => {
+    console.log('getting profile')
     getProfile()
       .then(res => {
         setProfile(res?.data);
