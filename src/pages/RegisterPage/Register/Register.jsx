@@ -216,10 +216,11 @@ function Register(){
 				setSubmitting(false);
 			})
 			.catch(err => {
-				showNotification({
-					title : "errors",
-					description : JSON.stringify(err.response.data.error)
-				})
+				// showNotification({
+				// 	title : "errors",
+				// 	description : JSON.stringify(err.response.data.error)
+				// })
+				alert(JSON.stringify(err))
 				setSubmitting(false);
 			})
 		}

@@ -37,7 +37,6 @@ export const AuthContextProvider = ({ children }) => {
           return resolve('success');
         })
         .catch((err) => {
-          console.log(err);
           return reject(err);
         });
     });

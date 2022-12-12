@@ -147,24 +147,28 @@ function Nav({burger,children}){
 										</span>
 										<Icon icon = "mdi:chevron-down" />
 									</label>
-								<ul className="profile-icon__menu bordered" ref = {navMenu}>
-									<div className="hover-active-indicator" ref = {indicatorRef}></div>
-									{
-										Object.values(menuItems).map((item,index) => (
-											<li
-												key = {`${item}${index}`}
-												menu-position = {index}
-												to = {item.to}
-												onClick = {menuItemHandler}
-												name = {item.name}
-												onMouseOver = {mouseOverHandler}
-											>
-												<Icon icon = {item.icon}/>
-												<span>{item.name}</span>
-											</li>
-										))
-									}
-								</ul>
+									<ul className="profile-icon__menu bordered" ref = {navMenu}>
+										<div className="hover-active-indicator" ref = {indicatorRef}></div>
+										{
+											Object.values(menuItems).map((item,index) => (
+												<li
+													key = {`${item}${index}`}
+													menu-position = {index}
+													to = {item.to}
+													onClick = {menuItemHandler}
+													name = {item.name}
+													onMouseOver = {mouseOverHandler}
+												>
+													<Icon icon = {item.icon}/>
+													<span>{item.name}</span>
+												</li>
+											))
+										}
+									</ul>
+									<div 
+										onClick = {() => navMenu.current.classList.toggle('open')}
+										className="profile-menu-close-overlay"
+									></div>
 							</div>
 							</>
 						}
