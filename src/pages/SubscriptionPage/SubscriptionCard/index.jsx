@@ -30,7 +30,7 @@ function SubscriptionCard({
   return (
     <div className={`${active ? "active" : ""} subscriptionCard bordered ${opened ? "opened" : ""}`}>
         <div className='header' onClick = {collapseHandler}>
-            <span className="title">
+            <span className="title badge safe">
                 {title}
             </span>
             <h2 className="price">
@@ -58,16 +58,16 @@ function SubscriptionCard({
                 }
               </div>
                   {
-              width < 700 &&
-              <Button
-                style = {{
-                  marginTop : "2em"
-                }}
-                color = "var(--primary)"
-              >
-                choose plan
-              </Button>
-            }
+                    (width < 700 && !active) &&
+                    <Button
+                      style = {{
+                        marginTop : "2em"
+                      }}
+                      color = "var(--primary)"
+                    >
+                      choose plan
+                    </Button>
+                }
           </Collapse>:
           <div className='body'>
             {

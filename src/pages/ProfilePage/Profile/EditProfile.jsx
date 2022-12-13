@@ -125,12 +125,12 @@ function EditProfile({setShowForm,profile}) {
                     !dataImage ?
                         <Avatar 
                             size = {150} 
-                            radius = {500}
+                            radius = {10}
                             src={localUser?.avatar}
                         />:
                         <Avatar 
                             size = {150}
-                            radius = {500}
+                            radius = {10}
                             src = {dataImage}
                         />
                 }

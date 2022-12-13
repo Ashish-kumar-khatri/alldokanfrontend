@@ -1,3 +1,19 @@
 .wishlist-container .wishlist-icon svg{
-    font-size:var(--fs-xl);
+    font-size:var(--fs-l);
+    color:var(--danger);
+    pointer-events:none;
+}
+
+.wishlist-container .product-seller>*{
+    pointer-events: none;
+}
+
+.wishlist-container .product-seller{
+    padding:.8em 1em;
+    border-radius:5px;
+}
+
+.wishlist-container .product-seller:hover{
+    background:var(--light-gray);
+    cursor: pointer;
 }

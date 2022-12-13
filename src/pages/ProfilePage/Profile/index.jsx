@@ -8,7 +8,7 @@ import EditProfile from './EditProfile'
 import { Icon } from '@iconify/react';
 
 import './style.css';
-import { useAuthContext, useGlobalContext } from '../../../hooks';
+import { useAuthContext, useGlobalContext, useQuery } from '../../../hooks';
 
 function Profile() {
   const {user} = useAuthContext();
@@ -27,8 +27,6 @@ function Profile() {
       })
   },[])
 
-  console.log(profile)
-
   return (
       <>
         {
@@ -42,9 +40,9 @@ function Profile() {
                   size = {200}
                   src = {profile?.avatar}
                   className = "avatar"
-                  radius = {500}
+                  radius = {10}
                 />
-                <span className="flag verified">
+                <span className="verified badge safe">
                   <Icon icon = "material-symbols:check-circle-rounded" />
                   {profile?.account_type}
                 </span>

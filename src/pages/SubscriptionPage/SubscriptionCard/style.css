@@ -62,10 +62,15 @@
     position:absolute;
     top:1em;
     right:1em;
+    display:none;
 }
 
 .subscriptionCard .current-plan-indicator svg{
     font-size:var(--fs-l);
+}
+
+.subscriptionCard.active .current-plan-indicator{
+    display:block;
 }
 
 .subscriptionCard.active .current-plan-indicator svg{

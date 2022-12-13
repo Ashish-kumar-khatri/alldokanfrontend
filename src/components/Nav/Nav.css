@@ -131,6 +131,7 @@
     bottom:0;
     left:0;
     width:100%;
+    height:30vh;
     background:var(--white);
     /* box-shadow:0 -2px 10px #ddd; */
     padding-top:1em;
@@ -139,11 +140,11 @@
 }
 
 .profile-icon__menu.open{
-    animation:appear 100ms ease forwards;
+    animation:appear 200ms ease forwards;
 }
 
 .profile-icon__menu.open + .profile-menu-close-overlay{
-   animation:fade 100ms ease forwards;
+   animation:fade 200ms ease forwards;
 }
 
 @keyframes appear {
@@ -243,12 +244,16 @@
     .nav-container nav .small-things .profile-icon label span{
         display:block;
     }
+
 }
 
 @media only screen and (min-width : 900px){
     .nav-container nav{
         grid-template-areas: "logo search-bar search-bar small-things";
         padding:0;
+    }
+    .profile-icon__menu{
+        height:unset;
     }
 
     .nav-container nav>*{

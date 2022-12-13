@@ -76,17 +76,19 @@
     margin:0 .5em;
     border-radius:5px;
     text-transform: capitalize;
-    padding:.5em 1em;
-}
-
-.table .action-btn.edit{
-    background:var(--light-gray);
+    padding:.8em;
 }
 
 .table .product{
     display: flex;
     align-items: center;
     gap:1em;
+    cursor: pointer;
+}
+
+.table .product:hover >*{
+    /* text-decoration: underline; */
+    color:var(--primary);
 }
 
 .table .product .details .title{

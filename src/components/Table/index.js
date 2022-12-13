@@ -17,11 +17,14 @@ function Table({
                                 headings?.map(heading => (
                                     heading == "checkbox" ?
                                         <th
+                                            key = {heading}
                                             className = "checkbox"
                                         >
                                             <Checkbox />
                                         </th>:
-                                        <th>{heading}</th>
+                                        <th
+                                            key = {heading}
+                                        >{heading}</th>
                                 ))
                             }
                         </tr>
