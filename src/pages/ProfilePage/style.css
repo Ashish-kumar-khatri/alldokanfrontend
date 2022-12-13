@@ -14,10 +14,11 @@
     .profilepage-container{
         display:grid;
         grid-template-columns:400px 1fr;
-        gap:.5em;
+        gap:1em;
     }
-
     .profilepage-container >*{
+        align-self:flex-start;
         min-height:calc(100vh - var(--nav-height) - 2em);
     }
 }
+

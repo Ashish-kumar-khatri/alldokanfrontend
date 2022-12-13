@@ -10,6 +10,7 @@ import {
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import {
+	useAuth,
 	useAuthContext,
 	useCreateNotification
 } from '../../../hooks/';
@@ -34,7 +35,7 @@ function Login(){
 	const [emailValid,setEmailValid] = useState(false);
 	const [emailError,setEmailError] = useState("");
 	
-	const {login} = useAuthContext();
+	const {login} = useAuth();
 	const location = useLocation();
 	const {createNotification} = useCreateNotification();
 

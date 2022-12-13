@@ -17,13 +17,18 @@ body{
     --urgent-bg:rgba(255, 0, 0, 0.265);
     --green:rgb(23, 144, 23);
     --pending : rgb(255, 149, 0);
+    --border : #ddd;
+    --radius : 5px;
 
     --mobile-sidebar-width : 350px;
     --nav-height:128px;
     /* --nav-bg:#F5F4F5; */
 
+    overflow-x:hidden;
+
     /* background : #f9f9f9; */
     background : #f0f0f078;
+    background: #eff1f5;
 
     font-family: Arial, Helvetica, sans-serif;
     font-family: 'Open Sans', sans-serif;

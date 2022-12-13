@@ -80,6 +80,7 @@ function Profile() {
                       fractions={2} 
                       defaultValue={0} 
                       className = "unclickable"
+                      readOnly
                     />
                   </Group>
                 </span>

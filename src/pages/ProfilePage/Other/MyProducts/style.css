@@ -1,0 +1,8 @@
+.myProducts-container .add-product-btn{
+    text-transform: capitalize;
+    margin:1em 0 2em;
+}
+
+.myProducts-container .add-product-btn svg{
+    font-size:var(--fs-m);
+}

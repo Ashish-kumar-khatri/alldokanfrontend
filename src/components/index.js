@@ -7,7 +7,7 @@ import CategoriesList from './CategoriesList/';
 import Ad from './Ad';
 import ProductCard from './ProductCard/';
 import Carousel from './Carousel/Carousel';
-
+import Table from './Table/';
 
 export{
     Nav,
@@ -18,5 +18,6 @@ export{
     CategoriesList,
     Ad,
     ProductCard,
-    Carousel
+    Carousel,
+    Table
 }

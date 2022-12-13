@@ -20,14 +20,14 @@ function useAxios() {
     // }
   });
   
-  // axiosInstance.interceptors.request.use((req) => {
-  //   // console.log('inside axiosInstance');
-  //   // if(token){
-  //   //   console.log('got token so added bearer')
-  //   //   req.headers.Authorization = `Bearer ${token}`;
-  //   // }
-  //   // return req;
-  // });
+  axiosInstance.interceptors.request.use((req) => {
+    // console.log('inside axiosInstance');
+    if(token){
+      console.log('got token so added bearer')
+      req.headers.Authorization = `Bearer ${token}`;
+    }
+    return req;
+  });
 
   return axiosInstance;
 }

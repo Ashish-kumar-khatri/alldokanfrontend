@@ -2,20 +2,31 @@ import React,{
 	useRef,
 	useState
 } from 'react'
-import {Logo} from '../';
+import {
+	Logo
+} from '../';
 import './Nav.css'
-
 import {Icon} from '@iconify/react';
-import { Avatar, Button, Alert, Flex } from '@mantine/core';
-import { useAuthContext } from '../../hooks';
-
-import {Link,useLocation,useNavigate} from 'react-router-dom';
+import { 
+	Avatar, 
+	Button, 
+	Alert,
+	Flex 
+} from '@mantine/core';
+import { 
+	useAuth,
+	useAuthContext,
+	useGlobalContext
+} from '../../hooks';
+import {
+	Link,
+	useLocation,
+	useNavigate} from 'react-router-dom';
 import menuItems from './menu-items';
 
-import {useGlobalContext} from '../../hooks/useGlobalContext'
-
 function Nav({burger,children}){
-	const {logout,user} = useAuthContext();
+	const {user} = useAuthContext();
+	const {logout} = useAuth();
 
 	const navigate = useNavigate();
 	const location = useLocation();

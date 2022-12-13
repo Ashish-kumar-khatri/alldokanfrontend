@@ -41,9 +41,9 @@ function App() {
         <Route path = "/reset-password/:resetToken" element = {<ResetPasswordPage />} />
         <Route path = "/otp-verify" element = {<OtpVerifyPage />} />
         <Route path = "/profile" element = {
-          <PrivateRoute>
-            <ProfilePage />
-          </PrivateRoute>
+            <PrivateRoute>
+              <ProfilePage />
+            </PrivateRoute>
         } />
         <Route path = "/category/productId/*" element = {
           <PrivateRoute>
