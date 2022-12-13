@@ -4,7 +4,7 @@ import React,{forwardRef,useState} from 'react'
 
 import { Icon } from '@iconify/react';
 import { useEffect } from 'react';
-import { useAuthContext, useCloudinaryContext, useCreateNotification, useGlobalContext } from '../../hooks';
+import { useAuthContext, useCloudinaryContext, useCreateNotification, useGlobalContext, useQuery } from '../../hooks';
 
 
 export const dropdown_data = [
@@ -68,6 +68,7 @@ export const fields = [
 function SellerSubscription() {
 
     const {user} = useAuthContext();
+    const query = useQuery();
     const {sellerRegistration} = useGlobalContext();
 
     const [docType,setDocType] = useState(null);
@@ -75,6 +76,7 @@ function SellerSubscription() {
         account_type : "SELLER",
         seller_subscription_plan : "BASIC",
     })
+
     const [personalDocument,setPersonalDocument] = useState({});
 
     const [submitting,setSubmitting] = useState(false);
@@ -106,61 +108,60 @@ function SellerSubscription() {
     
 
     const submitHandler = (e) => {
-        e.preventDefault();
-        console.log('submitting = ',data);
+        // e.preventDefault();
+        // console.log('submitting = ',data);
 
-        setSubmitting(true);
-        let promises = []
-        if(!data || Object.keys(personalDocument).length !== 2){
-            createNotification({
-				title : "seller registration",
-				type : "failure",
-				timer : 5000,
-				message : "please upload all documents",
-				icon : "material-symbols:sms-failed"
-			})
-            setSubmitting(false);
-            return;
-        }
-        Object.keys(personalDocument).forEach(key => (
-            promises.push(uploadToCloudinary({
-                image : personalDocument[key],
-                doc_name : key,
-                imageType : "documents"
-            })
-        )))
-        Promise.all(promises)
-            .then(res => {
-                console.log("Res = ",res)
-                res.forEach(r => {
-                    setPersonalDocument(prev => (
-                        {
-                            ...prev,
-                            [r.doc_name] : r.secure_url
-                        }
-                    ))
-                })
-                setPersonalDocument(prev => ({
-                    ...prev,
-                    document_type : docType
-                }))
-            })
-            .catch(err => {
-                console.log(err);
-                setSubmitting(false);
-                createNotification({
-                    title : "seller registration",
-                    type : "failure",
-                    timer : 5000,
-                    message : err,
-                    icon : "material-symbols:sms-failed"
-                })
-            })
+        // setSubmitting(true);
+        // let promises = []
+        // if(!data || Object.keys(personalDocument).length !== 2){
+        //     createNotification({
+		// 		title : "seller registration",
+		// 		type : "failure",
+		// 		timer : 5000,
+		// 		message : "please upload all documents",
+		// 		icon : "material-symbols:sms-failed"
+		// 	})
+        //     setSubmitting(false);
+        //     return;
+        // }
+        // Object.keys(personalDocument).forEach(key => (
+        //     promises.push(uploadToCloudinary({
+        //         image : personalDocument[key],
+        //         doc_name : key,
+        //         imageType : "documents"
+        //     })
+        // )))
+        // Promise.all(promises)
+        //     .then(res => {
+        //         console.log("Res = ",res)
+        //         res.forEach(r => {
+        //             setPersonalDocument(prev => (
+        //                 {
+        //                     ...prev,
+        //                     [r.doc_name] : r.secure_url
+        //                 }
+        //             ))
+        //         })
+        //         setPersonalDocument(prev => ({
+        //             ...prev,
+        //             document_type : docType
+        //         }))
+        //     })
+        //     .catch(err => {
+        //         console.log(err);
+        //         setSubmitting(false);
+        //         createNotification({
+        //             title : "seller registration",
+        //             type : "failure",
+        //             timer : 5000,
+        //             message : err,
+        //             icon : "material-symbols:sms-failed"
+        //         })
+        //     })
     }
 
     const docTypeChangeHandler = (value) => {
-        // console.log(value)
-        setDocType(value);
+        // setDocType(value);
     }
 
     const changeHandler = (file,name) => {
@@ -170,61 +171,6 @@ function SellerSubscription() {
             [name] : file
         }))
     }
-
-    console.log('personal docu,ent = ',personalDocument,data)
-
-    useEffect(() => {
-        setData(prev => ({
-                account_type : "SELLER",
-                seller_subscription_plan : "BASIC" 
-            }))
-    },[docType])
-
-
-    useEffect(() => {
-        if(Object.keys(personalDocument).length > 2){
-            setData(prev => ({
-                ...prev,
-                personal_document : personalDocument
-            }))
-        }
-    },[personalDocument])
-
-    useEffect(() => {
-        if(data.personal_document){
-            sellerRegistration(data)
-                .then(res => {
-                    setSubmitting(false);
-                    console.log("res = ",res)
-                })
-                .catch(err => {
-                    setSubmitting(false);
-                    console.log(err)
-                    createNotification({
-                        title : "seller registration",
-                        type : "failure",
-                        timer : 5000,
-                        message : "some error occured",
-                        icon : "material-symbols:sms-failed"
-                    })
-                })
-        }
-    },[data])
-
-    // useEffect(() => {
-    //     if(startRegistering && personalDocument){
-            
-    //         sellerRegistration(data)
-    //             .then(res => {
-
-    //                 setSubmitting(false);
-    //             })
-    //             .catch(err => {
-    //                 console.log('error occured = ',err);
-    //                 setSubmitting(false);
-    //             })
-    //     }
-    // },[startRegistering,personalDocument])
 
     return (
         <div className="seller-subscription-container subscription-wrapper bordered">

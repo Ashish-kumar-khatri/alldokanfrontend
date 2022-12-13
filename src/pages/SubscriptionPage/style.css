@@ -1,3 +1,13 @@
+
+.subscription-wrapper{
+    padding:2em;
+    width:100%;
+    max-width:900px;
+    margin-inline:auto;
+    background:var(--white);
+    border-radius:5px;
+}
+
 .subscription-wrapper .title-header{
     height:200px;
     display: flex;

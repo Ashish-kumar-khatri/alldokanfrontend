@@ -8,27 +8,39 @@ import { Icon } from '@iconify/react';
 import './style.css';
 import { Button, Collapse } from '@mantine/core';
 import {useWindowSize} from '@react-hook/window-size'
+import { useLocation, useNavigate } from 'react-router-dom';
 
 
 function SubscriptionCard({
   title,
   price,
   features,
-  active
+  active,
+  link
 }) {
 
   const [opened,setOpened] = useState(false);
   const [width] = useWindowSize();
   
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const collapseHandler = () => {
     if(width < 700){
       setOpened(prev => !prev)
     }
   }
+
+  const navigateHandler = () => {
+    if(width > 700){
+      navigate(`${location.pathname}${link}`)
+    }
+  }
   
   return (
-    <div className={`${active ? "active" : ""} subscriptionCard bordered ${opened ? "opened" : ""}`}>
+    <div 
+      onClick = {navigateHandler}
+      className={`${active ? "active" : ""} subscriptionCard bordered ${opened ? "opened" : ""}`}>
         <div className='header' onClick = {collapseHandler}>
             <span className="title badge safe">
                 {title}
@@ -40,8 +52,6 @@ function SubscriptionCard({
                 Includes upto 10 users and 20GB of individual data
             </p>
         </div>
-
-        
         {
           width < 700 ?
             <Collapse className = "collapse-body-container" in = {opened}>

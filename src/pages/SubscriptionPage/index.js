@@ -8,8 +8,7 @@ import './style.css';
 const SubscriptionPage = () => {
     return(
         <>
-            <OtherLayout
-                >
+            <OtherLayout>
                 <div className = "main">
                     <Outlet />
                 </div>

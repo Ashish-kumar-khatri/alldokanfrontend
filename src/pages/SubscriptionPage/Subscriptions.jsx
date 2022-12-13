@@ -12,6 +12,7 @@ const subscriptionItems = [
     {
         title : "buyer",
         price : "0",
+        link : "",
         features : [
             {
                 type : "available",
@@ -42,7 +43,7 @@ const subscriptionItems = [
     {
         title : "normal seller",
         price : "0",
-        link : "/seller",
+        link : "/seller?type=normal",
         features : [
             {
                 type : "available",
@@ -73,7 +74,7 @@ const subscriptionItems = [
     {
         title : "premium seller",
         price : "5000",
-        link : "/premium-seller",
+        link : "/seller?type=premium",
         features : [
             {
                 type : "available",
