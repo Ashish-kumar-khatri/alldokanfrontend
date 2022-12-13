@@ -12,7 +12,7 @@ function useAxios() {
   useEffect(() => {
     console.log('inside useAxios')
   },[])
-
+  
   const axiosInstance = axios.create({
     baseURL,
     // headers : {
