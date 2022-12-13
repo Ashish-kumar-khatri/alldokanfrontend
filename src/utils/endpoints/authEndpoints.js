@@ -1,10 +1,8 @@
-import fetchBaseURL from './baseURL';
-
-const baseURL = fetchBaseURL();
+import baseURL from './baseURL';
 
 export const endpoints = {
   register: `${baseURL}/user/signup`,
   login: `${baseURL}/user/signin`,
   forgotPassword: `${baseURL}/user/forgotPassword`,
-  resetPassword: `${baseURL}/user/resetPassword`,
+  resetPassword: `${baseURL}/user/reset-password`,
 };

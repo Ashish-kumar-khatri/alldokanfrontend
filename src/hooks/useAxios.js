@@ -2,13 +2,16 @@ import useAuthContext from './useAuthContext';
 import jwt_decode from 'jwt-decode';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import fetchBaseURL from '../utils/endpoints/baseURL';
+import baseURL from '../utils/endpoints/baseURL';
+import { useEffect } from 'react';
 
 function useAxios() {
+  
+  const {token} = useAuthContext();
 
-  const token = localStorage.getItem('token') ? localStorage.getItem('token') : null
-
-  const baseURL = fetchBaseURL();
+  useEffect(() => {
+    console.log('inside useAxios')
+  },[])
 
   const axiosInstance = axios.create({
     baseURL,
@@ -16,14 +19,15 @@ function useAxios() {
     //     Authorization : `Bearer ${token}`
     // }
   });
-
-  axiosInstance.interceptors.request.use((req) => {
-    console.log('inside axiosInstance');
-    if(token){
-      req.headers.Authorization = `Bearer ${token}`;
-    }
-    return req;
-  });
+  
+  // axiosInstance.interceptors.request.use((req) => {
+  //   // console.log('inside axiosInstance');
+  //   // if(token){
+  //   //   console.log('got token so added bearer')
+  //   //   req.headers.Authorization = `Bearer ${token}`;
+  //   // }
+  //   // return req;
+  // });
 
   return axiosInstance;
 }

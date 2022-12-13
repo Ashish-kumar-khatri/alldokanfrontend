@@ -48,10 +48,11 @@ function HomePage() {
             slideGap="lg"
         >
            {
-            products1.map(product => (
-             <Carousel.Slide>
+            products1.map((product,index) => (
+              <Carousel.Slide
+                key = {`${product.title}${index}`}
+              >
                <ProductCard 
-                key = {product.title}
                 title = {product.title}
                 image = {product.image}
                 condition = {product.condition}
@@ -102,9 +103,10 @@ function HomePage() {
         >
            {
             products2.map(product => (
-             <Carousel.Slide>
+             <Carousel.Slide
+              key = {product.title}
+             >
                <ProductCard 
-                key = {product.title}
                 title = {product.title}
                 image = {product.image}
                 condition = {product.condition}

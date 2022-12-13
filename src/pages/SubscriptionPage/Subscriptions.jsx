@@ -42,6 +42,7 @@ const subscriptionItems = [
     {
         title : "normal seller",
         price : "0",
+        link : "/seller",
         features : [
             {
                 type : "available",
@@ -72,6 +73,7 @@ const subscriptionItems = [
     {
         title : "premium seller",
         price : "5000",
+        link : "/premium-seller",
         features : [
             {
                 type : "available",
@@ -102,6 +104,7 @@ const subscriptionItems = [
     {
         title : "company",
         price : "10000",
+        link : "/company",
         features : [
             {
                 type : "available",
@@ -166,6 +169,8 @@ function Subscriptions() {
                             title = {item.title}
                             price = {item.price}
                             features = {item.features}
+                            link = {item.link}
+                            // onClick = {subscriptionNavigateHandler}
                         />
                     ))
                 }

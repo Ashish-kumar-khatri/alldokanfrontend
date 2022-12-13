@@ -1,6 +1,4 @@
-import fetchBaseURL from './baseURL';
-
-const baseURL = fetchBaseURL();
+import baseURL from './baseURL';
 
 export const endpoints = {
   sellerRegister : `${baseURL}/user/becomeSeller`,

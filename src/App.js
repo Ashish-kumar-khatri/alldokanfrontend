@@ -27,6 +27,10 @@ import PrivateRoute from './utils/Routes/PrivateRoute';
 
 function App() {
 
+  useEffect(() => {
+    console.log('app rendered')
+  },[])
+  
   return (
     <div className="App">
       <Routes>
@@ -41,7 +45,6 @@ function App() {
             <ProfilePage />
           </PrivateRoute>
         } />
-
         <Route path = "/category/productId/*" element = {
           <PrivateRoute>
             <ProductDetailPage />

@@ -11,7 +11,7 @@ import {
 import { Button, PasswordInput, TextInput } from '@mantine/core';
 import {passwordSchema} from '../../utils/schemas/schema';
 import {getJoiErrorMsg} from '../../utils/getJoiErrors';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { endpoints } from '../../utils/endpoints/authEndpoints';
 import axios from 'axios';
 import { useCreateNotification } from '../../hooks';
@@ -36,7 +36,7 @@ function ResetPasswordPage(){
 	})
 
 	const {createNotification} = useCreateNotification();
-
+	const navigate = useNavigate();
 	const {resetToken} = useParams();
 
 	const changeHandler = (e) => {
@@ -84,6 +84,14 @@ function ResetPasswordPage(){
 		axios.put(`${endpoints.resetPassword}/${resetToken}`,data)
 			.then(res => {
 				console.log(res);
+				createNotification({
+					title : "reset password",
+					type : "success",
+					timer : 5000,
+					message : res?.data?.message,
+					icon : "material-symbols:sms-failed"
+				})
+				navigate('/login')
 			})
 			.catch(err => {
 				console.log(err)

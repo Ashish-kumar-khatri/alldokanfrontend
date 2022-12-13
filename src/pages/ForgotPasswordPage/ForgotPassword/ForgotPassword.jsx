@@ -17,7 +17,7 @@ import {getJoiErrorMsg} from '../../../utils/getJoiErrors';
 import './ForgotPassword.css'
 import { Link } from 'react-router-dom';
 import { endpoints } from '../../../utils/endpoints/authEndpoints';
-import { useAxios } from '../../../hooks';
+import { useAxios, useCreateNotification } from '../../../hooks';
 
 function ForgotPassword(){
 
@@ -27,6 +27,7 @@ function ForgotPassword(){
 	const [validEmail,setValidEmail] = useState(false);
 
 	const axiosInstance = useAxios();
+	const {createToast} = useCreateNotification();
 
 	const submitHandler = (e) => {
 		e.preventDefault();
@@ -37,6 +38,10 @@ function ForgotPassword(){
 			.then(res => {
 				console.log('res = ',res);
 				setSubmitting(false);
+				createToast({
+					type : "success",
+					message : res?.data.message
+				})
 			})
 			.catch(err => console.log('error = ',err))
 
