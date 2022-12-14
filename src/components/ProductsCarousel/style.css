@@ -1,0 +1,6 @@
+.products-carousel-container{
+    display:flex;
+    flex-direction: column;
+    gap:2em;
+    margin:3em 0;
+}

@@ -3,13 +3,12 @@
     display:flex;
     width:fit-content;
     flex-direction: column;
-    width:250px;
     gap:.5em;
 }
 
 .productCard .image{
     height:150px;
-    width:250px;
+    width:200px;
     background:var(--skeleton);
 }
 
@@ -37,4 +36,12 @@
 .productCard .details>*{
     /* border:1px solid red; */
     background:var(--skeleton);
+}
+
+@media only screen and (min-width : 800px){
+    .productCard .image{
+        height:200px;
+        width:250px;
+        background:var(--skeleton);
+    }
 }

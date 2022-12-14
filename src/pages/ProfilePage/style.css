@@ -14,7 +14,7 @@
     .profilepage-container{
         display:grid;
         gap:1em;
-        grid-template-columns: 300px 1fr;
+        grid-template-columns: 350px 1fr;
     }
     .profilepage-container >*{
         align-self:flex-start;

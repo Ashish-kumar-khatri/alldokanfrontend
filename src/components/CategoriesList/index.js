@@ -1,12 +1,15 @@
 import { Icon } from "@iconify/react";
 import './style.css';
-import categoriesItems from "./categories-items";
+// import categoriesItems from "./categories-items";
 import { useGlobalContext } from "../../hooks";
+import CategoriesListSkeleton from "./CategoriesListSkeleton";
 
 
-const CategoriesList = () => {
+const CategoriesList = ({categoriesItems}) => {
 
     const {showMobileSideCategories,setShowMobileSideCategories} = useGlobalContext();
+
+    console.log('categoriesItems = ',categoriesItems)
 
     return(
         <div className = {`${showMobileSideCategories ? "opened" : ""} categories-container`}>
@@ -14,15 +17,17 @@ const CategoriesList = () => {
             <hr />
             <ul className="list">
                 {
-                    categoriesItems.map(category => (
-                        <li 
-                            className="active"
-                            key = {category.name}
-                        >
-                            <Icon icon = {category.icon} />
-                            <span>{category.name}</span>
-                        </li>
-                    ))
+                    categoriesItems.length == 0 ?
+                        <CategoriesListSkeleton />:
+                        categoriesItems?.map((category,index) => (
+                            <li 
+                                className="active"
+                                key = {`${category.cat_image}${index}`}
+                            >
+                                <Icon icon = {category.cat_image} />
+                                <span>{category.cat_name}</span>
+                            </li>
+                        ))
                 }
             </ul>
         </div>

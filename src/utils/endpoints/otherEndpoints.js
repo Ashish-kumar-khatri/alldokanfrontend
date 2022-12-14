@@ -5,5 +5,6 @@ export const endpoints = {
   otpVerify : `${baseURL}/otp/verify-user`,
   sendOtp : `${baseURL}/otp/resend-verification`,
   getProfile : `${baseURL}/user/profile`,
-  updateProfile : `${baseURL}/`
+  updateProfile : `${baseURL}/`,
+  fetchAllCategories : `${baseURL}/category/all`
 };

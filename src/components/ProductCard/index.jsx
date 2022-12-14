@@ -4,6 +4,7 @@ import {Skeleton,Image,Text} from '@mantine/core';
 
 import {Icon} from '@iconify/react'
 import { useAuthContext, useCreateNotification } from '../../hooks';
+import { useWindowSize } from '@react-hook/window-size';
 
 function ProductCard({
   title,
@@ -14,6 +15,9 @@ function ProductCard({
 
   const {createToast} = useCreateNotification();
   const {user} = useAuthContext();
+  const [width] = useWindowSize();
+
+  console.log('width = ',width)
   
   const wishlistHandler = (e) => {
     if(!user) return createToast({
@@ -52,7 +56,7 @@ function ProductCard({
             style = {{
               borderRadius : "10px",
             }}
-            height = {200}
+            height = {width < 800 ? 150 : 200}
           />
           <Text fw={500} fz = "xs"  style = {{
             opacity:".5",

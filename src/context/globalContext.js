@@ -3,6 +3,7 @@ import React,{
 } from "react";
 import { useAxios } from "../hooks";
 import { endpoints } from "../utils/endpoints/otherEndpoints";
+import axios from "axios";
 
 export const GlobalContext = React.createContext();
 
@@ -35,13 +36,18 @@ const GlobalContextProvider = ({children}) => {
         return await axiosInstance.get(`${endpoints.getProfile}`);
     }
 
+    async function fetchAllCategories(){
+        return await axios.get(`${endpoints.fetchAllCategories}`);
+    }
+
     const value = {
         mobileShowSideCategories,
         setMobileShowSideCategories,
         sellerRegistration,
         verifyOtp,
         sendOtp,
-        getProfile
+        getProfile,
+        fetchAllCategories
     }
     
     return(

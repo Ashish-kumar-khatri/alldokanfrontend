@@ -8,6 +8,7 @@ import Ad from './Ad';
 import ProductCard from './ProductCard/';
 import Carousel from './Carousel/Carousel';
 import Table from './Table/';
+import ProductsCarousel from './ProductsCarousel';
 
 export{
     Nav,
@@ -19,5 +20,6 @@ export{
     Ad,
     ProductCard,
     Carousel,
-    Table
+    Table,
+    ProductsCarousel
 }

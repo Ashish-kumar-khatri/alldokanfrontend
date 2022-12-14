@@ -108,12 +108,15 @@
 
 @media only screen and (min-width : 1000px){
     .homelayout > div.main .left-sidebar{
-        position:unset;
         height:unset;
         z-index:unset;
         left:unset;
         top:unset;
         transform:unset;
+        position:sticky;
+        top:calc(var(--nav-height) + 1em);
+        height:calc(100vh - var(--nav-height) - 2em);
+        overflow-y:scroll;
     }
 
     .homelayout > div.main .left-sidebar-close{
@@ -125,6 +128,13 @@
     }
 
     .homelayout > div.main .left-sidebar .closebtn{
+        display:none;
+    }
+
+    .homelayout > div.main{
+    }
+
+    .homelayout > div.main::-webkit-scrollbar{
         display:none;
     }
 }
