@@ -33,7 +33,7 @@ import axios from 'axios';
 import './Register.css'
 import { valid } from 'joi';
 import { endpoints } from '../../../utils/endpoints/authEndpoints';
-import {useAuthContext,useCloudinaryContext, useCreateNotification} from '../../../hooks/';
+import {useAuthContext,useAuth,useCloudinaryContext, useCreateNotification} from '../../../hooks/';
 
 function Register(){
 	const [data,setData] = useState({
@@ -84,7 +84,7 @@ function Register(){
 	
 	const stepper = useRef(null);
 	const navigate = useNavigate();
-	const {register} = useAuthContext();
+	const {register} = useAuth();
 	const {uploadToCloudinary} = useCloudinaryContext();
 	const {createNotification} = useCreateNotification();
 	const location = useLocation();
