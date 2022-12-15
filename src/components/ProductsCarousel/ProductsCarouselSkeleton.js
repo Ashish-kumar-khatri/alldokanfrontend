@@ -11,7 +11,9 @@ function ProductsCarouselSkeleton({count}) {
         let skeletons = [];
         for(let i = 0 ; i < count ; i++){
             skeletons.push(
-                <Carousel.Slide>
+                <Carousel.Slide
+                    key = {i}
+                >
                     <ProductCardSkeleton />
                 </Carousel.Slide>
             )

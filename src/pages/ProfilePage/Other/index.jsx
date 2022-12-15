@@ -34,11 +34,11 @@ function Other() {
   
   const tabName = query.get('tab');
   
-  useEffect(() => {
-    console.log('tabname = ',tabName)
+  // useEffect(() => {
+    // console.log('tabname = ',tabName)
     // setTab(tabName)
     
-  },[tabName])
+  // },[tabName])
 
   useEffect(() => {
     setSearchParam({

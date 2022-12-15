@@ -30,7 +30,7 @@ function HomePage() {
   },[products1,products2]);
 
   const searchHandler = (query) => {
-    console.log('submitted to search everywhere',query);
+    // console.log('submitted to search everywhere',query);
   }
 
   return (

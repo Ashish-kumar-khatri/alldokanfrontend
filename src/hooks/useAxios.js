@@ -10,7 +10,7 @@ function useAxios() {
   const {token} = useAuthContext();
 
   useEffect(() => {
-    console.log('inside useAxios')
+    // console.log('inside useAxios')
   },[])
   
   const axiosInstance = axios.create({

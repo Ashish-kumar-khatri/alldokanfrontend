@@ -17,8 +17,6 @@ function ProductCard({
   const {user} = useAuthContext();
   const [width] = useWindowSize();
 
-  console.log('width = ',width)
-  
   const wishlistHandler = (e) => {
     if(!user) return createToast({
       message : "you must be logged in"
