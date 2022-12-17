@@ -10,6 +10,8 @@ body{
     --primary-light : #228be625;
     --danger : rgb(255, 0, 0);
     --gray-text:rgb(105, 105, 105);
+    --pending : rgb(255, 234, 0);
+    --pending : rgb(98, 90, 21);
     
     --light-gray : rgb(237, 237, 237);
     --light-red:rgb(255, 192, 192);

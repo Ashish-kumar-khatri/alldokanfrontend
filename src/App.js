@@ -22,6 +22,9 @@ import {
   ProfilePage
 } from './pages/'
 
+import { Image } from '@mantine/core';
+import { FullScreenModal } from './components';
+import { useGlobalContext } from './hooks';
 import './styles/auth.css';
 import PrivateRoute from './utils/Routes/PrivateRoute';
 
@@ -32,6 +35,8 @@ function App() {
     console.log('app rendered')
   },[])
   
+  const {imageInPopup,imagePopupVisible,setImagePopupVisible} = useGlobalContext();
+
   return (
     <div className="App">
           <Routes>
@@ -61,6 +66,12 @@ function App() {
               <Route path = "company" element = {<CompanySubscription />} />
             </Route>
           </Routes>
+            {/* <FullScreenModal>
+                <Image 
+                  src = "https://res.cloudinary.com/djhsz1acw/image/upload/v1671298097/if0abjro9elmjwtcbi0v.png"
+                  height = {600}
+                />
+            </FullScreenModal> */}
     </div>  
   );
 }

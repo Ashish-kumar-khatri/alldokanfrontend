@@ -12,6 +12,8 @@ const GlobalContextProvider = ({children}) => {
 
     const [mobileShowSideCategories,setMobileShowSideCategories] = useState(false);
 
+    const [imagePopupVisible,setImagePopupVisible] = useState(false);
+
     const axiosInstance = useAxios();
 
     // later add these function in its own context
@@ -44,7 +46,13 @@ const GlobalContextProvider = ({children}) => {
         return await axiosInstance.patch(`${endpoints.profileUpdate}`,data);
     }
 
-    const value = {
+    const toggleImagePopup = ({image}) => {
+        console.log('image popup toggled')
+        if(image) value["imageInPopup"] = image;
+        setImagePopupVisible(prev => !prev);
+    }
+
+    let value = {
         mobileShowSideCategories,
         setMobileShowSideCategories,
         sellerRegistration,
@@ -52,7 +60,11 @@ const GlobalContextProvider = ({children}) => {
         sendOtp,
         getProfile,
         fetchAllCategories,
-        profileUpdate
+        profileUpdate,
+        toggleImagePopup,
+        imagePopupVisible,
+        imageInPopup : null,
+        setImagePopupVisible
     }
     
     return(

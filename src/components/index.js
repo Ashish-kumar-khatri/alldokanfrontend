@@ -9,6 +9,7 @@ import ProductCard from './ProductCard/';
 import Carousel from './Carousel/Carousel';
 import Table from './Table/';
 import ProductsCarousel from './ProductsCarousel';
+import FullScreenModal from './FullScreenModal';
 
 export{
     Nav,
@@ -21,5 +22,6 @@ export{
     ProductCard,
     Carousel,
     Table,
-    ProductsCarousel
+    ProductsCarousel,
+    FullScreenModal
 }

@@ -1,11 +1,9 @@
-import { TextInput,Select,Group,Avatar,Text,FileInput,Button } from '@mantine/core'
+import { TextInput,Select,Group,Avatar,Text,FileInput,Button,Image } from '@mantine/core'
 import React,{forwardRef,useState} from 'react'
-
 
 import { Icon } from '@iconify/react';
 import { useEffect } from 'react';
 import { useAuthContext, useCloudinaryContext, useCreateNotification, useGlobalContext, useQuery } from '../../hooks';
-
 
 export const dropdown_data = [
     {
@@ -69,17 +67,27 @@ function SellerSubscription() {
 
     const {user} = useAuthContext();
     const query = useQuery();
-    const {sellerRegistration} = useGlobalContext();
+    const {sellerRegistration,toggleImagePopup} = useGlobalContext();
 
     const [docType,setDocType] = useState(null);
+    const [imageFront,setImageFront] = useState(null);
+    const [imageBack,setImageBack] = useState(null);
+
     const [data,setData] = useState({
         account_type : "SELLER",
-        seller_subscription_plan : "BASIC",
+        seller_subscription_plan : query.get('type').toUpperCase(),
+        personal_document : {
+            document_type : null,
+            document_image_front:null,
+            document_image_back:null
+        }
     })
+
 
     const [personalDocument,setPersonalDocument] = useState({});
 
     const [submitting,setSubmitting] = useState(false);
+    const [posting,setPosting] = useState(false);
     const [startRegistering,setStartRegistering] = useState(false);
 
     const {uploadToCloudinary} = useCloudinaryContext();
@@ -106,71 +114,81 @@ function SellerSubscription() {
         )
       );
     
+    const submitHandler = async (e) => {
+        e.preventDefault();
+        setSubmitting(true);
+        if(!personalDocument["document_image_back"] || 
+            !personalDocument["document_image_front"] ){
+                createNotification({
+                    title : "seller registration",
+                    type : "failure",
+                    timer : 5000,
+                    message : "Please upload all documents",
+                    icon : "material-symbols:sms-failed"
+                })
+                return;
+        }
+        try{
+            let promises = [];
+            let res;
+            Object.keys(personalDocument).forEach(async key => {
+                promises.push(uploadToCloudinary({
+                    image : personalDocument[key],
+                    doc_name : key
+                }))
+            });
+            Promise.all(promises).then((res) => {
+                console.log('res = ',res)
+                res.forEach(r => setData(prev => ({
+                    ...prev,
+                    personal_document : {
+                        ...prev["personal_document"],
+                        [r.name] : r.secure_url
+                    }
+                })))
+                setPosting(true);
+            })
+        }catch(err){
+            console.log('error',err);
+        }
 
-    const submitHandler = (e) => {
-        // e.preventDefault();
-        // console.log('submitting = ',data);
-
-        // setSubmitting(true);
-        // let promises = []
-        // if(!data || Object.keys(personalDocument).length !== 2){
-        //     createNotification({
-		// 		title : "seller registration",
-		// 		type : "failure",
-		// 		timer : 5000,
-		// 		message : "please upload all documents",
-		// 		icon : "material-symbols:sms-failed"
-		// 	})
-        //     setSubmitting(false);
-        //     return;
-        // }
-        // Object.keys(personalDocument).forEach(key => (
-        //     promises.push(uploadToCloudinary({
-        //         image : personalDocument[key],
-        //         doc_name : key,
-        //         imageType : "documents"
-        //     })
-        // )))
-        // Promise.all(promises)
-        //     .then(res => {
-        //         console.log("Res = ",res)
-        //         res.forEach(r => {
-        //             setPersonalDocument(prev => (
-        //                 {
-        //                     ...prev,
-        //                     [r.doc_name] : r.secure_url
-        //                 }
-        //             ))
-        //         })
-        //         setPersonalDocument(prev => ({
-        //             ...prev,
-        //             document_type : docType
-        //         }))
-        //     })
-        //     .catch(err => {
-        //         console.log(err);
-        //         setSubmitting(false);
-        //         createNotification({
-        //             title : "seller registration",
-        //             type : "failure",
-        //             timer : 5000,
-        //             message : err,
-        //             icon : "material-symbols:sms-failed"
-        //         })
-        //     })
-    }
-
-    const docTypeChangeHandler = (value) => {
-        // setDocType(value);
+        console.log(data);
     }
 
     const changeHandler = (file,name) => {
         console.log('changed',file,name)
+        let reader = new FileReader();
+        reader.onloadend = function() {
+          console.log('result', reader.result)
+          if(name == "document_image_front") setImageFront(reader.result);
+          else if(name == "document_image_back") setImageBack(reader.result);
+        }
+        reader.readAsDataURL(file);
         setPersonalDocument(prev => ({
             ...prev,
             [name] : file
         }))
     }
+
+    useEffect(() => {
+        if(posting){
+            (
+                async function(){
+                    try{
+                        console.log('posting',data)
+                        const res = await sellerRegistration(data);
+                        console.log('res = ',res)
+                        setPosting(false)
+                        setSubmitting(false);
+                    }catch(err){
+                        console.log('error = ',err)
+                        setPosting(false)
+                        setSubmitting(false);
+                    }
+                }
+            )()
+        }
+    },[posting])
 
     return (
         <div className="seller-subscription-container subscription-wrapper bordered">
@@ -185,24 +203,46 @@ function SellerSubscription() {
                     name = "document type"
                     placeholder= "Pick one"
                     data = {dropdown_data}
-                    onChange = {docTypeChangeHandler}
+                    onChange = {(value) => {
+                        setDocType(value);
+                        setData(prev => ({
+                            ...prev,
+                            personal_document : {
+                                ...prev["personal_document"],
+                                document_type : value
+                            }
+                        }))
+                    }}
                     disabled = {submitting}
                 />
-
                 {
                     fields.map(field => (
                         field.type == docType &&
-                        <FileInput 
-                            key = {field.name}
-                            label = {field.label}
-                            name = {field.name}
-                            placeholder= "upload png/jpg/jpeg"
-                            icon = {<Icon icon = "material-symbols:upload" />}
-                            accept = "image/png,image/jpg,image/jpeg"
-                            disabled = {submitting}
-                            onChange = {(file) => changeHandler(file,field.name)}
-                            required
-                        />
+                        <>
+                            <FileInput 
+                                key = {field.name}
+                                label = {field.label}
+                                name = {field.name}
+                                placeholder= "upload png/jpg/jpeg"
+                                icon = {<Icon icon = "material-symbols:upload" />}
+                                accept = "image/png,image/jpg,image/jpeg"
+                                disabled = {submitting}
+                                onChange = {(file) => changeHandler(file,field.name)}
+                                required
+                            />
+                            {
+                                (field.name == "document_image_front" && imageFront) &&
+                                <Image src = {imageFront} fit = "contain" height = {300} onClick = {(e) => toggleImagePopup({
+                                    image : e.target.getAttribute("src")
+                                })}/>
+                            }
+                            {
+                                (field.name == "document_image_back" && imageBack) &&
+                                <Image src = {imageBack} fit = "contain" height = {300} onClick = {(e) => toggleImagePopup({
+                                    image : e.target.getAttribute("src")
+                                })}/>
+                            }
+                        </>
                     ))
                 }
                 <Button

@@ -43,7 +43,7 @@ const subscriptionItems = [
     {
         title : "normal seller",
         price : "0",
-        link : "/seller?type=normal",
+        link : "/seller?type=basic",
         features : [
             {
                 type : "available",
@@ -165,6 +165,12 @@ function Subscriptions() {
                         <SubscriptionCard
                             active = {
                                 (item?.title.toUpperCase() == user?.account_type) ? true : false
+                            }
+                            pending = {
+                                user?.pending_subscription
+                            }
+                            inactive = {
+                                user?.pending_subscription ? true : false
                             }
                             key = {index}
                             title = {item.title}

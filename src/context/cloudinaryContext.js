@@ -15,7 +15,8 @@ export const CloudinaryContextProvider = ({children}) => {
                 form_data.append('file',data.image);
                 form_data.append('upload_preset','alldokan');
                 const res = await axios.post(`${endpoints['temp']}`,form_data);
-                console.log('docname = ',data.doc_name)
+                console.log('doc_name = ',data.doc_name)
+                if(data.doc_name) res.data['name'] = data.doc_name;
                 return resolve(res.data)
             }catch(err){
                 return reject('error occured',err);

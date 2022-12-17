@@ -16,7 +16,9 @@ function SubscriptionCard({
   price,
   features,
   active,
-  link
+  link,
+  pendingSubscription,
+  inactive
 }) {
 
   const [opened,setOpened] = useState(false);
@@ -40,7 +42,7 @@ function SubscriptionCard({
   return (
     <div 
       onClick = {navigateHandler}
-      className={`${active ? "active" : ""} subscriptionCard bordered ${opened ? "opened" : ""}`}>
+      className={`${inactive ? "inactivePlan" : ""}  ${active ? "active" : ""} subscriptionCard bordered ${opened ? "opened" : ""} ${pendingSubscription ? "pending" : ""}`}>
         <div className='header' onClick = {collapseHandler}>
             <span className="title badge safe">
                 {title}
@@ -70,6 +72,7 @@ function SubscriptionCard({
                   {
                     (width < 700 && !active) &&
                     <Button
+                      onClick = {() => navigate(`${location.pathname}${link}`)}
                       style = {{
                         marginTop : "2em"
                       }}
@@ -94,6 +97,9 @@ function SubscriptionCard({
         }
         <div className="current-plan-indicator">
           <Icon icon = "material-symbols:check-circle-rounded" />
+        </div>
+        <div className="pending-plan-indicator">
+          <Icon icon = "mdi:warning-circle-outline" />
         </div>
         
     </div>
