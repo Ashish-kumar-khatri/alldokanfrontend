@@ -15,16 +15,33 @@ const HomeLayout = ({nav,categoriesList,Ad,children}) => {
     const {mobileShowSideCategories,setMobileShowSideCategories} = useGlobalContext();
     const {fetchAllCategories} = useGlobalContext();
 
+    const getAllCategories = async () => {
+        console.log('getting all catregories');
+        try{
+            const res = await fetchAllCategories();
+            console.log('res = ',res);
+            setCategories(res.data);
+        }catch(err){
+            console.log(err)
+        }
+    }
+
+    useEffect(() => {
+        getAllCategories();
+        return () => {
+            console.log('called cleanup function inside category list and set categories to empty',categories)
+        }
+    },[])
+
     return(
         <div className = "homelayout">
-            {/* Categories */}
             {nav}
             <div className = "wrapper main">
                 <div>
                     {Ad}
                 </div>
                 {
-                    (mobileShowSideCategories || width > 800) &&
+                    // (mobileShowSideCategories || width > 800) &&
                     <div 
                         className = {`${mobileShowSideCategories ? "opened" : ""} left-sidebar bordered`}
                     >
@@ -39,7 +56,10 @@ const HomeLayout = ({nav,categoriesList,Ad,children}) => {
                         />
                     </div>
                 }
-                <div className = "left-sidebar-close"></div>
+                <div 
+                    className = "left-sidebar-close"
+                    
+                ></div>
                 <div 
                     className='center bordered'>
                     {children}

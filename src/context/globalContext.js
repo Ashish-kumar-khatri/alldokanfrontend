@@ -40,6 +40,10 @@ const GlobalContextProvider = ({children}) => {
         return await axios.get(`${endpoints.fetchAllCategories}`);
     }
 
+    async function profileUpdate(data){
+        return await axiosInstance.patch(`${endpoints.profileUpdate}`,data);
+    }
+
     const value = {
         mobileShowSideCategories,
         setMobileShowSideCategories,
@@ -47,7 +51,8 @@ const GlobalContextProvider = ({children}) => {
         verifyOtp,
         sendOtp,
         getProfile,
-        fetchAllCategories
+        fetchAllCategories,
+        profileUpdate
     }
     
     return(

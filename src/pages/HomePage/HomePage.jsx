@@ -23,10 +23,10 @@ function HomePage() {
   const [topFromVerifiedSeller,setTopFromVerifiedSeller] = useState([]);
 
   useEffect(() => {
-    setTimeout(() => {
+    // setTimeout(() => {
       setTopViewed(products1);
       setTopFromVerifiedSeller(products2);
-    },3000)
+    // },3000)
   },[products1,products2]);
 
   const searchHandler = (query) => {

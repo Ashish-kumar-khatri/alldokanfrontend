@@ -4,36 +4,12 @@ import {
 } from 'react';
 import { Icon } from "@iconify/react";
 import './style.css';
-// import categoriesItems from "./categories-items";
 import { useGlobalContext } from "../../hooks";
 import CategoriesListSkeleton from "./CategoriesListSkeleton";
 
-const CategoriesList = ({}) => {
-    const [categoriesItems,setCategories] = useState([]);
+const CategoriesList = ({categoriesItems}) => {
+    
     const {showMobileSideCategories,setShowMobileSideCategories} = useGlobalContext();
-
-    const {fetchAllCategories} = useGlobalContext();
-
-    const getAllCategories = async () => {
-        console.log('getting all catregories');
-        try{
-            const res = await fetchAllCategories();
-            console.log('res = ',res);
-            setCategories(res.data);
-        }catch(err){
-            console.log(err)
-        }
-    }
-
-    useEffect(() => {
-        // if(categoriesItems.length == 0){
-            getAllCategories();
-        // }
-        return () => {
-            // setCategories([])
-            console.log('called cleanup function inside category list and set categories to empty',categoriesItems)
-        }
-    },[])
 
     return(
         <div className = {`${showMobileSideCategories ? "opened" : ""} categories-container`}>

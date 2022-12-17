@@ -6,5 +6,6 @@ export const endpoints = {
   sendOtp : `${baseURL}/otp/resend-verification`,
   getProfile : `${baseURL}/user/profile`,
   updateProfile : `${baseURL}/`,
-  fetchAllCategories : `${baseURL}/category/all`
+  fetchAllCategories : `${baseURL}/category/all`,
+  profileUpdate : `${baseURL}/user/update-profile`
 };
