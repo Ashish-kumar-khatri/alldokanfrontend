@@ -18,19 +18,19 @@ root.render(
   <React.StrictMode>
     <MantineProvider>
       <CloudinaryContextProvider>
-      <NotificationsProvider
-        position = "top-right"
-      >
-        <AuthContextProvider>
-          <Router>
-              <GlobalContextProvider>
-                <App />
-                <Toaster />
-              </GlobalContextProvider>
-          </Router>
-        </AuthContextProvider>
-      </NotificationsProvider>
-            </CloudinaryContextProvider>
+        <NotificationsProvider
+          position = "top-right"
+        >
+          <AuthContextProvider>
+            <Router>
+                <GlobalContextProvider>
+                  <App />
+                  <Toaster />
+                </GlobalContextProvider>
+            </Router>
+          </AuthContextProvider>
+        </NotificationsProvider>
+      </CloudinaryContextProvider>
     </MantineProvider>
   </React.StrictMode>
 );
