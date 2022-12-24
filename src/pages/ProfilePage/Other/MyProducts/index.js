@@ -43,6 +43,115 @@ const data = [
     price : "3670",
     created : "12 Aug",
     updated : "15 Aug"
+  },
+
+
+
+  {
+    id : "21342342873942942",
+    image : "https://res.cloudinary.com/djhsz1acw/image/upload/w_100,f_auto/v1664556178/samples/ecommerce/leather-bag-gray.jpg",
+    name : "nike shoe22",
+    shortDescription : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis, dolore.",
+    price : "2370",
+    created : "12 Aug",
+    updated : "15 Aug"
+  },
+  {
+    id : "21342342873942942",
+    image : "https://res.cloudinary.com/djhsz1acw/image/upload/w_300,f_auto/v1670585322/cld-sample-4.jpg",
+    name : "nike shoe4",
+    shortDescription : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis, dolore.",
+    price : "3670",
+    created : "12 Aug" ,
+    updated : "15 Aug"   
+  },
+  {
+    id : "21342342873942942",
+    image : "https://res.cloudinary.com/djhsz1acw/image/upload/w_300,f_auto/v1664556169/samples/ecommerce/shoes.png",
+    name : "nike shoe",
+    shortDescription : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis, dolore.",
+    price : "3670",
+    created : "12 Aug",
+    updated : "15 Aug"    
+  },
+  {
+    id : "21342342873942942",
+    image : "https://res.cloudinary.com/djhsz1acw/image/upload/w_300,f_auto/v1664556173/samples/animals/three-dogs.jpg",
+    name : "nike shoe2",
+    shortDescription : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis, dolore.",
+    price : "3670",
+    created : "12 Aug",
+    updated : "15 Aug"
+  },{
+    id : "21342342873942942",
+    image : "https://res.cloudinary.com/djhsz1acw/image/upload/w_100,f_auto/v1664556178/samples/ecommerce/leather-bag-gray.jpg",
+    name : "nike shoe22",
+    shortDescription : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis, dolore.",
+    price : "2370",
+    created : "12 Aug",
+    updated : "15 Aug"
+  },
+  {
+    id : "21342342873942942",
+    image : "https://res.cloudinary.com/djhsz1acw/image/upload/w_300,f_auto/v1670585322/cld-sample-4.jpg",
+    name : "nike shoe4",
+    shortDescription : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis, dolore.",
+    price : "3670",
+    created : "12 Aug" ,
+    updated : "15 Aug"   
+  },
+  {
+    id : "21342342873942942",
+    image : "https://res.cloudinary.com/djhsz1acw/image/upload/w_300,f_auto/v1664556169/samples/ecommerce/shoes.png",
+    name : "nike shoe",
+    shortDescription : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis, dolore.",
+    price : "3670",
+    created : "12 Aug",
+    updated : "15 Aug"    
+  },
+  {
+    id : "21342342873942942",
+    image : "https://res.cloudinary.com/djhsz1acw/image/upload/w_300,f_auto/v1664556173/samples/animals/three-dogs.jpg",
+    name : "nike shoe2",
+    shortDescription : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis, dolore.",
+    price : "3670",
+    created : "12 Aug",
+    updated : "15 Aug"
+  },{
+    id : "21342342873942942",
+    image : "https://res.cloudinary.com/djhsz1acw/image/upload/w_100,f_auto/v1664556178/samples/ecommerce/leather-bag-gray.jpg",
+    name : "nike shoe22",
+    shortDescription : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis, dolore.",
+    price : "2370",
+    created : "12 Aug",
+    updated : "15 Aug"
+  },
+  {
+    id : "21342342873942942",
+    image : "https://res.cloudinary.com/djhsz1acw/image/upload/w_300,f_auto/v1670585322/cld-sample-4.jpg",
+    name : "nike shoe4",
+    shortDescription : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis, dolore.",
+    price : "3670",
+    created : "12 Aug" ,
+    updated : "15 Aug"   
+  },
+  {
+    id : "21342342873942942",
+    image : "https://res.cloudinary.com/djhsz1acw/image/upload/w_300,f_auto/v1664556169/samples/ecommerce/shoes.png",
+    name : "nike shoe",
+    shortDescription : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis, dolore.",
+    price : "3670",
+    created : "12 Aug",
+    updated : "15 Aug"    
+  },
+  {
+    id : "21342342873942942",
+    image : "https://res.cloudinary.com/djhsz1acw/image/upload/w_300,f_auto/v1664556173/samples/animals/three-dogs.jpg",
+    name : "nike shoe2",
+    shortDescription : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis, dolore.",
+    price : "3670",
+    created : "12 Aug",
+    updated : "15 Aug"
   }
 ]
 
@@ -59,9 +168,9 @@ function MyProducts() {
 
   const navigate = useNavigate();
 
-  const rows = data?.map(item => (
+  const rows = data?.map((item,index) => (
     <tr
-      key = {item.name}
+      key = {`${item.name}${index}`}
     >
         <td className='checkbox'>
           <Checkbox

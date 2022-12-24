@@ -19,7 +19,8 @@ import {
   ProductDetailPage,
   SubscriptionPage,
   OtpVerifyPage,
-  ProfilePage
+  ProfilePage,
+  ProductsResultsPage,
 } from './pages/'
 
 import { Image } from '@mantine/core';
@@ -65,6 +66,12 @@ function App() {
               <Route path = "seller" element = {<SellerSubscription />} />
               <Route path = "company" element = {<CompanySubscription />} />
             </Route>
+            <Route path = "productresult" 
+              element = {<ProductsResultsPage />}
+            />
+            <Route path = "productdetail" 
+              element = {<ProductDetailPage />}
+            />
           </Routes>
             {/* <FullScreenModal>
                 <Image 

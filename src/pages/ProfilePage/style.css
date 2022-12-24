@@ -8,6 +8,7 @@
 .profilepage-container >*{
     padding:1em;
     background:var(--white);
+    overflow: hidden;
 }
 
 @media only screen and (min-width : 900px){
@@ -19,6 +20,8 @@
     .profilepage-container >*{
         align-self:flex-start;
         min-height:calc(100vh - var(--nav-height) - 2em);
+        position: sticky;
+        top: var(--nav-height);
     }
 }
 

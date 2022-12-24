@@ -25,6 +25,10 @@ const OtpVerifyPage = () => {
     const [showEmailInput,setShowEmailInput] = useState(false);
     const [showOtpInput,setShowOtpInput] = useState(false);
 
+    const [showSendOtpBtn,setShowSendOtpBtn] = useState(true);
+    const [otpSentSuccess,setOtpSentSuccess] = useState(false);
+    // const [showResendOtpBtn,setShowResendOtpBtn] = useState(false);
+
     const {user} = useAuthContext();
     const {verifyOtp,sendOtp} = useGlobalContext();
     const {createNotification,createToast} = useCreateNotification();
@@ -36,9 +40,11 @@ const OtpVerifyPage = () => {
     const submitHandler = (e) => {
         e.preventDefault();
         console.log('data is = ',data)
+        setSubmitting(true);
         verifyOtp(data)
             .then(res => {
                 console.log(res);
+                setSubmitting(false);
                 createNotification({
                     title : "otp verification",
                     type : "success",
@@ -49,6 +55,7 @@ const OtpVerifyPage = () => {
                 navigate('/login');
             })
             .catch(err => {
+                setSubmitting(false);
                 console.log(err);
                 createNotification({
 					title : "otp verification",
@@ -65,6 +72,10 @@ const OtpVerifyPage = () => {
             ...prev,
             [e.target.name] : e.target.value
         }))
+
+        if(e.target.name == "email"){
+            setShowSendOtpBtn(true);
+        }
         // switch(e.target.name){
         //     case "email":
         //         error = getJoiErrorMsg(Joi.validate(e.target.value,emailSchema).error);
@@ -75,6 +86,7 @@ const OtpVerifyPage = () => {
     const sendOtpHandler = (e) => {
         console.log('sending otp to ',data.email);
         setSending(true);
+        setShowSendOtpBtn(false);
         sendOtp(data.email)
             .then(res => {
                     createToast({
@@ -84,9 +96,7 @@ const OtpVerifyPage = () => {
                     })
                     console.log(res);
                     setSending(false);
-                    setShowEmailInput(false);
-                    setShowOtpInput(true);
-                    setSending(false);
+                    setOtpSentSuccess(true);
                 })
                 .catch(err => {
                     createNotification({
@@ -98,6 +108,7 @@ const OtpVerifyPage = () => {
                     })
                     console.log(err);
                     setSending(false);
+                    setOtpSentSuccess(false);
                 })
     }
 
@@ -128,19 +139,26 @@ const OtpVerifyPage = () => {
         //     })
     }
 
-    useEffect(() => {
-        if((from == "register")){
-            setData(prev => ({
-                ...prev,
-                email : localStorage.getItem('email') ? localStorage.getItem('email') : ""
-            }))
-            setShowOtpInput(true)
-        }
-        if(from == "login"){
-            setShowEmailInput(true);
-        }
+    // useEffect(() => {
+    //     if((from == "register")){
+    //         setData(prev => ({
+    //             ...prev,
+    //             email : localStorage.getItem('email') ? localStorage.getItem('email') : ""
+    //         }))
+    //         setShowOtpInput(true)
+    //     }
+    //     if(from == "login"){
+    //         setShowEmailInput(true);
+    //     }
 
-    },[from])
+    // },[from])
+
+    useEffect(() => {
+        window.addEventListener("beforeunload", (e) => {
+            // console.log("UNLOAD:2");
+            e.returnValue = "";
+        })
+    },[])
 
     return(
        <SimpleLayout>
@@ -148,9 +166,7 @@ const OtpVerifyPage = () => {
                 <div className = "illustration">
                     <img src = {Mailbro} />
                 </div>
-                {
-                    (!from || showOtpInput) &&
-                    <div className = "info">
+                    {/* <div className = "info">
                         <h2 className="title">
                             Verify your email
                         </h2>
@@ -161,48 +177,59 @@ const OtpVerifyPage = () => {
                                 {user?.email}
                             </span>
                         </p>
-                    </div>
-                }
-                {
-                    showEmailInput &&
-                    <div className = "info">
-                        {/* <p>
-                            Enter email used while creating account                            
-                        </p> */}
-                    </div>
-                }
+                    </div> */}
                 <form
                     onSubmit = {submitHandler}
                     ref = {formRef}
                 >
-                    {
-                        showEmailInput &&
-                            <TextInput 
-                                placeholder = "Email address"
-                                name = "email"
-                                disabled = {submitting}
-                                onChange = {changeHandler}
-                                value = {data.email}
-                                size = "md"
-                            />
-                    }
-                   {
-                    (!from || showOtpInput) &&
                         <TextInput 
-                            name = "otp"
-                            disabled = {submitting}
+                            placeholder = "Email address"
+                            name = "email"
+                            disabled = {sending || submitting}
                             onChange = {changeHandler}
-                            value = {data.otp}
+                            value = {data.email}
+                            size = "md"
+                            rightSection={
+                                sending ?  <Icon icon = "material-symbols:send-rounded" /> :
+                                    showSendOtpBtn ?
+                                        <Icon
+                                            onClick={sendOtpHandler} 
+                                            icon = "material-symbols:send-rounded" /> :
+                                        <>
+                                            {otpSentSuccess ?
+                                            <Icon icon = "clarity:success-standard-solid" /> : 
+                                            <Icon icon = "material-symbols:error-circle-rounded" />}
+                                        </>
+                            }
+                            required
                         />
-                   }
-                    {
-                        (!from || showOtpInput) &&
+                       {
+                        otpSentSuccess &&
+                            <>
+                                <TextInput 
+                                    name = "otp"
+                                    onChange = {changeHandler}
+                                    value = {data.otp}
+                                    size = "md"
+                                    disabled = {submitting}
+                                    placeholder = "enter otp recieved"
+                                    required
+                                />
+                                <Button 
+                                    className = {`${submitting ? "disabled" : ""}`}
+                                    fullWidth
+                                    type = "submit"
+                                >
+                                    verify otp
+                                </Button>
+                            </>
+                       }
                         <ul className="guides">
-                            <li>The otp will expire in
+                            {/* <li>The otp will expire in
                                 <span className = "time bold">
                                     5:59
                                 </span>
-                            </li>
+                            </li> */}
                             <li>Didn't recieve the code?
                                 {
                                     sending ?
@@ -217,34 +244,6 @@ const OtpVerifyPage = () => {
                                 }
                             </li>
                         </ul>
-                    }
-                   {
-                    showOtpInput ?
-                        <Button
-                            type = "submit"
-                            fullWidth
-                            loading = {submitting}
-                        >
-                            verify
-                        </Button>:
-                        <Button
-                            fullWidth
-                            onClick = {(e) => {
-                                e.preventDefault();
-                                sendOtpHandler();
-                                // setShowOtpInput(true);
-                                // setShowEmailInput(false);
-                            }}
-                            disabled = {data.email == ""}
-                            loading = {sending}
-                        >
-                            {
-                                sending ?
-                                "sending otp":
-                                "send otp"
-                            }
-                        </Button>
-                   }
                 </form>
             </div>
        </SimpleLayout>

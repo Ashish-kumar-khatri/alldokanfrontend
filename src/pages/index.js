@@ -3,12 +3,13 @@ import HomePage from './HomePage/HomePage';
 import RegisterPage from './RegisterPage/RegisterPage';
 import ForgotPasswordPage from './ForgotPasswordPage/ForgotPasswordPage';
 import ResetPasswordPage from './ResetPasswordPage/ResetPasswordPage';
-import ProductDetailPage from './ProductDetailPage/ProductDetailPage';
 import CategoryDetailPage from './CategoryDetailPage/CategoryDetailPage';
 import ProfilePage from './ProfilePage/ProfilePage';
 
 import SubscriptionPage from './SubscriptionPage';
 import OtpVerifyPage from './OtpVerifyPage';
+import ProductsResultsPage from './ProductsResultsPage';
+import ProductDetailPage from './ProductDetailPage';
 
 export {
     LoginPage,
@@ -20,5 +21,6 @@ export {
     CategoryDetailPage,
     SubscriptionPage,
     OtpVerifyPage,
-    ProfilePage
+    ProfilePage,
+    ProductsResultsPage,
 }

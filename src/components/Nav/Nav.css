@@ -1,7 +1,7 @@
 .nav-container{
     background:white;
-    position:sticky;
-    top:0;
+    /* position:sticky;
+    top:0; */
     min-height:var(--nav-height);
     display:grid;
     place-items:center;
@@ -248,6 +248,12 @@
 }
 
 @media only screen and (min-width : 900px){
+
+    .nav-container{
+        position:sticky;
+        top:0;
+    }
+
     .nav-container nav{
         grid-template-areas: "logo search-bar search-bar small-things";
         padding:0;

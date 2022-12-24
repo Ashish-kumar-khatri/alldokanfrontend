@@ -4,6 +4,11 @@
     width:fit-content;
     flex-direction: column;
     gap:.5em;
+    cursor: pointer;
+}
+
+.productCard >*{
+    pointer-events: none;
 }
 
 .productCard .image{

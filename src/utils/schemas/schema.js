@@ -15,7 +15,12 @@ export const nameSchema = Joi.string()
                             .min(3)
                             .required()
 
+const now = Date.now();
+const cutoffDate = new Date(now - (1000 * 60 * 60 * 24 * 365 * 18)); // go back by 18 years
+            
+
 export const dateSchema = Joi.date()
+                            .max(cutoffDate).error(new Error('you must be at least 18 years old'))
                             .required()
 
 export const phoneSchema = Joi.string()

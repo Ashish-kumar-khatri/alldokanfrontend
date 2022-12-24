@@ -29,7 +29,7 @@ const emptyObject = () => {
     return temp;
 }
 
-function EditProfile({setShowForm,profile}) {
+function EditProfile({setShowForm,profile,setRefetchProfile}) {
     const [data,setData] = useState(emptyObject())
     const [dataImage,setDataImage] = useState(null)
     const [avatarFile,setAvatarFile] = useState(null)
@@ -55,14 +55,29 @@ function EditProfile({setShowForm,profile}) {
                 });
                 console.log('uploaded to cloudinary',res);
             }
-            
             console.log('now updating profile')
-
             res = await profileUpdate(data);
+            console.log('res = ',res)
+            createNotification({
+                title : "profile update",
+                type : "success",
+                timer : 5000,
+                message : res.data.message,
+                icon : "material-symbols:sms-failed"
+            })
             setSubmitting(false);
+            setShowForm(false);
+            setRefetchProfile(true);
         }catch(err){
             console.log('error occured',err);
             setSubmitting(false);
+            createNotification({
+                title : "profile update",
+                type : "failure",
+                timer : 5000,
+                message : err.response.data.message,
+                icon : "material-symbols:sms-failed"
+            })
         }
         // uploadToCloudinary({
         //     type : "profile",

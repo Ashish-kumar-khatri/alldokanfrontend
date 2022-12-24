@@ -10,6 +10,7 @@ import Carousel from './Carousel/Carousel';
 import Table from './Table/';
 import ProductsCarousel from './ProductsCarousel';
 import FullScreenModal from './FullScreenModal';
+import MyParagraphCollapsable from './MyParagraphCollapsable';
 
 export{
     Nav,
@@ -23,5 +24,6 @@ export{
     Carousel,
     Table,
     ProductsCarousel,
-    FullScreenModal
+    FullScreenModal,
+    MyParagraphCollapsable
 }

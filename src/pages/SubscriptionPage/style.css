@@ -26,10 +26,13 @@
     opacity:.5;
 }
 
+.seller-subscription-container{
+    max-width:800px;
+}
+
 .subscription-wrapper .main-title{
     font-weight: 800;
 }
-
 
 .subscription-wrapper form{
     margin-top:2em;

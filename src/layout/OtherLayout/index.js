@@ -3,7 +3,7 @@ import { Nav,SearchBar } from '../../components';
 
 import './style.css';
 
-const OtherLayout = ({nav,children}) => (
+const OtherLayout = ({searchBarType,children}) => (
     <div className="otherlayout">
         <Nav
             burger = {false}
@@ -11,6 +11,7 @@ const OtherLayout = ({nav,children}) => (
             <SearchBar 
                 placeholder = "Search for anything"
             //   onSubmit = {searchHandler}
+                type = {searchBarType}
             />
         </Nav>
         <div className="main wrapper">

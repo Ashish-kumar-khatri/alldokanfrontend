@@ -5,6 +5,7 @@ import {Skeleton,Image,Text} from '@mantine/core';
 import {Icon} from '@iconify/react'
 import { useAuthContext, useCreateNotification } from '../../hooks';
 import { useWindowSize } from '@react-hook/window-size';
+import { useNavigate } from 'react-router-dom';
 
 function ProductCard({
   title,
@@ -17,6 +18,8 @@ function ProductCard({
   const {user} = useAuthContext();
   const [width] = useWindowSize();
 
+  const navigate = useNavigate();
+
   const wishlistHandler = (e) => {
     if(!user) return createToast({
       message : "you must be logged in"
@@ -28,7 +31,10 @@ function ProductCard({
   }
 
   return (
-    <div className="productCard">
+    <div 
+      className="productCard"
+      onClick = {() => navigate('/productdetail')}
+    >
         {/* <div className="image">
             
         </div>

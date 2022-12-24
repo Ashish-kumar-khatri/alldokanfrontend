@@ -3,11 +3,15 @@ import './style.css';
 import { Icon } from '@iconify/react';
 
 import {useGlobalContext} from '../../hooks/';
-import { CategoriesList } from '../../components';
+import { 
+    CategoriesList,
+    Nav,
+    SearchBar
+} from '../../components';
 import { useEffect, useState } from 'react';
 import { useWindowSize } from '@react-hook/window-size';
 
-const HomeLayout = ({nav,categoriesList,Ad,children}) => {
+const HomeLayout = ({categoriesList,Ad,children,searchBarType}) => {
     const [categories,setCategories] = useState([])
 
     const [width] = useWindowSize();
@@ -35,7 +39,14 @@ const HomeLayout = ({nav,categoriesList,Ad,children}) => {
 
     return(
         <div className = "homelayout">
-            {nav}
+            <Nav
+              burger = {true}
+            >
+              <SearchBar 
+                placeholder = "Search for anything"
+                type = {searchBarType}
+              />
+            </Nav>
             <div className = "wrapper main">
                 <div>
                     {Ad}

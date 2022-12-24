@@ -12,7 +12,8 @@ import Otp from './Otp/Otp';
 
 import {
 	Routes,
-	Route
+	Route,
+	Navigate
 } from 'react-router-dom';
 
 import Illustration from '../../assets/auth.svg';
@@ -38,7 +39,7 @@ function RegisterPage(){
 						<Register />
 					</>
 				} />
-				<Route path = "otp/" element = {
+				<Route path = "/otp" element = {
 					<>
 						<AuthInfoLeft>
 							<Logo />

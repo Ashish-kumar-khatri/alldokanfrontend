@@ -11,7 +11,7 @@ import {
 	Stepper,
 	Group
 } from '@mantine/core';
-import {showNotification} from '@mantine/notifications';
+import {showNotification, useNotifications} from '@mantine/notifications';
 
 import {
 	Link,
@@ -33,67 +33,77 @@ import axios from 'axios';
 import './Register.css'
 import { valid } from 'joi';
 import { endpoints } from '../../../utils/endpoints/authEndpoints';
-import {useAuthContext,useAuth,useCloudinaryContext, useCreateNotification} from '../../../hooks/';
+import {useAuthContext,useAuth,useCloudinaryContext, useCreateNotification, useGlobalContext} from '../../../hooks/';
+
+const fields = {
+	email : "",
+	password : "",
+	repeat_password : "",
+	phone_number : "",
+	date_of_birth : "",
+	gender : "",
+	avatar : "",
+	person_name : ""
+}
 
 function Register(){
-	const [data,setData] = useState({
-		email : "",
-		password : "",
-		repeat_password : "",
-		phone_number : "",
-		date_of_birth : "",
-		gender : "",
-		avatar : "",
-		person_name : ""
-	});
-
-	const [capturedAvatar,setCapturedAvatar] = useState(null);
-
-	const [errors,setErrors] = useState({
-		email : "",
-		password : "",
-		repeat_password : "",
-		phone_number : "",
-		date_of_birth : "",
-		gender : "",
-		avatar : "",
-		person_name : ""
-	});
-
-	const [valid,setValid] = useState({
-		email : false,
-		password : false,
-		repeat_password : false,
-		phone_number : false,
-		date_of_birth : false,
-		gender : false,
-		avatar : false,
-		person_name : false
-	})
-
-	const [validSteps,setValidSteps] = useState({
-		firstStep : valid.email && valid.password && valid.repeat_password,
-		secondStep : false,
-		thirdStep : false
-	})
-
-	const [submitting,setSubmitting] = useState(false);
-	const [uploadingImg,setUploadingImg] = useState(false);
-
+	const steps = 4;
 	const [active,setActive] = useState(0);
+	const [uploadingImg,setUploadingImg] = useState(false);
+	const [submitting,setSubmitting] = useState(false);
+	const [data,setData] = useState(fields);
+	const [valid,setValid] = useState({
+			email : false,
+			password : false,
+			repeat_password : false,
+			phone_number : false,
+			date_of_birth : false,
+			gender : false,
+			avatar : false,
+			person_name : false
+	})
+	const [errors,setErrors] = useState(fields)
+	// avatar
+	const [avatar,setAvatar] = useState(null);
+	// data img url for persisting captured image when moved to next step
+	const [avatarDataImg,setAvatarDataImg] = useState(null);
+	const [alreadyUploadedAvatar,setAlreadyUploadedAvatar] = useState(false);
 	
-	const stepper = useRef(null);
-	const navigate = useNavigate();
+	const {createNotification} = useCreateNotification();
 	const {register} = useAuth();
 	const {uploadToCloudinary} = useCloudinaryContext();
-	const {createNotification} = useCreateNotification();
+	const navigate = useNavigate();
 	const location = useLocation();
 
-	const nextStep = () => setActive(current => {
-		return current < 3 ? current + 1 : current;
-	});
+	const submitHandler = async (e) => {
+		e.preventDefault();
+		console.log('submitted = ',data);
+		// saving to cloudinary
+		setUploadingImg(true);
+		try{
+			if(!alreadyUploadedAvatar){
+				let res = await uploadToCloudinary({
+					image : data.avatar,
+					type : "profile"
+				})
+				setAlreadyUploadedAvatar(true);
+				setData(prev => ({
+					...prev,
+					avatar : res.secure_url
+				}))
+			}
+			setUploadingImg(false);
+			setSubmitting(true);
+		}catch(err){
+			console.log('error occured',err)
+		}
+	}
 
-	const prevStep = () => setActive(current => current > 0 ? current - 1 : current);
+	const stepsValid = {
+		first : valid.email && valid.password && valid.repeat_password,
+		second : valid.phone_number && valid.date_of_birth && valid.gender && valid.person_name,
+		third : valid.avatar
+	}
 
 	const changeHandler = ({name,value}) => {
 		setData(prev => (
@@ -102,7 +112,7 @@ function Register(){
 				[name] : value
 			}
 		))
-		
+
 		let error;
 
 		switch(name){
@@ -112,6 +122,19 @@ function Register(){
 			
 			case "password":
 				error = getJoiErrorMsg(Joi.validate(value,passwordSchema).error);
+				if(data.repeat_password != "" && value != data.repeat_password) {
+					setErrors(prev => ({...prev,repeat_password : "password doesnot match"}));
+					setValid(prev => ({
+						...prev,
+						repeat_password : false
+					}))
+				}else{
+					setErrors(prev => ({...prev,repeat_password : null}));
+					setValid(prev => ({
+						...prev,
+						repeat_password : true
+					}))
+				}
 				break;
 				
 			case "repeat_password":
@@ -139,11 +162,11 @@ function Register(){
 				break;
 			
 			case "avatar":
-				error = true;
-				return;
+				error = false;
+				break;
 		}
 
-		if(!error) {
+		if(!error){
 			setValid(prev => ({
 				...prev,
 				[name] : true
@@ -153,92 +176,86 @@ function Register(){
 				[name] : null
 			}))
 		}else{
-			setErrors(prev => ({
-				...prev,
-				[name] : error
-			}))
+			console.log('got errors = ',error)
 			setValid(prev => ({
 				...prev,
 				[name] : false
 			}))
+			setErrors(prev => ({
+				...prev,
+				[name] : error
+			}))
 		}
 	}
-	
 
-	const submitHandler = async (e) => {
-		e.preventDefault();
-		console.log('form submitted',data);
-		// save to cloudinary
-		try{	
-			setUploadingImg(true);
-			let res = await uploadToCloudinary({
-				image : data.avatar,
-				type : "profile",
-			});
-			console.log('uploaded to cloudinary',res);
-			setData(prev => ({
-				...prev,
-				avatar : res.secure_url
-			}));
-			setUploadingImg(false);
-			setSubmitting(true);
-			setTimeout(() => setSubmitting(false),5000);
-		}catch(err){
-			setUploadingImg(false);
-			setSubmitting(false);
-			console.log(err);
+	const goNext = (e) => {
+		if(active == steps - 1) {
+			return;
+		};
+		console.log(active)
+		switch(active){
+			case 0:
+				console.log('inside first case ',stepsValid.first)
+				if(stepsValid.first) {
+					console.log('setting active step');
+					setActive(prev => prev + 1);
+				}
+				break;
+
+			case 1:
+				if(stepsValid.second) setActive(prev => prev + 1);
+				break;
+			
+			case 2:
+				if(stepsValid.third) setActive(prev => prev + 1);
+				break;
 		}
+	}
+
+	const goPrev = (e) => {
+		if(active == 0) return;
+		setActive(prev => prev - 1);
 	}
 
 	useEffect(() => {
 		if(submitting){
 			register(data)
-			.then(res => {
-				createNotification({
-					title : "register",
-					type : "success",
-					timer : 5000,
-					message : "successfully created account",
-					icon : "material-symbols:sms-failed"
-				})
-				createNotification({
-					title : "otp",
-					type : "success",
-					timer : 5000,
-					message : "otp is sent to the registered email",
-					icon : "material-symbols:sms-failed"
-				})
-				navigate('/otp-verify',{
-					state : {
-						from : location.pathname
-					}
-				});
-				setSubmitting(false);
-			})
-			.catch(err => {
-				console.log(err.response.data.error)
-				const errors = Object.values(err.response.data.error).map(err => err);
-				console.log(errors)
-				errors?.forEach(err => {
-					showNotification({
-						title : err,
+				.then(res => {
+					createNotification({
+						title : "register",
+						type : "success",
+						timer : 5000,
+						message : "successfully created account",
+						icon : "material-symbols:sms-failed"
 					})
+					createNotification({
+						title : "otp",
+						type : "success",
+						timer : 5000,
+						message : "otp is sent to the registered email",
+						icon : "material-symbols:sms-failed"
+					})
+					localStorage.setItem("registered",true);
+					navigate('otp/',{
+						state : {
+							from : location.pathname
+						}
+					})
+					setSubmitting(false);
 				})
-				// alert(JSON.stringify(err))
-				setSubmitting(false);
-			})
+				.catch(err => {
+					console.log('error = ',err)
+					createNotification({
+						title : "registration",
+						type : "failure",
+						timer : 5000,
+						message : JSON.stringify(err.response.data),
+						icon : "material-symbols:sms-failed"
+					})
+					setSubmitting(false);
+				})
 		}
 	},[submitting])
-
-	const beforeNextStepHandler = (e) => {
-		if(active == 0 && (valid.email && valid.password && valid.repeat_password)){
-			nextStep();
-		}		
-		if(active == 1 && (valid.person_name && valid.date_of_birth && valid.gender && valid.phone_number)){
-			nextStep()
-		}
-		if(active == 2) nextStep(); 
-	}
 
 	return(
 		<div className = "form">
@@ -252,6 +269,7 @@ function Register(){
 			</div>
 			<form 
 				action=""
+				onSubmit = {submitHandler}
 		  	>
 				<Stepper className = "steps-container" active = {active}>
 			  		<Stepper.Step label = "Account information" icon = {<Icon icon = "ic:outline-switch-account" />}>
@@ -259,7 +277,7 @@ function Register(){
 							onChange = {changeHandler}
 							data = {data}
 							errors = {errors}
-						/>
+						/> 
 					</Stepper.Step>
 					<Stepper.Step label = "Personal information" icon = {<Icon icon = "mdi:face-man-profile" />}>
 						<PersonalInfo 
@@ -271,8 +289,9 @@ function Register(){
 					<Stepper.Step label = "Confirm" icon = {<Icon icon = "line-md:circle-to-confirm-circle-transition" />} >
 						<AddAvatar 
 							onChange={changeHandler}
-							setCapturedAvatar = {setCapturedAvatar}
-							capturedAvatar = {capturedAvatar}
+							avatarDataImg = {avatarDataImg}
+							setAvatarDataImg = {setAvatarDataImg}
+							setAlreadyUploadedAvatar = {setAlreadyUploadedAvatar}
 						/>
 					</Stepper.Step>
 					<Stepper.Completed>
@@ -280,37 +299,52 @@ function Register(){
 					</Stepper.Completed>
 				</Stepper>
 				<Group className = "button-group" position="center" mt="xl">
-					<Button variant="default" onClick={prevStep}
-						styles = {(theme) => ({
-							root : {
-								height : 43,
-							}
-							})}
-					>Back</Button>
 					{
-						active < 3 ?
-							<Button
-								onClick = {beforeNextStepHandler}
-								styles = {(theme) => ({
-									root : {
-										height : 43,
-									}
-									})}
-								>Next step</Button>:
-							<Button
-								leftIcon = {<Icon icon = "mdi:register" />}
-								loading = {submitting || uploadingImg}
-								styles = {(theme) => ({
+						active != 0 &&
+						<Button
+							variant="default" 
+							styles = {(theme) => ({
 								root : {
 									height : 43,
 								}
 								})}
-								onClick = {submitHandler}
-							>
-								{(!submitting && uploadingImg) && "uploading image"}
-								{(!submitting && !uploadingImg) && "Register"}
-								{(submitting && !uploadingImg) && "registering user"}
-							</Button>
+							type = "button"
+							function = "prev"
+							onClick = {goPrev}
+						>
+							previous
+						</Button>
+					}
+					{
+						active != steps - 1 &&
+						<Button
+							variant="filled" 
+							styles = {(theme) => ({
+								root : {
+									height : 43,
+								}
+								})}
+							className = {`${uploadingImg || submitting} ? "disabled" : ""`}
+							type = "button"
+							function = "next"
+							onClick = {goNext}
+						>
+							next
+						</Button>
+					}
+					{	active == steps - 1 &&
+						<Button
+							variant="filled" 
+							styles = {(theme) => ({
+								root : {
+									height : 43,
+								}
+								})}
+							type = "submit"
+							loading = {uploadingImg || submitting}
+						>
+							submit
+						</Button>
 					}
 				</Group>
 			  <div className="footer-text">

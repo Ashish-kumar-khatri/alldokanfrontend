@@ -16,20 +16,21 @@ function Profile() {
   const [showForm,setShowForm] = useState(false);
   const [profile,setProfile] = useState(null);
   const [loading,setLoading] = useState(true);
+  const [refetchProfile,setRefetchProfile] = useState(false);
 
   const {getProfile} = useGlobalContext();
 
   useEffect(() => {
-    console.log('getting profile')
-    getProfile()
-      .then(res => {
-        setProfile(res?.data);
-        setLoading(false);
-      })
-      .catch(err => {
-        console.log('error = ',err);
-      })
-  },[])
+      console.log('getting profile')
+      getProfile()
+        .then(res => {
+          setProfile(res?.data);
+          setLoading(false);
+        })
+        .catch(err => {
+          console.log('error = ',err);
+        })
+  },[refetchProfile])
 
   return (
       <>
@@ -95,6 +96,7 @@ function Profile() {
         <EditProfile 
           setShowForm={setShowForm}
           profile = {profile}
+          setRefetchProfile = {setRefetchProfile}
         />
       }
       </>

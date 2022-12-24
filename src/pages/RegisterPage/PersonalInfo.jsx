@@ -27,6 +27,7 @@ function PersonalInfo({data,onChange,errors}) {
                 value = {data?.person_name}
                 onChange = {changeHandler}
                 error = {errors?.person_name}
+                autoFocus = {true}
             />
             <DatePicker 
               label = "date of birth"

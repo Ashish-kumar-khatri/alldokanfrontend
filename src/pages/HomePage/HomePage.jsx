@@ -36,19 +36,26 @@ function HomePage() {
   return (
     <>
       <HomeLayout
-        nav = {
-            <Nav
-              burger = {true}
-            >
-              <SearchBar 
-                placeholder = "Search for anything"
-                onSubmit = {searchHandler}
-              />
-            </Nav>
-          }
+        searchBarType="ANYTHING"
         Ad = {<Ad />}
       >
         <div className="home-products" >
+          <ProductsCarousel 
+            title = "Top viewed"
+            products = {topViewed}
+          />
+          <ProductsCarousel 
+            title = "From verified seller"
+            products = {topFromVerifiedSeller}
+          />
+          <ProductsCarousel 
+            title = "Top viewed"
+            products = {topViewed}
+          />
+          <ProductsCarousel 
+            title = "From verified seller"
+            products = {topFromVerifiedSeller}
+          />
           <ProductsCarousel 
             title = "Top viewed"
             products = {topViewed}

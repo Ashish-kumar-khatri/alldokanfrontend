@@ -1,0 +1,28 @@
+.productdetailsarea-container{
+    /* height:300vh; */
+    /* border:1px solid red; */
+}
+
+.productdetailsarea-container .title{
+    width:90%;
+}
+
+.tabs-container{
+    margin-top:1em;
+}
+
+.tab-content{
+    padding:1em .2em;
+}
+
+.productdetailsarea-container .text-description{
+    opacity:.7;
+    white-space:pre-wrap;
+    /* border:1px solid red; */
+}
+
+@media only screen and (min-width:700px){
+    .productdetailsarea-container .title{
+        width:unset;
+    }
+}

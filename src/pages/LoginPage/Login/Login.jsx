@@ -74,8 +74,8 @@ function Login(){
 		setErrorOccured("");
 		setData(prev => (
 			{
-			...prev,
-			[e.target.name] : e.target.value
+				...prev,
+				[e.target.name] : e.target.value
 			}
 		))
 	let error;
@@ -92,11 +92,7 @@ function Login(){
 			setEmailValid(true);
 			setEmailError("")
 		}
-
 	}
-
-	useEffect(() => {
-	},[])
 
 	return(
 		<div className = "form">
@@ -138,13 +134,13 @@ function Login(){
 					leftIcon = {<Icon icon = "fe:login" />}
 					loading = {submitting}
 					fullWidth
+					className = {`${!emailValid ? "disabled" : ""}`}
 					styles = {(theme) => ({
 						root : {
 						height : 43
 						}
 					})}
 					type = "submit"
-					disabled = {!emailValid}
 				>
 				{
 					!submitting ?

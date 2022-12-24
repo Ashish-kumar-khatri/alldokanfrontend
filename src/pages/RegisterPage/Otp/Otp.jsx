@@ -1,33 +1,68 @@
 import { Button, TextInput } from '@mantine/core';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './Otp.css'
 
 import {
 	useNavigate
 } from 'react-router-dom';
-import { useAuthContext } from '../../../hooks';
+import { useAuth, useAuthContext, useCreateNotification, useGlobalContext } from '../../../hooks';
 import { endpoints } from '../../../utils/endpoints/authEndpoints';
 import {useAxios} from '../../../hooks'
 
 function Otp(){
-
-	const [otp,setOtp] = useState("");
+	const [data,setData] = useState({
+		email : localStorage.getItem('registered') ? localStorage.getItem('email') : "",
+		pin : ""
+	});
 	const [submitting,setSubmitting] = useState(false)
-
 	const navigate = useNavigate();
-	const {token} = useAuthContext();
 	const axiosInstance = useAxios();
+	const {verifyOtp} = useGlobalContext();
+	const {createNotification} = useCreateNotification();
+
 	const sendOtp = (e) => {
 		e.preventDefault();
+		setSubmitting(true);
+		console.log('sending =',data)
+		verifyOtp(data)
+			.then(res => {
+				console.log('res = ',res)
+				setSubmitting(false);
+				localStorage.removeItem('registered');
+				localStorage.removeItem('email');
+				localStorage.removeItem('user_id');
+				navigate('/login');
+			})
+			.catch(err => {
+				console.log('error occured',err);
+				createNotification({
+					title : "email verification",
+					type : "failure",
+					timer : 5000,
+					message : err.response.data.message,
+					icon : "material-symbols:sms-failed"
+				})
+				setSubmitting(false);
+			})
 		// axiosInstance.post(`${endpoints.otpVerification}`,{
 		// 	otp : otp
 		// })
-		navigate('/');
+		
 	}
 
 	const changeHandler = (e) => {
-		setOtp(e.target.value);
+		setData(prev => ({
+			...prev,
+			[e.target.name]: e.target.value
+		}))
 	}
+
+	useEffect(() => {
+		if(!localStorage.getItem('registered')){
+			navigate('/register');
+		}
+		
+	},[])
 
 	return(
 		<div className='otp-container form'>
@@ -46,6 +81,8 @@ function Otp(){
 					placeholder='enter otp'
 					size = "md"
 					onChange = {changeHandler}
+					name = "pin"
+					value = {data.pin}
 				/>
 				<Button
 					loading = {submitting}
