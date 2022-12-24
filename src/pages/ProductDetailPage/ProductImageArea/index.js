@@ -7,10 +7,10 @@ import { Link } from 'react-router-dom';
 import './style.css';
 
 const images = [
-    "https://res.cloudinary.com/djhsz1acw/image/upload/w_500,f_auto/v1670585322/cld-sample-5.jpg",
-    "https://res.cloudinary.com/djhsz1acw/image/upload/w_500,f_auto/v1670585322/cld-sample-4.jpg",
-    "https://res.cloudinary.com/djhsz1acw/image/upload/w_500,f_auto/v1664556169/samples/ecommerce/shoes.png",
-    "https://res.cloudinary.com/djhsz1acw/image/upload/w_500,f_auto/v1664556159/samples/ecommerce/analog-classic.jpg"
+    "https://cdn02.hamrobazaar.com/User/Posts/2022/12/12/ead4bacc-7181-4262-8820-5998f2fa4e1e.webp?x-image-process=image/resize,m_lfit,h_500,w_500",
+    "https://cdn02.hamrobazaar.com/User/Posts/2022/12/12/6ac0bf40-2fff-4eb6-aff0-1f5cbbbdf645.webp?x-image-process=image/resize,m_lfit,h_500,w_500",
+    "https://cdn02.hamrobazaar.com/User/Posts/2022/12/12/8a7e001f-8714-45e9-9b11-418472d0ad8b.webp?x-image-process=image/resize,m_lfit,h_500,w_500",
+    "https://cdn02.hamrobazaar.com/User/Posts/2022/12/12/6ac0bf40-2fff-4eb6-aff0-1f5cbbbdf645.webp?x-image-process=image/resize,m_lfit,h_500,w_500"
 ]
 
 function ProductImageArea() {
@@ -19,52 +19,7 @@ function ProductImageArea() {
         <Images 
             images = {images}
         />
-        <div className = "details">
-            <div className = "flex-column">
-                <span className = "views" >
-                    <Icon icon = "ic:baseline-remove-red-eye" />
-                    3,454 Views
-                </span>
-                {/* <span className = "">
-                    used
-                </span> */}
-            </div>
-            <span className = "price">
-                Rs. 65,00,000
-            </span>
-            <div className = "seller-details" onClick = {(e) => {console.log('going to seller details page')}}>
-                <Image 
-                  height = {55}
-                  width = {55}
-                  radius = {5}
-                  src = {images[0]}
-                />
-                <div className='details'>
-                  <span>
-                    <Link to = "/" className='title' style = {{
-                      // whiteSpace : "nowrap"
-                    }}>
-                      ram khatri enterprise
-                    </Link>
-                    <span className = "totalProducts light-text">37 products</span>
-                  </span>
-                  <span className = "phone light-text">
-                    989577439
-                  </span>
-                </div>
-                <span className='rating'>
-                    <Rating 
-                      value={3.5} 
-                      fractions={2} 
-                      size = "md"
-                      readOnly 
-                    />
-                    <small className = "light-text">
-                      (4.5)14 reviews
-                    </small>
-                </span>
-            </div>
-        </div>
+        
         {/* <hr /> */}
         <div className = "action-btns">
           {

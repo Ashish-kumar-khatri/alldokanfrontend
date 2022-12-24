@@ -6,7 +6,6 @@ const urlConfig = {
 };
 
 // const baseURL = (isProduction ? urlConfig.dev : urlConfig.prod);
-const baseURL = (urlConfig.prod);
-
+const baseURL = (urlConfig.dev);
 
 export default baseURL;
