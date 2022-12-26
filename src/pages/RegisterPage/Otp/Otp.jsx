@@ -1,5 +1,8 @@
 import { Button, TextInput } from '@mantine/core';
 import React, { useEffect, useState } from 'react'
+import {
+	Link
+} from 'react-router-dom';
 import './Otp.css'
 
 import {
@@ -8,6 +11,7 @@ import {
 import { useAuth, useAuthContext, useCreateNotification, useGlobalContext } from '../../../hooks';
 import { endpoints } from '../../../utils/endpoints/authEndpoints';
 import {useAxios} from '../../../hooks'
+import { Icon } from '@iconify/react';
 
 function Otp(){
 	const [data,setData] = useState({
@@ -15,9 +19,10 @@ function Otp(){
 		pin : ""
 	});
 	const [submitting,setSubmitting] = useState(false)
+	const [resending,setResending] = useState(false);
 	const navigate = useNavigate();
 	const axiosInstance = useAxios();
-	const {verifyOtp} = useGlobalContext();
+	const {verifyOtp,sendOtp:resendOtp} = useGlobalContext();
 	const {createNotification} = useCreateNotification();
 
 	const sendOtp = (e) => {
@@ -31,6 +36,13 @@ function Otp(){
 				localStorage.removeItem('registered');
 				localStorage.removeItem('email');
 				localStorage.removeItem('user_id');
+				createNotification({
+					title : "email verification",
+					type : "success",
+					timer : 5000,
+					message : res.data.message,
+					icon : "material-symbols:sms-failed"
+				})
 				navigate('/login');
 			})
 			.catch(err => {
@@ -55,6 +67,32 @@ function Otp(){
 			...prev,
 			[e.target.name]: e.target.value
 		}))
+	}
+
+	const resendOtpHandler = (e) => {
+		e.preventDefault();
+		setResending(true);
+		resendOtp(data.email)
+			.then(res => {
+				console.log(res);
+				createNotification({
+                    title : "resend otp",
+                    type : "success",
+                    timer : 5000,
+                    message : `${res?.data?.message} to ${data.email}`
+				}) 
+				setResending(false);
+			})
+			.catch(err => {
+				console.log('error occured',err);
+                createNotification({
+                    title : "resend otp",
+                    type : "failure",
+                    timer : 5000,
+                    message : err?.response?.data?.message
+				}) 
+				setResending(false);
+			})
 	}
 
 	useEffect(() => {
@@ -85,7 +123,7 @@ function Otp(){
 					value = {data.pin}
 				/>
 				<Button
-					loading = {submitting}
+					loading = {submitting || resending}
 					style = {{
 						textTransform : "capitalize"
 					}}
@@ -94,9 +132,26 @@ function Otp(){
 					{
 						submitting ?
 						"submitting otp":
-						"Submit otp"
+							<>
+								{
+									resending ?
+										<>
+											Resending otp
+										</> :
+										"submit"
+								}
+							</>
 					}
 				</Button>
+				{
+					!resending ? 
+						<a
+							href = "#"
+						onClick = {resendOtpHandler}
+						>
+							resend otp
+						</a>: ""
+				}
 			</form>
 		</div>
 	)

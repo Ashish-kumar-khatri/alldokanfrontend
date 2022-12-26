@@ -1,7 +1,7 @@
 .otp-verify-container{
     display:flex;
     flex-direction: column;
-    gap:2em;
+    gap:1em;
     width:100%;
     justify-content: center;
     max-width:400px;
@@ -29,7 +29,7 @@
 }
 
 .otp-verify-container button{
-    margin-top:2em;
+    margin-top:1em;
 }
 
 .otp-verify-container .guides{

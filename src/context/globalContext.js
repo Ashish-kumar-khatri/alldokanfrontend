@@ -24,7 +24,7 @@ const GlobalContextProvider = ({children}) => {
     async function verifyOtp(otp){
         return await axiosInstance.post(`${endpoints.otpVerify}`,{
             email : otp.email,
-            pin: otp.otp
+            pin: otp.pin
         });
     }
 

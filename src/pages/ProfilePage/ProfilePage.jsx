@@ -6,7 +6,9 @@ import './style.css';
 
 function ProfilePage() {
   return (
-    <OtherLayout>
+    <OtherLayout
+      searchBarType="ANYTHING"
+    >
         <div className = "profilepage-container">
           <Profile />
           <Other />

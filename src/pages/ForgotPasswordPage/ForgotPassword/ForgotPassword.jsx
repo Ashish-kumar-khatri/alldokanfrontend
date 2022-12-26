@@ -6,7 +6,8 @@ import {
 	Button
 } from '@mantine/core';
 import {
-	useParams
+	useParams,
+	useNavigate
 } from 'react-router-dom';
 
 import { Icon } from '@iconify/react';
@@ -27,7 +28,8 @@ function ForgotPassword(){
 	const [validEmail,setValidEmail] = useState(false);
 
 	const axiosInstance = useAxios();
-	const {createToast} = useCreateNotification();
+	const {createNotification} = useCreateNotification();
+	const navigate = useNavigate();
 
 	const submitHandler = (e) => {
 		e.preventDefault();
@@ -37,13 +39,28 @@ function ForgotPassword(){
 			email : email})
 			.then(res => {
 				console.log('res = ',res);
-				setSubmitting(false);
-				createToast({
+				createNotification({
+					title : "reset password",
 					type : "success",
-					message : res?.data.message
+					timer : 5000,
+					message : res?.data?.message,
+					icon : "material-symbols:sms-failed"
 				})
+				navigate('/login');
+				setSubmitting(false);
 			})
-			.catch(err => console.log('error = ',err))
+			.catch(err => {
+				console.log(err);
+				createNotification({
+					title : "reset password",
+					type : "failure",
+					timer : 5000,
+					message : err?.response?.data?.message ? err?.response?.data.message : err?.response?.data,
+					icon : "material-symbols:sms-failed"
+				})
+				setSubmitting(false);
+
+			})
 
 		setTimeout(() => {
 			setSubmitting(false);
@@ -84,6 +101,7 @@ function ForgotPassword(){
 					error = {emailError}
 					onChange = {changeHandler}
 					value = {email}
+					autoFocus
 				/>
 				<Button
 					fullWidth
@@ -99,7 +117,7 @@ function ForgotPassword(){
 					type = "submit"
 					size = "md"
 					loading = {submitting}
-					disabled = {!validEmail}
+					className = {`${!validEmail ? "disabled" : ""}`}
 				>
 					Send further instruction
 				</Button>

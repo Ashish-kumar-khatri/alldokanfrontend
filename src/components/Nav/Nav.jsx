@@ -186,22 +186,8 @@ function Nav({burger,children}){
 				</div>
 			</nav>
 		</div>
-		{/* {
-			(user && showAlert) &&
-			<Alert withCloseButton closeButtonLabel="Close alert" onClick = {clickandler} className = "global-msg wrapper bordered"  title="Bummer!" color="red">
-				You have not verified your email address. You must be verified to use our app to full potential.
-				<a 
-					href = "#"
-					className = "inline-link"
-					onClick={verifyNowHandler}
-				>
-					verify now
-				</a>
-			</Alert>
-		} */}
 		</>
 	)
-
 }
 
 export default Nav;

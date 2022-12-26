@@ -4,6 +4,9 @@ import React,{forwardRef,useState} from 'react'
 import { Icon } from '@iconify/react';
 import { useEffect } from 'react';
 import { useAuthContext, useCloudinaryContext, useCreateNotification, useGlobalContext, useQuery } from '../../hooks';
+import {
+    useNavigate
+} from 'react-router-dom';
 
 export const dropdown_data = [
     {
@@ -73,6 +76,8 @@ function SellerSubscription() {
     const [imageFront,setImageFront] = useState(null);
     const [imageBack,setImageBack] = useState(null);
 
+    const navigate = useNavigate();
+
     const [data,setData] = useState({
         account_type : "SELLER",
         seller_subscription_plan : query.get('type').toUpperCase(),
@@ -83,6 +88,10 @@ function SellerSubscription() {
         }
     })
 
+    const [uploaded,setUploaded] = useState({
+        document_image_back : false,
+        document_image_front : true
+    })
 
     const [personalDocument,setPersonalDocument] = useState({});
 
@@ -131,23 +140,35 @@ function SellerSubscription() {
         try{
             let promises = [];
             let res;
-            Object.keys(personalDocument).forEach(async key => {
-                promises.push(uploadToCloudinary({
-                    image : personalDocument[key],
-                    doc_name : key
-                }))
-            });
-            Promise.all(promises).then((res) => {
-                console.log('res = ',res)
-                res.forEach(r => setData(prev => ({
-                    ...prev,
-                    personal_document : {
-                        ...prev["personal_document"],
-                        [r.name] : r.secure_url
-                    }
-                })))
+            if(uploaded.document_image_back && uploaded.document_image_front){
                 setPosting(true);
-            })
+            }else{
+                Object.keys(personalDocument).forEach(async key => {
+                        if(uploaded[key] == false){
+                            promises.push(uploadToCloudinary({
+                                image : personalDocument[key],
+                                doc_name : key
+                            }))
+                        }
+                });
+                Promise.all(promises).then((res) => {
+                    console.log('res = ',res)
+                    res.forEach(r => {
+                        setData(prev => ({
+                            ...prev,
+                            personal_document : {
+                                ...prev["personal_document"],
+                                [r.name] : r.secure_url
+                            }
+                        }))
+                        setUploaded(prev => ({
+                            ...prev,
+                            [r.name] : true
+                        }))
+                    })
+                    setPosting(true);
+                })
+            }
         }catch(err){
             console.log('error',err);
         }
@@ -156,12 +177,23 @@ function SellerSubscription() {
     }
 
     const changeHandler = (file,name) => {
-        console.log('changed',file,name)
         let reader = new FileReader();
         reader.onloadend = function() {
           console.log('result', reader.result)
-          if(name == "document_image_front") setImageFront(reader.result);
-          else if(name == "document_image_back") setImageBack(reader.result);
+          if(name == "document_image_front"){
+            setImageFront(reader.result);
+            setUploaded(prev => ({
+                ...prev,
+                document_image_front : false
+            }))
+          }
+          else if(name == "document_image_back") {
+                setImageBack(reader.result);
+                setUploaded(prev => ({
+                    ...prev,
+                    document_image_back : false
+                }))
+            }
         }
         reader.readAsDataURL(file);
         setPersonalDocument(prev => ({
@@ -180,6 +212,14 @@ function SellerSubscription() {
                         console.log('res = ',res)
                         setPosting(false)
                         setSubmitting(false);
+                        createNotification({
+                            title : "seller registration",
+                            type : "success",
+                            timer : 5000,
+                            message : res?.data?.error ? res?.data?.error : res?.data?.message,
+                            icon : "material-symbols:sms-failed"
+                        })
+                        navigate('/profile')
                     }catch(err){
                         console.log('error = ',err)
                         setPosting(false)
@@ -232,13 +272,13 @@ function SellerSubscription() {
                             />
                             {
                                 (field.name == "document_image_front" && imageFront) &&
-                                <Image src = {imageFront} fit = "contain" height = {300} onClick = {(e) => toggleImagePopup({
+                                <Image radius = {8} src = {imageFront} fit = "contain" height = {150} onClick = {(e) => toggleImagePopup({
                                     image : e.target.getAttribute("src")
                                 })}/>
                             }
                             {
                                 (field.name == "document_image_back" && imageBack) &&
-                                <Image src = {imageBack} fit = "contain" height = {300} onClick = {(e) => toggleImagePopup({
+                                <Image radius = {8} src = {imageBack} fit = "contain" height = {150} onClick = {(e) => toggleImagePopup({
                                     image : e.target.getAttribute("src")
                                 })}/>
                             }

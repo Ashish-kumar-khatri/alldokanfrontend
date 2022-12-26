@@ -5,7 +5,7 @@
     min-height:var(--nav-height);
     display:grid;
     place-items:center;
-    border-bottom:1px solid #ddd;
+    /* border-bottom:1px solid #ddd; */
     z-index:3;
 }
 
@@ -243,6 +243,10 @@
 @media only screen and (min-width : 700px){
     .nav-container nav .small-things .profile-icon label span{
         display:block;
+    }
+
+    .nav-container{
+        box-shadow:0 1px 10px var(--shadow-gray);
     }
 
 }

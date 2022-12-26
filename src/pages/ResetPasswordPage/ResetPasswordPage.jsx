@@ -102,6 +102,7 @@ function ResetPasswordPage(){
 					message : err?.response?.data?.error,
 					icon : "material-symbols:sms-failed"
 				})
+				navigate('/login');
 			})
 		setTimeout(() => {
 			setSubmitting(false)
@@ -129,6 +130,7 @@ function ResetPasswordPage(){
 						size = "md"
 						onChange = {changeHandler}
 						error = {errors.password}
+						autoFocus
 					/>
 					<PasswordInput 
 						label = "repeat new password"
@@ -142,6 +144,7 @@ function ResetPasswordPage(){
 						// disabled = {!(valid.password1 && valid.password2)}
 						loading = {submitting}
 						onClick = {submitHandler}
+						type = "submit"
 					>
 						Reset Password
 					</Button>

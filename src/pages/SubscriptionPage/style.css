@@ -62,6 +62,10 @@
     justify-content: center;
 }
 
+.subscription-wrapper form figure{
+    align-self:start;
+}
+
 .subscriptions-container >*{
     /* min-width:320px;
     max-width:350px; */

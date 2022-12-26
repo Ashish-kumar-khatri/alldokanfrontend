@@ -115,6 +115,7 @@ function Login(){
 					size = "md"
 					onChange = {changeHandler}
 					error = {emailError || errorOccured}
+					autoFocus
 				/>
 				<PasswordInput 
 					onChange = {changeHandler}

@@ -73,12 +73,7 @@ function App() {
               element = {<ProductDetailPage />}
             />
           </Routes>
-            {/* <FullScreenModal>
-                <Image 
-                  src = "https://res.cloudinary.com/djhsz1acw/image/upload/v1671298097/if0abjro9elmjwtcbi0v.png"
-                  height = {600}
-                />
-            </FullScreenModal> */}
+          <AddProduct />
     </div>  
   );
 }

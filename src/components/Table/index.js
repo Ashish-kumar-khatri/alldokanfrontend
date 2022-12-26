@@ -12,7 +12,7 @@ function Table({
             <ScrollArea>
                 <MantineTable>
                     <thead>
-                        <tr>
+                        <tr >
                             {
                                 headings?.map(heading => (
                                     heading == "checkbox" ?

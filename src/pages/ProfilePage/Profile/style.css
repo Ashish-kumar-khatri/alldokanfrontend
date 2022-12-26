@@ -34,6 +34,23 @@
     gap:2em;
 }
 
+.editprofile-container{
+    /* border:1px solid red; */
+    position:fixed;
+    z-index:999;
+    width:100vw;
+    height:100vh;
+    top:0;
+    left:0;
+    overscroll-behavior: contain;
+    /* overflow-y:scroll; */
+}
+
+.editprofile-container >*{
+    width:90%;
+    margin-inline:auto;
+}
+
 .editprofile-container form{
     margin-top:2em;
     display:flex;
@@ -126,4 +143,15 @@
     .profile-container .others{
         flex:unset;
     }
+
+    .editprofile-container{
+        position:unset;
+        z-index:999;
+        width:unset;
+        height:unset;
+    }
+    
+}
+
+@media only screen and (min-width : 900px){
 }

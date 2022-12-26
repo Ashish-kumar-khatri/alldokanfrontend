@@ -26,6 +26,8 @@ function Profile() {
         .then(res => {
           setProfile(res?.data);
           setLoading(false);
+          console.log('profile = ',res?.data)
+          localStorage.setItem('seller_status',res?.data.seller_account_status)
         })
         .catch(err => {
           console.log('error = ',err);

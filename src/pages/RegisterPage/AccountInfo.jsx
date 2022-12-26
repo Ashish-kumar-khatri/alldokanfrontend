@@ -8,7 +8,6 @@ import {
 function AccountInfo({data,errors,onChange}) {
 
     const changeHandler = (e) => {
-        console.log('chahnged',e.target.name,e.target.value)
         onChange({
             name : e.target.name,
             value : e.target.value.trim()

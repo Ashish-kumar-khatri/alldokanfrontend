@@ -19,9 +19,13 @@
     }
     .profilepage-container >*{
         align-self:flex-start;
-        min-height:calc(100vh - var(--nav-height) - 2em);
+        overflow-y:scroll;
+    }
+    
+    .profilepage-container >*:first-child{
         position: sticky;
-        top: var(--nav-height);
+        top: calc(var(--nav-height) + 1em);
+        height:calc(100vh - var(--nav-height) - 2em);
     }
 }
 

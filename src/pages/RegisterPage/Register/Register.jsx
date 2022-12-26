@@ -77,8 +77,6 @@ function Register(){
 
 	const submitHandler = async (e) => {
 		e.preventDefault();
-		console.log('submitted = ',data);
-		// saving to cloudinary
 		setUploadingImg(true);
 		try{
 			if(!alreadyUploadedAvatar){
@@ -114,7 +112,6 @@ function Register(){
 		))
 
 		let error;
-
 		switch(name){
 			case "email":
 				error = getJoiErrorMsg(Joi.validate(value,emailSchema).error);
@@ -176,7 +173,6 @@ function Register(){
 				[name] : null
 			}))
 		}else{
-			console.log('got errors = ',error)
 			setValid(prev => ({
 				...prev,
 				[name] : false
@@ -244,7 +240,6 @@ function Register(){
 					setSubmitting(false);
 				})
 				.catch(err => {
-					console.log('error = ',err)
 					createNotification({
 						title : "registration",
 						type : "failure",

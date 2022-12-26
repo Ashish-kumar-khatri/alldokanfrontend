@@ -10,7 +10,6 @@ import {
 } from '@mantine/dates';
 
 function PersonalInfo({data,onChange,errors}) {
-
   const changeHandler = (e) => {
     onChange({
       name : e.target.name,
