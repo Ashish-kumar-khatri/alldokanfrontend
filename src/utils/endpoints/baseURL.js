@@ -5,7 +5,7 @@ const urlConfig = {
   prod: 'https://alldokan.cyclic.app',
 };
 
-// const baseURL = (isProduction ? urlConfig.dev : urlConfig.prod);
-const baseURL = (urlConfig.prod);
+const baseURL = (isProduction ? urlConfig.dev : urlConfig.prod);
+// const baseURL = (urlConfig.prod);
 
 export default baseURL;
