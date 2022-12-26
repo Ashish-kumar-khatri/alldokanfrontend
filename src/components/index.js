@@ -11,6 +11,7 @@ import Table from './Table/';
 import ProductsCarousel from './ProductsCarousel';
 import FullScreenModal from './FullScreenModal';
 import MyParagraphCollapsable from './MyParagraphCollapsable';
+import AddProductModal from './AddProductModal';
 
 export{
     Nav,
@@ -25,5 +26,6 @@ export{
     Table,
     ProductsCarousel,
     FullScreenModal,
-    MyParagraphCollapsable
+    MyParagraphCollapsable,
+    AddProductModal
 }

@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 import Subscriptions from  './pages/SubscriptionPage/Subscriptions'
 import SellerSubscription from './pages/SubscriptionPage/SellerSubscription'
 import CompanySubscription from './pages/SubscriptionPage/CompanySubscription';
+import {AddProductModal} from './components';
 
 import {
   HomePage,
@@ -73,7 +74,9 @@ function App() {
               element = {<ProductDetailPage />}
             />
           </Routes>
-          <AddProduct />
+          <div className = "addproduct-container-wrapper">
+            <AddProductModal />
+          </div>
     </div>  
   );
 }

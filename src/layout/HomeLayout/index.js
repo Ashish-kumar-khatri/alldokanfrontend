@@ -16,7 +16,7 @@ const HomeLayout = ({categoriesList,Ad,children,searchBarType}) => {
 
     const [width] = useWindowSize();
 
-    const {mobileShowSideCategories,setMobileShowSideCategories} = useGlobalContext();
+    const {mobileShowSideCategories,setMobileShowSideCategories,saveCategories} = useGlobalContext();
     const {fetchAllCategories} = useGlobalContext();
 
     const getAllCategories = async () => {
@@ -24,6 +24,7 @@ const HomeLayout = ({categoriesList,Ad,children,searchBarType}) => {
         try{
             const res = await fetchAllCategories();
             console.log('res = ',res);
+            saveCategories(res.data);
             setCategories(res.data);
         }catch(err){
             console.log(err)

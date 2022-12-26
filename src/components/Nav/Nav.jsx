@@ -27,6 +27,7 @@ import menuItems from './menu-items';
 function Nav({burger,children}){
 	const {user} = useAuthContext();
 	const {logout} = useAuth();
+	const {setShowAddProductModal} = useGlobalContext();
 
 	const navigate = useNavigate();
 	const location = useLocation();
@@ -121,8 +122,8 @@ function Nav({burger,children}){
 							<Button 
 								className="add-product-icon"
 								leftIcon = {<Icon icon = "material-symbols:add" />}
+								onClick = {() => setShowAddProductModal(true)}
 							>
-								
 								Add
 							</Button>
 					}

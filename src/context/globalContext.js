@@ -11,7 +11,7 @@ export const GlobalContext = React.createContext();
 const GlobalContextProvider = ({children}) => {
 
     const [mobileShowSideCategories,setMobileShowSideCategories] = useState(false);
-
+    const [showAddProductModal,setShowAddProductModal] = useState(false);
     const [imagePopupVisible,setImagePopupVisible] = useState(false);
 
     const axiosInstance = useAxios();
@@ -52,6 +52,13 @@ const GlobalContextProvider = ({children}) => {
         setImagePopupVisible(prev => !prev);
     }
 
+    const saveCategories = (data) => {
+        if(localStorage.getItem('categories')){
+            localStorage.removeItem('categories');
+        }
+        localStorage.setItem('categories',JSON.stringify(data.map(d => d.cat_name)));
+    }
+
     let value = {
         mobileShowSideCategories,
         setMobileShowSideCategories,
@@ -64,7 +71,11 @@ const GlobalContextProvider = ({children}) => {
         toggleImagePopup,
         imagePopupVisible,
         imageInPopup : null,
-        setImagePopupVisible
+        setImagePopupVisible,
+        showAddProductModal,
+        setShowAddProductModal,
+        saveCategories,
+        localCategories : JSON.parse(localStorage.getItem('categories'))
     }
     
     return(
