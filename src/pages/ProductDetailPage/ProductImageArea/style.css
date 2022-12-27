@@ -4,9 +4,9 @@
     gap:1em;
     /* background:var(--white); */
     /* border:1px solid red; */
-    position:sticky;
+    /* position:sticky;
     top:calc(var(--nav-height) + 1em);
-    align-self:start;
+    align-self:start; */
 }
 
 .productimagearea-container .action-btns{

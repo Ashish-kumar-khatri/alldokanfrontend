@@ -3,7 +3,7 @@
     display:grid;
     grid-template-columns: 1fr;
     gap:2em;
-    height : calc(100vh - var(--nav-height) - 2em);
+    /* height : calc(100vh - var(--nav-height) - 2em); */
     /* overflow:hidden; */
     padding-top:2em;
 }
@@ -29,8 +29,8 @@
     }
 
     .product-detail-container >*:last-child > div{
-        position:sticky;
-        top:calc(var(--nav-height) + 1em);
+        /* position:sticky;
+        top:calc(var(--nav-height) + 1em); */
         background:#ddd;
         height:200px;
     }
