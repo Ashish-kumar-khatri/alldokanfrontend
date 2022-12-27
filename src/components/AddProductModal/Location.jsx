@@ -71,16 +71,16 @@ function Location({
             <Switch 
                 labelPosition='left'
                 label = "Delivery" 
-                checked={data?.delivery} 
-                onChange={(event) => {
+                checked = {data?.delivery}
+                onChange={(e) => {
+                    console.log('changed',e.target.checked)
                     changeHandler({
-                        name : "delivery",
-                        value : event.target.value
+                        name : 'delivery',
+                        value : e.target.checked
                     })
                 }}
                 size = "md"
                 name = "delivery"
-                required
             />
             {
                 data?.delivery &&

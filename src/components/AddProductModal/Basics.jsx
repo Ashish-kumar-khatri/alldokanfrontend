@@ -2,10 +2,13 @@ import React from 'react'
 import {
     TextInput 
 } from '@mantine/core';
+import AddImage from './AddImage';
 
 function Basics({
     data,
-    changeHandler
+    changeHandler,
+    uploadingImg,
+    setUploadingImg
 }) {
   return (
     <>
@@ -21,7 +24,12 @@ function Basics({
             required
         />
         {/* image upload area comes here */}
-        image upload section will come here
+        <AddImage 
+            changeHandler = {changeHandler}
+            images = {data.images}
+            uploadingImg = {uploadingImg}
+            setUploadingImg = {setUploadingImg}
+        />
     </>
   )
 }

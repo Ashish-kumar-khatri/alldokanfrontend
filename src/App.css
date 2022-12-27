@@ -5,6 +5,7 @@ body{
     --fs-m  : 1.2rem;
     --fs-l  : 1.5rem;
     --fs-xl : 2rem;
+    --fs-xxl:3rem;
 
     --primary : #228BE6;
     --primary-light : #228be625;
@@ -76,11 +77,14 @@ p{
 a{
     color:var(--link);
     text-decoration: underline;
+}
+
+a:not(.exception){
     display:block;
     text-align: center;
 }
 
-li{
+ul:not(.exception-ul) li{
     list-style: none;
 }
 
@@ -158,6 +162,32 @@ button.disabled{
 
 .bordered{
     border:none;
+}
+
+.bordered.important{
+    border:1px solid #ddd;
+}
+
+
+/* msgs */
+.msg{
+    padding:1em;
+    width:100%;
+    max-width:800px;
+    margin:1em 0;
+    margin-inline:auto;
+    line-height:1.5;
+    border-radius:5px;
+}
+
+.msg.warning-msg{
+    background:rgba(255, 0, 0, 0.158);
+    color:rgb(45, 4, 4);
+}
+
+.msg ul{
+    margin-left:2em;
+    margin-top:.5em;
 }
 
 

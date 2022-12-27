@@ -216,7 +216,7 @@ function SellerSubscription() {
                             title : "seller registration",
                             type : "success",
                             timer : 5000,
-                            message : res?.data?.error ? res?.data?.error : res?.data?.message,
+                            message : res?.data?.message,
                             icon : "material-symbols:sms-failed"
                         })
                         navigate('/profile')
@@ -224,6 +224,16 @@ function SellerSubscription() {
                         console.log('error = ',err)
                         setPosting(false)
                         setSubmitting(false);
+                        if(err?.response.status == 500 || err?.response.status == 401){
+                            createNotification({
+                                title : "seller registration",
+                                type : "error",
+                                timer : 5000,
+                                message : err?.response?.data?.message,
+                                icon : "material-symbols:sms-failed"
+                            })
+                            navigate('/profile')
+                        }
                     }
                 }
             )()

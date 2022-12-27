@@ -153,12 +153,32 @@ function Subscriptions() {
                 <p>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione ipsam amet maxime praesentium modi eum ipsa qui neque culpa? Sapiente?
                 </p>
-                <div className="wave">
+                {/* <div className="wave">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
                         <path fill="#0099ff" fill-opacity="1" d="M0,160L60,154.7C120,149,240,139,360,122.7C480,107,600,85,720,74.7C840,64,960,64,1080,64C1200,64,1320,64,1380,64L1440,64L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"></path>
                     </svg>
-                </div>
+                </div> */}
             </div>
+            {
+                user?.seller_account_status &&
+                <div className="msg warning-msg">
+                    Your request for a subscription is under review. Until it is accepted or rejected you cannot request for any
+                    other subscription plan.
+                    <ul className = "exception-ul">
+                        <li>
+                            You may cancel the previos request and initiate request for another subscription
+                            <Link style = {{
+                                marginLeft : ".5em"
+                            }}className = "exception" to = "/profile?tab=mySubscription">
+                                cancel subscription
+                            </Link>
+                        </li>
+                        <li>
+                            Wait until the request verification is complete
+                        </li>
+                    </ul>
+                </div>
+            }
             <ul className="subscriptions-container">
                 {
                     subscriptionItems?.map((item,index) => (
@@ -170,7 +190,7 @@ function Subscriptions() {
                                 user?.pending_subscription
                             }
                             inactive = {
-                                user?.pending_subscription ? true : false
+                                user?.seller_account_status ? true  : false
                             }
                             key = {index}
                             title = {item.title}

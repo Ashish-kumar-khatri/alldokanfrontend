@@ -12,7 +12,7 @@ import { useAuthContext, useGlobalContext, useQuery } from '../../../hooks';
 import ProfileSkeleton from './ProfileSkeleton';
 
 function Profile() {
-  const {user} = useAuthContext();
+  const {user,setUser} = useAuthContext();
   const [showForm,setShowForm] = useState(false);
   const [profile,setProfile] = useState(null);
   const [loading,setLoading] = useState(true);
@@ -27,7 +27,8 @@ function Profile() {
           setProfile(res?.data);
           setLoading(false);
           console.log('profile = ',res?.data)
-          localStorage.setItem('seller_status',res?.data.seller_account_status)
+          localStorage.setItem('user',JSON.stringify(res?.data));
+          setUser(res?.data);
         })
         .catch(err => {
           console.log('error = ',err);
@@ -51,10 +52,20 @@ function Profile() {
                           className = "avatar"
                           radius = {10}
                         />
+                        {
+                          user?.seller_account_status
+                        }
                         <span className="verified badge safe">
                           <Icon icon = "material-symbols:check-circle-rounded" />
                           {profile?.account_type}
                         </span>
+                        {/* {
+                          user?.seller_account_status == "UNDER_REVIEW" &&
+                          <span className="verified badge safe">
+                            <Icon icon = "material-symbols:check-circle-rounded" />
+                            
+                          </span>
+                        } */}
                         <div className='details-container'>
                               <span className="username bold">
                                 {profile?.person_name}

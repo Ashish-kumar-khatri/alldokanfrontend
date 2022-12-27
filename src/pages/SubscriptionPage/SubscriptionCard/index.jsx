@@ -42,7 +42,7 @@ function SubscriptionCard({
   return (
     <div 
       onClick = {navigateHandler}
-      className={`${inactive ? "inactivePlan" : ""}  ${active ? "active" : ""} subscriptionCard bordered ${opened ? "opened" : ""} ${pendingSubscription ? "pending" : ""}`}>
+      className={`${inactive ? "inactivePlan" : ""}  ${active ? "active" : ""} subscriptionCard bordered important ${opened ? "opened" : ""} ${pendingSubscription ? "pending" : ""}`}>
         <div className='header' onClick = {collapseHandler}>
             <span className="title badge safe">
                 {title}

@@ -1,5 +1,6 @@
 import useAxios from "./useAxios";
 import { endpoints } from "../utils/endpoints/authEndpoints";
+import {endpoints as otherEndPoints} from '../utils/endpoints/otherEndpoints';
 import {
   useCreateNotification,
   useAuthContext
@@ -60,10 +61,23 @@ function useAuth(){
         });
     }
 
+    const resyncProfile = () => {
+      axiosInstance.get(`${otherEndPoints.getProfile}`)
+        .then(res => {
+          console.log('got profile from useAuth',res);
+          setUser(res?.data);
+          localStorage.setItem('user',JSON.stringify(res?.data));
+        })
+        .catch(err => {
+          console.log('err',err);
+        })
+    }
+
     return {
         register,
         login,
-        logout
+        logout,
+        resyncProfile
     }
 }
 

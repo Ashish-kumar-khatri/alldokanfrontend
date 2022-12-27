@@ -1,7 +1,7 @@
 import { Modal,RingProgress,Text,Button, TextInput,Select,Switch,Textarea } from '@mantine/core'
 import { useWindowSize } from '@react-hook/window-size';
 import React from 'react'
-import { useGlobalContext } from '../../hooks'
+import { useCreateNotification, useGlobalContext } from '../../hooks'
 import { useState } from 'react';
 import './style.css'
 import { Icon } from '@iconify/react';
@@ -17,33 +17,62 @@ function AddProductModal() {
     const [data,setData] = useState({
         name : "",
         negotiable : "",
-        delivery : false,
-        location : "",
+        delivery : "off",
         city : "",
         state : "",
         area : "",
         category : "",
         note : "",
         price : "",
-        discount_percentage : "",
         tags : "",
         images : [],
         delivery_charge : "",
-        delivery_area : ""
+        delivery_area : "",
+        specifications : ""
     })
+    const [uploadingImg,setUploadingImg] = useState(false);
     
     const [width] = useWindowSize();
-    const {showAddProductModal,setShowAddProductModal,localCategories} = useGlobalContext();
+    const {showAddProductModal,setShowAddProductModal,localCategories,addProduct} = useGlobalContext();
     const totalSteps = 5;
     const [step,setStep] = useState(1);
 
     const [deliveryAvailable,setDeliveryAvailable] = useState(false);
+    const {createNotification} = useCreateNotification();
 
-    const changeHandler = ({name,value}) => {
-        setData(prev => ({
-            ...prev,
-            [name] : value
-        }))
+    const changeHandler = ({name,value,imgUrl,type}) => {
+        if(name != "images"){
+            setData(prev => ({
+                ...prev,
+                [name] : value
+            }))
+            if(name == "delivery" && !value){
+                setData(prev => ({
+                    ...prev,
+                    delivery_area : "",
+                    delivery_charge : ""
+                }))
+            }
+        }else{
+            switch(type){
+                case "add":
+                    setData(prev => ({
+                        ...prev,
+                        images : [
+                            ...prev['images'],
+                            imgUrl
+                        ]
+                    }))
+                    break;
+                
+                case "remove":
+                    setData(prev => ({
+                        ...prev,
+                        images : prev['images'].filter(img => img !== imgUrl)
+                    }))
+                    break;
+            }
+        }
     }
 
     const goPrev = () => {
@@ -58,8 +87,42 @@ function AddProductModal() {
 
     const submitHandler = (e) => {
         e.preventDefault();
+        if(step == 1){
+            if(data.images.length == 0){
+                createNotification({
+                    title : "next of form",
+                    type : "failure",
+                    timer : 5000,
+                    message : "at least one image is required",
+                    icon : "clarity:success-standard-solid"
+                })
+                return;
+            }
+        }
         if(step == totalSteps){
             console.log('submitted',data);
+            let toSubmitData = {...data};
+            toSubmitData.specifications = {};
+            // constructing specification object
+            let specifications = ((data.specifications.split(',')).join('')).split('\n')
+            specifications.forEach(spec => {
+                let temp = spec.split(':')
+                toSubmitData.specifications[temp[0]] = temp[1];
+            })
+            // removing delivery fields when delivery is off
+            if(!data.delivery){
+                delete toSubmitData.delivery_area;
+                delete toSubmitData.delivery_charge;
+            }
+            delete Object.assign(toSubmitData,{product_images : toSubmitData.images})['images'];
+            console.log('submitting',toSubmitData)
+            addProduct(toSubmitData)
+                .then(res => {
+                    console.log(res)
+                })
+                .catch(err => {
+                    console.log(err);
+                })
         }else{
             goNext();
         }
@@ -104,6 +167,8 @@ function AddProductModal() {
                                <Basics 
                                     changeHandler = {changeHandler}
                                     data = {data}
+                                    uploadingImg = {uploadingImg}
+                                    setUploadingImg = {setUploadingImg}
                                />
                         }
                         {
@@ -116,8 +181,9 @@ function AddProductModal() {
                         {
                             step == 3 &&
                             <KeyValueDescription 
-
-                            />
+                                changeHandler={changeHandler}
+                                data = {data}
+                                />
                         }
                         {
                             step == 4 &&
@@ -152,6 +218,7 @@ function AddProductModal() {
                                 size = "md"
                                 type = "submit"
                                 fullWidth
+                                className = {`${uploadingImg ? "disabled" : ""}`}
                             >
                                 {
                                     step !== totalSteps ?

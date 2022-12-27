@@ -26,15 +26,19 @@ import {
 
 import { Image } from '@mantine/core';
 import { FullScreenModal } from './components';
-import { useGlobalContext } from './hooks';
+import { useAuth, useAuthContext, useGlobalContext } from './hooks';
 import './styles/auth.css';
 import PrivateRoute from './utils/Routes/PrivateRoute';
 
 function App() {
-
+  const {user} = useAuthContext();
+  const {resyncProfile} = useAuth();
 
   useEffect(() => {
-    console.log('app rendered')
+    console.log('app rendered');
+    if(user){
+      resyncProfile();
+    }
   },[])
   
   const {imageInPopup,imagePopupVisible,setImagePopupVisible} = useGlobalContext();

@@ -6,8 +6,14 @@ import {
 import { Icon } from '@iconify/react';
 
 const negotiables = [
-    'fixed',
-    'negotiable'
+    {
+        name : 'fixed',
+        value : false
+    },
+    {
+        name : 'negotiable',
+        value : true
+    }
 ]
 
 function Price({
@@ -33,9 +39,9 @@ function Price({
         <Select
             label="negotiable"
             placeholder="Pick one"
-            data={negotiables.map(cond => ({
-                value : cond,
-                label : cond
+            data={negotiables.map(n => ({
+                value : n.value,
+                label : n.name
             }))}
             size = "md"
             rightSection = {<Icon icon = "tabler:chevron-down" />}

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect,useState } from 'react'
 import {
 	Logo,
 	Nav,
@@ -13,8 +13,21 @@ import ProductDetailsArea from './ProductDetailsArea';
 import ProductImageArea from './ProductImageArea';
 
 import './style.css';
+import { useGlobalContext } from '../../hooks';
 
 function ProductDetailPage(){
+
+	const {getProduct} = useGlobalContext();
+
+	const [product,setProduct] = useState(null);
+
+	useEffect(() => {
+		// not working so start from here
+		// getProduct('6392cc31a579ef7aa1063e43')
+		// 	.then(prod => setProduct(prod))
+			// .catch(err => console.log('err = ',err))
+	},[])
+
 	return(
 		<OtherLayout
 			searchBarType = "ANYTHING"

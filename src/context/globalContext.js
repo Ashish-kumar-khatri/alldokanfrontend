@@ -59,6 +59,21 @@ const GlobalContextProvider = ({children}) => {
         localStorage.setItem('categories',JSON.stringify(data.map(d => d.cat_name)));
     }
 
+    async function addProduct(data){
+        return await axiosInstance.post(`${endpoints.addProduct}`,data);
+    }
+
+    async function getProduct(id){
+        return new Promise((resolve, reject) => {
+            axiosInstance.get(`${endpoints.getProduct}/${id}`)
+                .then(res => {
+                    console.log('res = ',res);
+                    return resolve(res?.data);
+                })
+                .catch(err => reject(err))
+        })
+    }
+
     let value = {
         mobileShowSideCategories,
         setMobileShowSideCategories,
@@ -75,7 +90,9 @@ const GlobalContextProvider = ({children}) => {
         showAddProductModal,
         setShowAddProductModal,
         saveCategories,
-        localCategories : JSON.parse(localStorage.getItem('categories'))
+        localCategories : JSON.parse(localStorage.getItem('categories')),
+        addProduct,
+        getProduct
     }
     
     return(

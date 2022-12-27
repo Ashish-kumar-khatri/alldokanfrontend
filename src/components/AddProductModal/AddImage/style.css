@@ -1,0 +1,93 @@
+.addimage-container{
+    margin-top:1em;
+    display: flex;
+    flex-direction: column;
+    gap:1.2em;
+    margin-bottom:2em;
+}
+
+.addimage-container .loading {
+    display: flex;
+    justify-content: center;
+}
+
+.addimage-container .loading svg{
+    font-size:var(--fs-xxl);
+}
+
+.addimage-container label{
+    font-weight:600;
+}
+
+.addimage-container .images-area{
+    display:flex;
+    gap:1em;
+    flex-wrap:wrap;
+    justify-content: center;
+}
+
+.addimage-container .images-area >*{
+    border-radius:5px;
+    min-width : 150px;
+    width:150px;
+    height:150px;
+}
+
+.addimage-container .addimage-button{
+    background:none;
+    border:2px dashed var(--black);
+    opacity: .3;
+}
+
+.addimage-container .addimage-button.disabled{
+    pointer-events: none;
+}
+
+.addimage-container .addimage-button:hover{
+    opacity:1;
+}
+
+.addimage-container .img-container{
+    position:relative;
+    overflow: hidden;
+}
+
+.addimage-container .img-container::before{
+    content : "";
+    height:100%;
+    width:100%;
+    position:absolute;
+    z-index:800;
+    background:rgba(0,0,0,.4)
+}
+
+.addimage-container .img-container .remove-icon{
+    position:absolute;
+    top:.2em;
+    right:.2em;
+    z-index:900;
+    color:var(--white);
+    cursor: pointer;
+}
+
+.addimage-container .remove-icon svg{
+    pointer-events: none;
+}
+
+.addimage-container button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    flex-direction: column;
+    outline:none;
+    gap:.5em;
+    height:100%;
+    width:100%;
+    border:none;
+    background:none;
+}
+
+.addimage-container svg{
+    font-size:var(--fs-l);
+}
